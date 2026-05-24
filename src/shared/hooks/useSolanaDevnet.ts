@@ -70,7 +70,7 @@ export function useSolanaDevnet(certId: string, certHash: string) {
       const instruction = new TransactionInstruction({
         keys:      [{ pubkey: publicKey, isSigner: true, isWritable: false }],
         programId: MEMO_PROGRAM_ID,
-        data:      Buffer.from(memoPayload, "utf8"),
+        data:      new TextEncoder().encode(memoPayload),
       });
 
       const latestBlockhash = await connection.getLatestBlockhash();

@@ -68,7 +68,7 @@ const STATUS_LABELS: Record<string, string> = {
 
 // ── Devnet NFT tab ───────────────────────────────────────────────────────────
 
-function DevnetTab({ meta, holderName, mindsetName }: { meta: CertMeta; holderName: string; mindsetName: string }) {
+function DevnetTab({ meta }: { meta: CertMeta }) {
   const { publicKey } = useWallet();
   const { status, error, result, balance, fetchBalance, requestAirdrop, mintCertificate } =
     useSolanaDevnet(meta.id, meta.hash);
@@ -468,7 +468,7 @@ function CertificateContent() {
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.2 }}
               >
-                <DevnetTab meta={meta} holderName={holderName} mindsetName={mindsetName} />
+                <DevnetTab meta={meta} />
               </motion.div>
             )}
           </AnimatePresence>
