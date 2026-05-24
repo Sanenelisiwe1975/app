@@ -15,7 +15,7 @@ export function useTradeHistory(symbol?: string) {
   const tickCount = useMarketStore((s) => s.tickCount);
 
   return useQuery<TradeRecord[]>({
-    queryKey: symbol ? [...TRADE_HISTORY_KEY, symbol] : TRADE_HISTORY_KEY,
+    queryKey: symbol ? [...TRADE_HISTORY_KEY, symbol, tickCount] : [...TRADE_HISTORY_KEY, tickCount],
     queryFn: () => getTradeHistory(symbol),
     // Re-fetch whenever tickCount changes so new trades appear immediately
     // without the user having to refresh. staleTime:0 ensures it always re-runs.

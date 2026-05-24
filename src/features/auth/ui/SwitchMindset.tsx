@@ -9,7 +9,6 @@ import { useUserStore } from "@/shared/stores/userStore";
 import { useGameStore } from "@/shared/stores/gameStore";
 import { useMarketStore } from "@/shared/stores/marketStore";
 import { useUiStore } from "@/shared/stores/uiStore";
-import { formatCurrency } from "@/shared/lib/formatters";
 import type { MindsetRecord } from "@/shared/stores/gameStore";
 
 // ─── Legacy timeline entry ────────────────────────────────────────────────────

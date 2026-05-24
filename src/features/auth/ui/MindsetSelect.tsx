@@ -33,7 +33,8 @@ export default function MindsetSelect() {
   const [hovered, setHovered] = useState<string | null>(null);
 
   const audience = audienceKey ? audiences[audienceKey] : null;
-  if (!audience) return null;
+  if (!audience) return <></>;
+
 
   const handleSelect = (mindset: Mindset) => {
     setMindset(mindset);
