@@ -10,6 +10,55 @@
   overflow: hidden;
 }
 
+/* Dashboard wealth card gradient */
+.wealth-card-bg {
+  background: linear-gradient(135deg, #1a1520 0%, #2d2415 50%, #1a1520 100%);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+}
+
+/* Certificate — classes used instead of inline styles so html2canvas can render them */
+.cert-root {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+.cert-text-dark {
+  color: #1a1a2e;
+}
+
+/* ── Splash Screen ─────────────────────────────────────────────────────────── */
+.splash-bg {
+  background: radial-gradient(ellipse at 50% 40%, #1a1420 0%, #0A0A0F 70%);
+}
+.splash-ambient {
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.07) 0%, transparent 70%);
+}
+.splash-glow-bloom {
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.4) 0%, transparent 70%);
+  filter: blur(20px);
+  inset: 0;
+  position: absolute;
+  border-radius: 9999px;
+}
+.splash-orb {
+  background: linear-gradient(135deg, #F4D03F 0%, #D4AF37 40%, #B8860B 80%, #8B6914 100%);
+  box-shadow:
+    0 0 60px rgba(212, 175, 55, 0.6),
+    0 0 120px rgba(212, 175, 55, 0.25),
+    inset 0 2px 4px rgba(255, 255, 255, 0.2);
+}
+.splash-orb-shimmer {
+  inset: 0.75rem;
+  position: absolute;
+  border-radius: 9999px;
+  opacity: 0.25;
+  background: radial-gradient(circle at 30% 30%, white, transparent 60%);
+}
+.splash-progress-bar {
+  background: linear-gradient(90deg, #B8860B, #D4AF37, #F4D03F);
+  box-shadow: 0 0 8px rgba(212, 175, 55, 0.6);
+}
+
 /* Scrollbar styling */
 .scrollbar-thin::-webkit-scrollbar {
   width: 6px;

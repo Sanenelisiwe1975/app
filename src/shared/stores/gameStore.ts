@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
+import { logTrade } from '@/shared/lib/db';
 import type {
   Community,
   HealthMetrics,
@@ -8,6 +9,16 @@ import type {
   Prediction,
   ScamAttempt,
 } from '@/entities';
+
+export interface MindsetRecord {
+  mindsetId: string;
+  mindsetName: string;
+  completedModules: number[];
+  xpEarned: number;
+  cashEarned: number;
+  totalTrades: number;
+  savedAt: number;
+}
 
 // ─── Default State ─────────────────────────────────────────────────────────────
 
@@ -50,6 +61,7 @@ interface GameState {
   totalTrades: number;
   profitableTrades: number;
   impulseSpendsBlocked: number;
+  mindsetHistory: MindsetRecord[];
 }
 
 interface GameActions {
@@ -69,6 +81,7 @@ interface GameActions {
   settlePredictions: () => void;
   blockImpulse: () => void;
   simulateImpulse: () => void;
+  saveMindsetProgress: (mindsetId: string, mindsetName: string) => void;
   reset: () => void;
 }
 
@@ -89,6 +102,7 @@ const INITIAL: GameState = {
   totalTrades: 0,
   profitableTrades: 0,
   impulseSpendsBlocked: 0,
+  mindsetHistory: [],
 };
 
 // ─── Store ────────────────────────────────────────────────────────────────────
@@ -133,6 +147,8 @@ export const useGameStore = create<GameState & GameActions>()(
             s.shares[symbol] = (s.shares[symbol] ?? 0) + amount;
             s.totalTrades += 1;
           }, false, 'game/buyShares');
+          // Persist to IndexedDB asynchronously — fire-and-forget, never blocks UI
+          logTrade({ id: crypto.randomUUID(), symbol, type: 'buy', amount, price, timestamp: Date.now() });
           return true;
         },
 
@@ -145,6 +161,7 @@ export const useGameStore = create<GameState & GameActions>()(
             s.totalTrades += 1;
             s.profitableTrades += 1;
           }, false, 'game/sellShares');
+          logTrade({ id: crypto.randomUUID(), symbol, type: 'sell', amount, price, timestamp: Date.now() });
           return true;
         },
 
@@ -237,6 +254,25 @@ export const useGameStore = create<GameState & GameActions>()(
             const stress = Math.min(100, (s.health.heartRate - 60) * 2);
             if (stress <= 50) s.cash = Math.max(0, s.cash - 500);
           }, false, 'game/simulateImpulse'),
+
+        saveMindsetProgress: (mindsetId, mindsetName) =>
+          set((s) => {
+            const existing = s.mindsetHistory.findIndex((r) => r.mindsetId === mindsetId);
+            const record: MindsetRecord = {
+              mindsetId,
+              mindsetName,
+              completedModules: [...s.completedModules],
+              xpEarned: s.xp,
+              cashEarned: s.cash,
+              totalTrades: s.totalTrades,
+              savedAt: Date.now(),
+            };
+            if (existing >= 0) {
+              s.mindsetHistory[existing] = record;
+            } else {
+              s.mindsetHistory.push(record);
+            }
+          }, false, 'game/saveMindsetProgress'),
 
         reset: () =>
           set(

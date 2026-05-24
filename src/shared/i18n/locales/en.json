@@ -1,0 +1,171 @@
+{
+  "common": {
+    "back": "Back",
+    "continue": "Continue",
+    "save": "Save",
+    "reset": "Reset",
+    "cancel": "Cancel",
+    "loading": "Loading..."
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "learn": "Learn",
+    "market": "Market",
+    "portfolio": "Portfolio",
+    "stokvel": "Stokvel",
+    "timeMachine": "Time Machine",
+    "antiScam": "B2B Shield",
+    "wealthyBody": "Wealthy Body",
+    "emotion": "Emotion",
+    "prophet": "Prophet",
+    "certificate": "Certificate",
+    "switch": "Switch"
+  },
+  "register": {
+    "title": "Wamkelekile, Future Titan",
+    "subtitle": "Your wealth pot grows if you start now.",
+    "firstName": "First Name",
+    "surname": "Surname",
+    "age": "Age",
+    "location": "Location (e.g., East London, Soweto)",
+    "choosePath": "Choose Your Path",
+    "loadProgress": "Load Saved Progress",
+    "mindsets": "mindsets"
+  },
+  "dashboard": {
+    "netWorth": "Net Worth",
+    "xp": "XP",
+    "badges": "Badges",
+    "healthBoost": "Health Boost",
+    "modules": "Modules",
+    "cash": "Cash",
+    "trades": "Trades",
+    "impulseBlocks": "Impulse Blocks",
+    "scamAwareness": "Scam Awareness",
+    "continueLearning": "Continue Learning",
+    "viewAll": "View All",
+    "quote": "\"Umntu ngumntu ngabantu\" — A person is a person through others. Your wealth journey is shaped by community, knowledge, and disciplined action."
+  },
+  "market": {
+    "title": "Market Simulator",
+    "subtitle": "Live market simulation with moving average signals.",
+    "buySignal": "BUY SIGNAL",
+    "sellSignal": "SELL SIGNAL",
+    "hold": "HOLD",
+    "signal": "Signal",
+    "position": "Your Position",
+    "shares": "Shares",
+    "value": "Value",
+    "canBuy": "Can Buy",
+    "buyOne": "Buy 1 Share",
+    "sellOne": "Sell 1 Share",
+    "liveSimulation": "Live simulation",
+    "tip": "Tip: You can start investing from as little as R1 on EasyEquities. Every small step builds your empire."
+  },
+  "portfolio": {
+    "title": "Your Holdings",
+    "subtitle": "Track every asset in your growing empire.",
+    "cash": "Cash",
+    "invested": "Invested",
+    "netWorth": "Net Worth",
+    "shares": "Shares",
+    "price": "Price",
+    "value": "Value",
+    "allocation": "Allocation",
+    "change": "Change",
+    "noHoldings": "No holdings yet. Visit the Market to start building your portfolio.",
+    "tradeHistory": "Trade History",
+    "noTrades": "No trades yet. Visit the Market to start trading.",
+    "allocationTitle": "Portfolio Allocation"
+  },
+  "stokvel": {
+    "title": "Community Stokvel",
+    "quote": "\"Umntu ngumntu ngabantu\" — A person is a person through others.",
+    "members": "Members",
+    "pot": "Pot",
+    "nextPayout": "Next Payout",
+    "contribute": "Contribute R100",
+    "votePayout": "Vote Payout",
+    "howItWorks": "How It Works"
+  },
+  "timeMachine": {
+    "title": "Generational Wealth Time Machine",
+    "subtitle": "See what happens when patience meets compound interest.",
+    "currentNetWorth": "Current Net Worth",
+    "project": "Calculate Projection",
+    "descendants": "descendants benefiting",
+    "powerOf7": "Wealth Growth Milestones"
+  },
+  "antiScam": {
+    "title": "B2B Enterprise Shield",
+    "awareness": "Awareness",
+    "attempts": "Attempts",
+    "avoided": "Avoided",
+    "simulate": "Simulated Phishing Email",
+    "customTitle": "Create Custom Training Scenario",
+    "addPool": "Add to Training Pool",
+    "download": "Download Compliance Report"
+  },
+  "wealthyBody": {
+    "title": "Wealthy Body",
+    "subtitle": "Your body is your most valuable asset. Health multiplies wealth.",
+    "steps": "Steps",
+    "sleep": "Sleep",
+    "heartRate": "Heart Rate",
+    "multiplier": "Multiplier",
+    "premium": "Insurance Premium",
+    "premiumSub": "Linked to your health score",
+    "sync": "Sync Wearable (Mock)"
+  },
+  "emotion": {
+    "title": "Emotional Spend Tracker",
+    "subtitle": "Master your emotions before they master your wallet.",
+    "heartRate": "Current Heart Rate",
+    "stressLevel": "Stress Level",
+    "simulate": "Simulate Impulse Purchase",
+    "breathe": "Take a Deep Breath",
+    "calm": "I Feel Calm Now",
+    "blockedSpends": "Blocked Spends",
+    "moneySaved": "Money Saved"
+  },
+  "prophet": {
+    "title": "Market Prophet",
+    "subtitle": "Predict market outcomes. Bet with wisdom. Profit from foresight.",
+    "balance": "Prophet Balance",
+    "settle": "Settle Markets (Simulate Outcome)"
+  },
+  "learn": {
+    "title": "Your Modules",
+    "module": "Module",
+    "keyInsight": "Key Insight",
+    "startQuiz": "Start Quiz",
+    "reviewNotes": "Review Notes",
+    "completed": "Completed ✓",
+    "notStarted": "Not started",
+    "nailedIt": "Nailed it!",
+    "keepLearning": "Keep Learning",
+    "continueJourney": "Continue Journey",
+    "tryAgain": "Try Again Later"
+  },
+  "certificate": {
+    "title": "Certificate of Completion",
+    "subtitle": "Complete all modules to unlock your premium FINLIT certificate.",
+    "certTitle": "FINLIT",
+    "certSubtitle": "Certificate of Financial Literacy",
+    "certifies": "This certifies that",
+    "awardedBy": "Awarded by",
+    "download": "Download as PNG",
+    "downloaded": "Downloaded!"
+  },
+  "switchMindset": {
+    "title": "Switch Mindset",
+    "subtitle": "Evolve your financial identity. Start a new path while preserving your legacy.",
+    "newTitle": "Start New Mindset",
+    "newDesc": "Your XP and badges remain as permanent legacy. Cash and module progress reset for your new path.",
+    "newButton": "Begin New Journey",
+    "resetTitle": "Hard Reset",
+    "resetDesc": "Complete wipe. All progress, XP, badges, and history deleted forever.",
+    "resetButton": "Destroy All Progress",
+    "resetConfirm": "HARD RESET: All progress will be permanently deleted. Are you sure?"
+  }
+}

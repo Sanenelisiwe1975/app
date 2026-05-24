@@ -11,9 +11,8 @@ import type { WorkerOutMessage } from '@/entities';
 export function useMarketWorker(): void {
   const workerRef = useRef<Worker | null>(null);
   const applyTick = useMarketStore((s) => s.applyTick);
-  const setLive = useMarketStore((s) => s.setLive);
-  const assets = useMarketStore((s) => s.assets);
-  const user = useUserStore((s) => s.user);
+  const setLive   = useMarketStore((s) => s.setLive);
+  const user      = useUserStore((s) => s.user);
 
   useEffect(() => {
     if (!user) return;
@@ -38,7 +37,7 @@ export function useMarketWorker(): void {
 
     worker.postMessage({
       type: 'START',
-      payload: { assets, seed: Date.now() },
+      payload: { assets: useMarketStore.getState().assets, seed: Date.now() },
     });
 
     return () => {

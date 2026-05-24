@@ -8,12 +8,15 @@ interface UserState {
   user: User | null;
   audienceKey: AudienceKey | null;
   mindset: Mindset | null;
+  /** True after the Wamkelekile welcome video has been dismissed once */
+  hasSeenWelcome: boolean;
 }
 
 interface UserActions {
   setUser: (user: User) => void;
   setAudience: (key: AudienceKey) => void;
   setMindset: (mindset: Mindset) => void;
+  markWelcomeSeen: () => void;
   clear: () => void;
 }
 
@@ -21,6 +24,7 @@ const INITIAL: UserState = {
   user: null,
   audienceKey: null,
   mindset: null,
+  hasSeenWelcome: false,
 };
 
 export const useUserStore = create<UserState & UserActions>()(
@@ -38,16 +42,19 @@ export const useUserStore = create<UserState & UserActions>()(
         setMindset: (mindset) =>
           set((s) => { s.mindset = mindset; }, false, 'user/setMindset'),
 
+        markWelcomeSeen: () =>
+          set((s) => { s.hasSeenWelcome = true; }, false, 'user/markWelcomeSeen'),
+
         clear: () =>
           set(() => ({ ...INITIAL }), false, 'user/clear'),
       })),
       {
         name: 'finlit-user-v1',
-        // Only persist the mindset ID — full object is re-hydrated from static data on boot
         partialize: (s) => ({
           user: s.user,
           audienceKey: s.audienceKey,
           mindset: s.mindset ? { id: s.mindset.id } : null,
+          hasSeenWelcome: s.hasSeenWelcome,
         }),
       }
     ),

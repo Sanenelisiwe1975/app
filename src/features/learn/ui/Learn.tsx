@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import { BookOpen, CheckCircle, XCircle, Trophy, ArrowRight, ArrowLeft, Lightbulb } from "lucide-react";
 import { useGameStore } from "@/shared/stores/gameStore";
 import { useUserStore } from "@/shared/stores/userStore";
 import { useAudio } from "@/shared/hooks/useAudio";
+import { EasyEquitiesPrompt } from "@/shared/ui/EasyEquitiesPrompt";
 
 export default function Learn() {
+  const { t }            = useTranslation();
   const completedModules = useGameStore((s) => s.completedModules);
   const completeModule   = useGameStore((s) => s.completeModule);
   const currentModules   = useUserStore((s) => s.mindset?.modules ?? []);
@@ -17,10 +20,9 @@ export default function Learn() {
   const [answers, setAnswers]           = useState<number[]>([]);
   const [showResult, setShowResult]     = useState(false);
   const [showNotes, setShowNotes]       = useState(false);
+  const [showEEPrompt, setShowEEPrompt] = useState(false);
 
-  const module = activeModule !== null
-    ? currentModules.find((m) => m.id === activeModule)
-    : null;
+  const module = activeModule !== null ? currentModules.find((m) => m.id === activeModule) : null;
 
   const startModule = (id: number) => {
     setActiveModule(id);
@@ -31,32 +33,25 @@ export default function Learn() {
   };
 
   const answerQuestion = (optionIndex: number) => {
-    const newAnswers = [...answers, optionIndex];
-    setAnswers(newAnswers);
-    if (newAnswers.length < (module?.quiz.length ?? 0)) {
-      setQuizIndex(newAnswers.length);
+    const next = [...answers, optionIndex];
+    setAnswers(next);
+    if (next.length < (module?.quiz.length ?? 0)) {
+      setQuizIndex(next.length);
     } else {
       setShowResult(true);
-      const correct = newAnswers.filter((a, i) => a === module!.quiz[i].correct).length;
-      if (correct === module!.quiz.length) {
-        completeModule(module!.id);
-        playSuccess();
-      }
+      const correct = next.filter((a, i) => a === module!.quiz[i].correct).length;
+      if (correct === module!.quiz.length) { completeModule(module!.id); playSuccess(); setShowEEPrompt(true); }
     }
   };
 
-  const closeModule = () => {
-    setActiveModule(null);
-    setShowNotes(false);
-    setShowResult(false);
-  };
+  const closeModule = () => { setActiveModule(null); setShowNotes(false); setShowResult(false); setShowEEPrompt(false); };
 
   return (
     <div className="page-container pb-24">
-      <h2 className="font-serif text-3xl font-bold text-white mb-2">Your Modules</h2>
+      <h2 className="font-serif text-3xl font-bold text-white mb-2">{t("learn.title")}</h2>
       <p className="text-muted-foreground text-sm mb-6">
         {mindset
-          ? `${mindset.name} Curriculum — ${currentModules.length} modules to mastery`
+          ? `${mindset.name} — ${currentModules.length} modules`
           : "Select a mindset to unlock your learning path"}
       </p>
 
@@ -66,6 +61,7 @@ export default function Learn() {
           return (
             <motion.button
               key={m.id}
+              type="button"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.1 }}
@@ -81,16 +77,14 @@ export default function Learn() {
               )}
               <div className="flex items-center gap-2 mb-2">
                 <BookOpen className="w-4 h-4 text-gold" />
-                <span className="text-xs text-gold uppercase tracking-wider">Module {m.id}</span>
+                <span className="text-xs text-gold uppercase tracking-wider">{t("learn.module")} {m.id}</span>
               </div>
               <h3 className="font-semibold text-white mb-2">{m.name}</h3>
               <p className="text-xs text-muted-foreground line-clamp-2">{m.notes.substring(0, 140)}...</p>
               <div className="mt-3 h-1.5 bg-white/10 rounded-full overflow-hidden">
-                <motion.div
-                  className={`h-full rounded-full ${isCompleted ? "bg-xhosa-teal" : "bg-gradient-to-r from-gold-light to-gold"}`}
-                  initial={{ width: 0 }}
-                  animate={{ width: `${isCompleted ? 100 : 0}%` }}
-                  transition={{ duration: 0.5 }}
+                <div
+                  className={`h-full rounded-full transition-[width] duration-500 ${isCompleted ? "bg-xhosa-teal" : "bg-gradient-to-r from-gold-light to-gold"}`}
+                  style={{ width: isCompleted ? "100%" : "0%" }}
                 />
               </div>
             </motion.button>
@@ -102,25 +96,21 @@ export default function Learn() {
       <AnimatePresence>
         {activeModule !== null && module && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
             className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4"
             onClick={closeModule}
           >
             <motion.div
-              initial={{ scale: 0.95, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.95, y: 20 }}
+              initial={{ scale: 0.95, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.95, y: 20 }}
               className="bg-dark-card border border-gold/20 rounded-3xl p-6 md:p-8 max-w-lg w-full max-h-[85vh] overflow-y-auto"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex items-center justify-between mb-4">
                 <div>
-                  <span className="text-xs text-gold uppercase tracking-wider">Module {module.id}</span>
+                  <span className="text-xs text-gold uppercase tracking-wider">{t("learn.module")} {module.id}</span>
                   <h3 className="font-serif text-xl font-semibold text-white">{module.name}</h3>
                 </div>
-                <button onClick={closeModule} className="text-muted-foreground hover:text-white">✕</button>
+                <button type="button" onClick={closeModule} className="text-muted-foreground hover:text-white" aria-label="Close">✕</button>
               </div>
 
               {/* Notes view */}
@@ -129,21 +119,22 @@ export default function Learn() {
                   <div className="bg-gold/5 border border-gold/20 rounded-xl p-4 mb-4">
                     <div className="flex items-center gap-2 text-gold mb-2">
                       <Lightbulb className="w-4 h-4" />
-                      <span className="text-xs font-medium uppercase tracking-wider">Key Insight</span>
+                      <span className="text-xs font-medium uppercase tracking-wider">{t("learn.keyInsight")}</span>
                     </div>
                     <p className="text-sm text-white/80 leading-relaxed">{module.notes}</p>
                   </div>
                   {completedModules.includes(module.id) ? (
                     <div className="flex items-center gap-2 text-xhosa-teal">
                       <Trophy className="w-5 h-5" />
-                      <span className="font-medium">Module Completed — +100 XP Earned</span>
+                      <span className="font-medium">{t("learn.completed")} — +100 XP</span>
                     </div>
                   ) : (
                     <button
+                      type="button"
                       className="btn-premium w-full flex items-center justify-center gap-2"
                       onClick={() => setShowNotes(false)}
                     >
-                      Start Quiz <ArrowRight className="w-4 h-4" />
+                      {t("learn.startQuiz")} <ArrowRight className="w-4 h-4" />
                     </button>
                   )}
                 </div>
@@ -156,9 +147,7 @@ export default function Learn() {
                     {module.quiz.map((_, i) => (
                       <div
                         key={i}
-                        className={`h-1.5 flex-1 rounded-full ${
-                          i < answers.length ? "bg-gold" : i === quizIndex ? "bg-gold/50" : "bg-white/10"
-                        }`}
+                        className={`h-1.5 flex-1 rounded-full ${i < answers.length ? "bg-gold" : i === quizIndex ? "bg-gold/50" : "bg-white/10"}`}
                       />
                     ))}
                   </div>
@@ -170,6 +159,7 @@ export default function Learn() {
                     {module.quiz[quizIndex].opts.map((opt, idx) => (
                       <button
                         key={idx}
+                        type="button"
                         className="w-full text-left p-4 rounded-xl bg-white/5 border border-white/10 hover:border-gold/30 hover:bg-gold/5 transition-all text-sm"
                         onClick={() => answerQuestion(idx)}
                       >
@@ -178,24 +168,21 @@ export default function Learn() {
                       </button>
                     ))}
                   </div>
-                  <button className="btn-outline-premium w-full mt-4" onClick={() => setShowNotes(true)}>
-                    <ArrowLeft className="w-4 h-4 inline mr-2" /> Review Notes
+                  <button type="button" className="btn-outline-premium w-full mt-4" onClick={() => setShowNotes(true)}>
+                    <ArrowLeft className="w-4 h-4 inline mr-2" /> {t("learn.reviewNotes")}
                   </button>
                 </div>
               )}
 
-              {/* Result view */}
+              {/* Result view — aria-live so screen readers announce the outcome */}
               {showResult && (() => {
                 const correct = answers.filter((a, i) => a === module.quiz[i].correct).length;
                 const passed  = correct === module.quiz.length;
                 return (
-                  <div className="text-center py-4">
+                  <div className="text-center py-4" aria-live="assertive" aria-atomic="true">
                     {passed ? (
-                      <motion.div
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        className="w-16 h-16 bg-xhosa-teal/20 rounded-full flex items-center justify-center mx-auto mb-4"
-                      >
+                      <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}
+                        className="w-16 h-16 bg-xhosa-teal/20 rounded-full flex items-center justify-center mx-auto mb-4">
                         <Trophy className="w-8 h-8 text-xhosa-teal" />
                       </motion.div>
                     ) : (
@@ -204,7 +191,7 @@ export default function Learn() {
                       </div>
                     )}
                     <h4 className={`font-serif text-xl font-bold mb-2 ${passed ? "text-xhosa-teal" : "text-xhosa-red"}`}>
-                      {passed ? "Nailed it!" : "Keep Learning"}
+                      {passed ? t("learn.nailedIt") : t("learn.keepLearning")}
                     </h4>
                     <p className="text-muted-foreground text-sm mb-4">{correct}/{module.quiz.length} correct</p>
                     {module.quiz.map((q, i) => (
@@ -219,8 +206,15 @@ export default function Learn() {
                       </div>
                     ))}
                     <button type="button" className="btn-premium w-full mt-4" onClick={closeModule}>
-                      {passed ? "Continue Journey" : "Try Again Later"}
+                      {passed ? t("learn.continueJourney") : t("learn.tryAgain")}
                     </button>
+                    {passed && showEEPrompt && (
+                      <EasyEquitiesPrompt
+                        trigger="module"
+                        inline
+                        onDismiss={() => setShowEEPrompt(false)}
+                      />
+                    )}
                   </div>
                 );
               })()}

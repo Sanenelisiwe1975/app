@@ -1,8 +1,20 @@
 # Premium FinLit App
 
-A gamified financial literacy simulator designed for the South African market. Users learn financial management, investing, and wealth-building through interactive gameplay with culturally relevant scenarios and personas.
+A gamified financial literacy simulator built for the South African market. Users learn financial management, investing, and wealth-building through interactive gameplay with culturally relevant scenarios, personas, and languages.
 
 > "Umntu ngumntu ngabantu" — A person is a person through others.
+
+---
+
+## Getting Started
+
+```bash
+npm install
+npm run dev        # dev server at http://localhost:5173
+npm run build      # production build → dist/
+npm run preview    # preview production build locally
+npm run test       # run all tests
+```
 
 ---
 
@@ -11,29 +23,21 @@ A gamified financial literacy simulator designed for the South African market. U
 | Layer | Technology |
 |---|---|
 | Framework | React 19.2 + TypeScript 5.9 |
-| Build Tool | Vite 7.2.4 (dev port 3000) |
-| Styling | Tailwind CSS 3.4.19 + shadcn/ui (40+ components) |
-| Animations | Framer Motion 12.38.0 |
-| Charts | Recharts 2.15.4 + Chart.js 4.5.1 |
-| Forms | React Hook Form + Zod 4.3.5 |
-| Icons | Lucide React |
+| Build Tool | Vite 7.2 |
+| Styling | Tailwind CSS 3.4 + shadcn/ui |
+| Animations | Framer Motion 12 |
+| State | Zustand 5 (immer + persist + devtools) |
+| Server State | TanStack Query 5 |
+| Persistence | Dexie.js (IndexedDB) + Zustand persist (localStorage) |
+| Charts | Chart.js 4.5 |
+| i18n | i18next + react-i18next (English + Zulu) |
+| PWA | vite-plugin-pwa + Workbox (44 precached entries) |
 | Audio | Web Audio API (procedural, no library) |
-| Persistence | localStorage (`finlit_save_v2`) |
-| Routing | Manual page-state in App.tsx |
+| Testing | Vitest + Testing Library + fake-indexeddb |
+| Icons | Lucide React |
 | Fonts | Playfair Display + Inter |
 
 **Fully client-side — no backend or external API.**
-
----
-
-## Getting Started
-
-```bash
-npm install
-npm run dev       # dev server at http://localhost:3000
-npm run build     # production build
-npm run lint      # ESLint
-```
 
 ---
 
@@ -41,93 +45,149 @@ npm run lint      # ESLint
 
 | Screen | Purpose |
 |---|---|
-| Register | Onboarding — name, age, location |
-| Mindset Select | Pick a learning path (Youth, Student, Corporate, etc.) |
-| Dashboard | Net worth, XP, badges, health multiplier, progress |
-| Learn | Educational modules + quizzes |
-| Market | Buy/sell simulated JSE stocks (prices update every 5s) |
-| Portfolio | View holdings + trading stats |
-| Stokvel | Community rotating savings group simulator |
+| Splash Screen | Animated golden orb + 7-bead beadwork progress bar |
+| Welcome Video | First-time Wamkelekile greeting (video or branded fallback) |
+| Register | Onboarding — name, age, location, audience selection |
+| Mindset Select | Choose one of 17 learning paths across 5 audience categories |
+| Dashboard | Net worth, XP, badges, health multiplier, module progress |
+| Learn | Educational modules + scenario-based quizzes with instant feedback |
+| Market | Buy/sell simulated JSE stocks; live chart; MA signal indicator |
+| Portfolio | Holdings, trade history (from IndexedDB), performance stats |
+| Stokvel | Community rotating savings simulator with payout voting |
 | Time Machine | 100-year compound interest wealth projection |
-| B2B Shield (AntiScam) | Phishing/scam detection training |
+| B2B Shield | Phishing and scam detection training scenarios |
 | Wealthy Body | Health tracking (steps, sleep, heart rate) — boosts net worth |
 | Emotion Tracker | Blocks impulse spending, tracks emotional discipline |
 | Market Prophet | Bet on financial market predictions |
-| Certificate | Achievement certificate on completion |
-| Switch Mindset | Change path or hard reset |
+| Certificate | Verified achievement certificate with SHA-256 ID + expiring QR code |
+| Switch Mindset | Change learning path or hard reset |
 
 ---
 
 ## Architecture
 
-### State Management
-A single `useGameState` hook manages all app state: cash, shares, XP, badges, health metrics, community savings, market prices, and predictions. State auto-saves to localStorage on every mutation and rehydrates on mount.
-
-### Mindset / Audience System
-5 audiences (Youth, University, Corporate, Wealthy, Health-Conscious), each with 2+ mindsets (e.g. "Spaza Shop Owner", "Tech Entrepreneur"). Each mindset has unique modules, quiz questions, and market assets.
-
-### Market Simulation
-Stock prices update every 5 seconds using a random-walk model with a floor at 30% of base price to prevent collapse. Price history (last 60 ticks) is tracked for charting.
-
-### Health Multiplier
-Fitness metrics (steps, sleep, heart rate) are tracked and used to calculate a health multiplier that scales net worth — "healthy body = wealthy body."
-
-### Audio
-Procedural sound generation via the Web Audio API. Four sound types: drum (80 Hz), success chord (C-E-G), hymn (G-C-E), and click (1200 Hz). No audio library dependency.
-
----
-
-## Project Structure
+### Feature-Sliced Design (FSD)
 
 ```
 src/
-├── components/
-│   ├── ui/                  # 40+ shadcn/ui components
-│   ├── Dashboard.tsx
-│   ├── Learn.tsx
-│   ├── Market.tsx
-│   ├── Portfolio.tsx
-│   ├── Stokvel.tsx
-│   ├── TimeMachine.tsx
-│   ├── AntiScam.tsx
-│   ├── WealthyBody.tsx
-│   ├── EmotionTracker.tsx
-│   ├── MarketProphet.tsx
-│   ├── Certificate.tsx
-│   ├── Register.tsx
-│   ├── MindsetSelect.tsx
-│   ├── Sidebar.tsx
-│   ├── MobileNav.tsx
-│   ├── SplashScreen.tsx
-│   └── SwitchMindset.tsx
-├── hooks/
-│   ├── useGameState.ts      # Primary state management
-│   ├── useAudio.ts          # Web Audio API sounds
-│   └── use-mobile.ts        # Responsive breakpoint detection
-├── data/
-│   └── mindsets.ts          # Audiences, modules, quiz questions, market assets
-├── lib/
-│   └── utils.ts             # cn() class utility
-├── App.tsx                  # Root + page routing logic
-├── main.tsx                 # Entry point
-└── index.css                # Global styles + Tailwind directives
+├── app/
+│   └── providers.tsx          # QueryClient, i18n, MarketWorker, Toaster
+├── entities/
+│   └── index.ts               # Core domain types (User, MarketAsset, TradeRecord, …)
+├── features/
+│   ├── auth/ui/               # Register, MindsetSelect, SwitchMindset
+│   ├── certificate/ui/        # Certificate (SHA-256 + QR)
+│   ├── dashboard/ui/          # Dashboard
+│   ├── learn/ui/              # Learn (modules + quizzes)
+│   ├── market/ui/             # Market (chart, buy/sell)
+│   ├── portfolio/ui/          # Portfolio (holdings + trade history)
+│   ├── stokvel/ui/            # Stokvel
+│   ├── time-machine/ui/       # TimeMachine
+│   ├── anti-scam/ui/          # AntiScam
+│   ├── wealthy-body/ui/       # WealthyBody
+│   ├── emotion-tracker/ui/    # EmotionTracker
+│   └── market-prophet/ui/     # MarketProphet
+├── widgets/
+│   ├── sidebar/               # Desktop navigation (EN/ZU switcher)
+│   ├── mobile-nav/            # Mobile bottom nav (EN/ZU switcher)
+│   ├── splash/                # SplashScreen
+│   └── welcome-video/         # WelcomeVideo (Wamkelekile)
+├── shared/
+│   ├── stores/                # gameStore, userStore, marketStore, uiStore
+│   ├── hooks/                 # useNetWorth, useTradeHistory, useMarketWorker, useAudio
+│   ├── workers/               # market.worker.ts (Web Worker price simulation)
+│   ├── lib/                   # db.ts (Dexie), formatters.ts
+│   ├── i18n/                  # i18next setup + en.json + zu.json
+│   └── ui/                    # ErrorBoundary, EasyEquitiesPrompt
+└── data/
+    └── mindsets.ts            # 17 mindsets, 255 quiz questions, market assets
 ```
+
+### State Management — 4 Zustand Stores
+
+| Store | Owns |
+|---|---|
+| `userStore` | User profile, selected mindset, audienceKey, `hasSeenWelcome` |
+| `gameStore` | Cash, shares, XP, badges, health, stokvel, predictions, trade stats |
+| `marketStore` | Assets, active symbol, price history, tick count |
+| `uiStore` | Current page, sidebar state, active modal |
+
+All stores use `immer` (immutable updates) + `persist` (localStorage) + `devtools`.
+
+### Market Simulation
+
+Prices are generated in a **Web Worker** (`market.worker.ts`) using an xorshift32 seeded PRNG, keeping simulation off the main thread. The worker handles `START`, `STOP`, and `RESET` messages. It is spawned and terminated based on user login state via `useMarketWorker`.
+
+### Trade History
+
+Every buy/sell calls `logTrade()` (fire-and-forget) which writes to **Dexie.js IndexedDB**. The Portfolio page reads this via `useTradeHistory()` — a TanStack Query hook that revalidates on every market tick.
+
+### Certificate
+
+- **SHA-256 fingerprint** generated via `crypto.subtle.digest` (Web Crypto API — no library)
+- **QR code** (qrcode.react) encodes a JSON payload: certId, hash, holder, mindset, timestamps, issuer
+- QR expires **1 hour** after issue; a Refresh button regenerates it
+- Certificate downloads as PNG via html2canvas
+
+### EasyEquities Integration
+
+`EasyEquitiesPrompt` (inline and modal variants) appears at strategic moments:
+
+| Trigger | Where |
+|---|---|
+| `trade` | Market page — after every 3rd buy or sell |
+| `module` | Learn page — after a perfect quiz score |
+| `networth` | Dashboard — once net worth crosses R10,000 |
+| `stokvel` | Stokvel page — after a vote-payout action |
+
+### Mindsets
+
+**17 mindsets** across 5 audience paths, each with 5 modules and 3 scenario-based quiz questions (255 questions total):
+
+| Audience | Mindsets |
+|---|---|
+| Youth Entrepreneur | Spaza Shop Owner, Taxi Owner, Street Food Vendor |
+| University Student | Engineering, Accounting, Law, Medical |
+| Corporate Professional | Restaurateur, Salon Owner, Logistics Director, E-commerce CEO |
+| Wealth Builder | Mining Magnate, Property Tycoon, Tech Titan |
+| Professional Health | Doctor, Dentist, Physiotherapist |
+
+### Internationalisation
+
+Full EN and ZU (Zulu) translations. Language toggle available in the desktop sidebar and mobile bottom nav. Falls back to English for any missing Zulu key.
+
+### PWA
+
+Configured with vite-plugin-pwa + Workbox. 44 entries precached. Installable on Android and desktop. Offline-capable for all precached pages.
 
 ---
 
 ## Design System
 
 - **Theme**: Dark (`#0A0A0F` background) with gold accents (`#D4AF37`)
-- **Style**: Glass-morphism cards with backdrop-blur and semi-transparent borders
-- **Cultural palette**: Xhosa-inspired colors — red, blue, yellow, teal, coral, purple, orange
-- **Custom utilities**: `.glass-card`, `.btn-premium`, `.gold-text`, `.gold-gradient`
+- **Style**: Glass-morphism cards with `backdrop-blur` and semi-transparent borders
+- **Cultural palette**: Xhosa-inspired — red, blue, yellow, teal, coral, purple, orange
+- **Key utilities**: `.glass-card`, `.btn-premium`, `.gold-text`, `.beadwork-bar`, `.splash-orb`
+
+---
+
+## Testing
+
+```bash
+npm run test            # run all tests once
+npm run test:watch      # watch mode
+npm run test:coverage   # coverage report
+```
+
+32 tests across 4 store test files (`gameStore`, `userStore`, `marketStore`, `uiStore`). `fake-indexeddb` provides IndexedDB in the jsdom test environment.
 
 ---
 
 ## Project Scale
 
-- ~10,000+ lines of source code
-- 50+ components, 3 custom hooks
-- 5 audiences, 10+ mindsets
-- 100+ quiz questions across all modules
-- 25+ runtime dependencies
+- ~15,000+ lines of source code
+- 17 mindsets, 255 scenario-based quiz questions
+- 14 lazy-loaded pages (code-split per route)
+- 4 Zustand stores, 6 custom hooks
+- Main bundle: 341 kB (111 kB gzip)
+- 44 PWA precache entries
