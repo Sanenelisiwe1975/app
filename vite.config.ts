@@ -3,10 +3,12 @@ import react from "@vitejs/plugin-react";
 import { defineConfig } from "vitest/config";
 import { VitePWA } from "vite-plugin-pwa";
 import { inspectAttr } from "kimi-plugin-inspect-react";
+import { nodePolyfills } from "vite-plugin-node-polyfills";
 
 export default defineConfig({
   base: "./",
   plugins: [
+    nodePolyfills({ include: ["buffer"], globals: { Buffer: true, global: true, process: true } }),
     inspectAttr(),
     react(),
     VitePWA({
@@ -85,6 +87,14 @@ export default defineConfig({
           "vendor-i18n":        ["i18next", "react-i18next"],
           "vendor-query":       ["@tanstack/react-query"],
           "vendor-dexie":       ["dexie"],
+          "vendor-solana": [
+            "@solana/web3.js",
+            "@solana/wallet-adapter-base",
+            "@solana/wallet-adapter-react",
+            "@solana/wallet-adapter-react-ui",
+            "@solana/wallet-adapter-phantom",
+            "@solana/wallet-adapter-solflare",
+          ],
         },
       },
     },
