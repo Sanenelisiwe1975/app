@@ -11,8 +11,8 @@ export default function Learn() {
   const { t }            = useTranslation();
   const completedModules = useGameStore((s) => s.completedModules);
   const completeModule   = useGameStore((s) => s.completeModule);
-  const currentModules   = useUserStore((s) => s.mindset?.modules ?? []);
   const mindset          = useUserStore((s) => s.mindset);
+  const currentModules   = mindset?.modules ?? [];
   const { playSuccess }  = useAudio();
 
   const [activeModule, setActiveModule] = useState<number | null>(null);

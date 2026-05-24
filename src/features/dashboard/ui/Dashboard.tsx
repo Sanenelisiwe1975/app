@@ -23,7 +23,8 @@ export default function Dashboard() {
   const phishingTotal        = useGameStore((s) => s.phishingTotal);
   const phishingCaught       = useGameStore((s) => s.phishingCaught);
   const healthMult           = useGameStore(selectHealthMultiplier);
-  const currentModules       = useUserStore((s) => s.mindset?.modules ?? []);
+  const mindset              = useUserStore((s) => s.mindset);
+  const currentModules       = mindset?.modules ?? [];
   const netWorth             = useNetWorth();
 
   const completedCount = completedModules.length;
