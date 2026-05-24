@@ -10,6 +10,13 @@ import type {
   ScamAttempt,
 } from '@/entities';
 
+export interface NftMint {
+  txSignature: string;
+  explorerUrl: string;
+  mintedAt: number;
+  certId: string;
+}
+
 export interface MindsetRecord {
   mindsetId: string;
   mindsetName: string;
@@ -62,6 +69,7 @@ interface GameState {
   profitableTrades: number;
   impulseSpendsBlocked: number;
   mindsetHistory: MindsetRecord[];
+  nftMint: NftMint | null;
 }
 
 interface GameActions {
@@ -82,6 +90,7 @@ interface GameActions {
   blockImpulse: () => void;
   simulateImpulse: () => void;
   saveMindsetProgress: (mindsetId: string, mindsetName: string) => void;
+  recordNftMint: (mint: NftMint) => void;
   reset: () => void;
 }
 
@@ -103,6 +112,7 @@ const INITIAL: GameState = {
   profitableTrades: 0,
   impulseSpendsBlocked: 0,
   mindsetHistory: [],
+  nftMint: null,
 };
 
 // ─── Store ────────────────────────────────────────────────────────────────────
@@ -273,6 +283,9 @@ export const useGameStore = create<GameState & GameActions>()(
               s.mindsetHistory.push(record);
             }
           }, false, 'game/saveMindsetProgress'),
+
+        recordNftMint: (mint) =>
+          set((s) => { s.nftMint = mint; }, false, 'game/recordNftMint'),
 
         reset: () =>
           set(
