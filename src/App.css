@@ -59,6 +59,22 @@
   box-shadow: 0 0 8px rgba(212, 175, 55, 0.6);
 }
 
+/* Avatar wrapper — scale down on short viewports (small iPhones, SE)
+   so the "Enter App" CTA button stays above the fold. transform-origin: top
+   keeps the avatar anchored at the top; negative margin-bottom collapses the
+   dead layout space created by the unchanged 420px layout height. */
+.splash-avatar-wrap {
+  z-index: 10;
+}
+
+@media (max-height: 750px) {
+  .splash-avatar-wrap {
+    transform: scale(0.62);
+    transform-origin: top center;
+    margin-bottom: -160px;
+  }
+}
+
 /* Scrollbar styling */
 .scrollbar-thin::-webkit-scrollbar {
   width: 6px;

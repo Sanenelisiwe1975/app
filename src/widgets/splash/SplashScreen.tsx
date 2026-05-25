@@ -125,9 +125,9 @@ export default function SplashScreen({ onComplete }: Props) {
             </p>
           </motion.div>
 
-          {/* ── Welcome Avatar ───────────────────────────────────────────── */}
+          {/* ── Welcome Avatar — scaled down on short viewports via .splash-avatar-wrap ── */}
           <motion.div
-            className="z-10"
+            className="splash-avatar-wrap"
             initial={{ opacity: 0, scale: 0.82, y: 36 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.9, type: "spring", stiffness: 140, damping: 18 }}
@@ -135,9 +135,9 @@ export default function SplashScreen({ onComplete }: Props) {
             <WelcomeAvatar onTap={handleAvatarTap} autoGreet={false} />
           </motion.div>
 
-          {/* ── Cultural quote ───────────────────────────────────────────── */}
+          {/* ── Cultural quote — hidden on small phones to keep button above fold ── */}
           <motion.div
-            className="z-10 text-center mt-5 mb-6 max-w-[280px]"
+            className="z-10 text-center mt-2 mb-3 max-w-[280px] hidden sm:block"
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.2, duration: 0.8 }}
