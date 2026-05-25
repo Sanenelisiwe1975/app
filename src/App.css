@@ -75,6 +75,16 @@
   }
 }
 
+/* Beadwork strip — 8 repeating bead colours used in portfolio/certificate decorations */
+.bead-0 { background-color: #D4AF37; }
+.bead-1 { background-color: #E74C3C; }
+.bead-2 { background-color: #1ABC9C; }
+.bead-3 { background-color: #3498DB; }
+.bead-4 { background-color: #9B59B6; }
+.bead-5 { background-color: #E67E22; }
+.bead-6 { background-color: #F1C40F; }
+.bead-7 { background-color: #D4AF37; }
+
 /* Scrollbar styling */
 .scrollbar-thin::-webkit-scrollbar {
   width: 6px;

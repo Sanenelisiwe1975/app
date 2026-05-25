@@ -10,7 +10,7 @@ import { useGameStore } from "@/shared/stores/gameStore";
 import { useMarketStore } from "@/shared/stores/marketStore";
 import { useNetWorth } from "@/shared/hooks/useNetWorth";
 import { useAudio } from "@/shared/hooks/useAudio";
-import { formatCurrency } from "@/shared/lib/formatters";
+import { useCurrencyFormatter } from "@/shared/hooks/useCurrencyFormatter";
 import { EasyEquitiesPrompt } from "@/shared/ui/EasyEquitiesPrompt";
 
 Chart.register(...registerables);
@@ -22,7 +22,8 @@ const LEVELS = [
 ] as const;
 
 export default function Market() {
-  const { t }  = useTranslation();
+  const { t }          = useTranslation();
+  const formatCurrency = useCurrencyFormatter();
   const cash      = useGameStore((s) => s.cash);
   const shares    = useGameStore((s) => s.shares);
   const level     = useGameStore((s) => s.level);

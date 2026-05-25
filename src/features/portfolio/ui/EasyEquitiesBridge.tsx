@@ -7,7 +7,7 @@ import {
 import { useGameStore } from "@/shared/stores/gameStore";
 import { useUserStore } from "@/shared/stores/userStore";
 import { useAudio } from "@/shared/hooks/useAudio";
-import { formatCurrency } from "@/shared/lib/formatters";
+import { useCurrencyFormatter } from "@/shared/hooks/useCurrencyFormatter";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -49,9 +49,9 @@ const MINDSET_MESSAGES: Record<string, string> = {
   physio:     "Movement is money. Your capital just started moving in the right direction. Qina — keep going!",
 };
 
-function getMotivation(mindsetId: string | undefined, amount: number): string {
+function getMotivation(mindsetId: string | undefined, amount: number, fmt: (n: number) => string): string {
   const base = mindsetId ? (MINDSET_MESSAGES[mindsetId] ?? "") : "";
-  return base || `This ${formatCurrency(amount)} investment is your bridge from simulation to reality. The journey of a thousand rands begins with a single trade. Ukuphila!`;
+  return base || `This ${fmt(amount)} investment is your bridge from simulation to reality. The journey of a thousand rands begins with a single trade. Ukuphila!`;
 }
 
 function generateRef(): string {
@@ -91,6 +91,7 @@ function SelectStep({
   onNext: () => void;
   onClose: () => void;
 }) {
+  const formatCurrency = useCurrencyFormatter();
   const selected = typeof amount === "number" ? amount : parseFloat(custom) || 0;
   const canAfford = selected > 0 && selected <= cash;
   const overLimit = selected > cash;
@@ -217,6 +218,7 @@ function ConfirmStep({
   onConfirm: () => void;
   onBack: () => void;
 }) {
+  const formatCurrency = useCurrencyFormatter();
   return (
     <motion.div
       key="confirm"
@@ -431,6 +433,7 @@ function SuccessStep({
   motivation: string;
   onClose: () => void;
 }) {
+  const formatCurrency = useCurrencyFormatter();
   // Generate confetti particles once
   const particles = useRef(
     Array.from({ length: 18 }, (_, i) => ({
@@ -636,6 +639,7 @@ interface Props {
 }
 
 export default function EasyEquitiesBridge({ onClose }: Props) {
+  const formatCurrency  = useCurrencyFormatter();
   const [step, setStep]     = useState<Step>("select");
   const [amount, setAmount] = useState<number | "">("");
   const [custom, setCustom] = useState("");
@@ -670,7 +674,7 @@ export default function EasyEquitiesBridge({ onClose }: Props) {
     }, 2600);
   }, [selectedAmount, addCash, addXp, addBadge, playSuccess]);
 
-  const motivation = getMotivation(mindset?.id, selectedAmount);
+  const motivation = getMotivation(mindset?.id, selectedAmount, formatCurrency);
 
   return (
     <div

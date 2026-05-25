@@ -9,7 +9,7 @@ import {
 import { useGameStore } from "@/shared/stores/gameStore";
 import { useAudio } from "@/shared/hooks/useAudio";
 import { EasyEquitiesPrompt } from "@/shared/ui/EasyEquitiesPrompt";
-import { formatCurrency } from "@/shared/lib/formatters";
+import { useCurrencyFormatter } from "@/shared/hooks/useCurrencyFormatter";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -175,6 +175,7 @@ function MemberGrid({ members, contributed, nextPayout }: { members: number; con
 }
 
 function InvestmentChart({ principal, months }: { principal: number; months: number }) {
+  const formatCurrency = useCurrencyFormatter();
   const years = Math.min(Math.ceil(months / 12), 10);
   const CHART_H = 72;
 
@@ -213,8 +214,9 @@ function InvestmentChart({ principal, months }: { principal: number; months: num
 // ── Component ─────────────────────────────────────────────────────────────────
 
 export default function Stokvel() {
-  const { t } = useTranslation();
-  const cash              = useGameStore((s) => s.cash);
+  const { t }          = useTranslation();
+  const formatCurrency = useCurrencyFormatter();
+  const cash           = useGameStore((s) => s.cash);
   const community         = useGameStore((s) => s.community);
   const contributeStokvel = useGameStore((s) => s.contributeStokvel);
   const voteStokvel       = useGameStore((s) => s.voteStokvel);

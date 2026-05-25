@@ -9,7 +9,7 @@ import { useGameStore } from "@/shared/stores/gameStore";
 import { useMarketStore } from "@/shared/stores/marketStore";
 import { useNetWorth } from "@/shared/hooks/useNetWorth";
 import { useTradeHistory } from "@/shared/hooks/useTradeHistory";
-import { formatCurrency } from "@/shared/lib/formatters";
+import { useCurrencyFormatter } from "@/shared/hooks/useCurrencyFormatter";
 import { EasyEquitiesButton } from "@/shared/ui/EasyEquitiesPrompt";
 import EasyEquitiesBridge from "./EasyEquitiesBridge";
 
@@ -25,7 +25,8 @@ const ALLOCATION_COLORS = [
 ];
 
 export default function Portfolio() {
-  const { t }         = useTranslation();
+  const { t }          = useTranslation();
+  const formatCurrency = useCurrencyFormatter();
   const [bridge, setBridge] = useState(false);
   const cash          = useGameStore((s) => s.cash);
   const shares   = useGameStore((s) => s.shares);
@@ -264,8 +265,8 @@ export default function Portfolio() {
         <div className="h-px bg-gradient-to-r from-transparent via-gold/60 to-transparent" />
         {/* Beadwork strip */}
         <div className="flex h-1">
-          {["#D4AF37","#E74C3C","#1ABC9C","#3498DB","#9B59B6","#E67E22","#F1C40F","#D4AF37"].map((c, i) => (
-            <div key={i} className="flex-1" style={{ backgroundColor: c }} />
+          {[0,1,2,3,4,5,6,7].map((i) => (
+            <div key={i} className={`flex-1 bead-${i}`} />
           ))}
         </div>
 

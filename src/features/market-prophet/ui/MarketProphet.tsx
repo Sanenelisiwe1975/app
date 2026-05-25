@@ -6,7 +6,7 @@ import {
   Clock, BarChart3, Landmark, DollarSign, Sparkles,
 } from "lucide-react";
 import { useGameStore } from "@/shared/stores/gameStore";
-import { formatCurrency } from "@/shared/lib/formatters";
+import { useCurrencyFormatter } from "@/shared/hooks/useCurrencyFormatter";
 import type { Prediction } from "@/entities";
 
 // ── Category metadata ─────────────────────────────────────────────────────────
@@ -23,7 +23,8 @@ const CATEGORIES: Record<number, { label: string; icon: React.ElementType; color
 function PredictionCard({
   pred, betAmount, prophetBalance, onBet,
 }: { pred: Prediction; betAmount: number; prophetBalance: number; onBet: (id: number, option: 0 | 1) => void }) {
-  const cat     = CATEGORIES[pred.id] ?? CATEGORIES[0];
+  const formatCurrency = useCurrencyFormatter();
+  const cat            = CATEGORIES[pred.id] ?? CATEGORIES[0];
   const CatIcon = cat.icon;
 
   const isOpen     = pred.userBet === null && !pred.resolved;
@@ -157,7 +158,8 @@ function PredictionCard({
 // ── Component ─────────────────────────────────────────────────────────────────
 
 export default function MarketProphet() {
-  const { t } = useTranslation();
+  const { t }          = useTranslation();
+  const formatCurrency = useCurrencyFormatter();
   const prophetBalance    = useGameStore((s) => s.prophetBalance);
   const predictions       = useGameStore((s) => s.predictions);
   const placeBet          = useGameStore((s) => s.placeBet);

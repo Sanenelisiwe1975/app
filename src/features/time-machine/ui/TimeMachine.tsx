@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { Clock, TreePine, Coins, TrendingUp, Home, Landmark, AlertCircle } from "lucide-react";
 import { useNetWorth } from "@/shared/hooks/useNetWorth";
 import { useAudio } from "@/shared/hooks/useAudio";
-import { formatCurrency } from "@/shared/lib/formatters";
+import { useCurrencyFormatter } from "@/shared/hooks/useCurrencyFormatter";
 
 // ── Investment scenarios ──────────────────────────────────────────────────────
 
@@ -32,6 +32,7 @@ function compound(principal: number, monthlyContrib: number, annualRate: number,
 function GrowthChart({
   principal, monthlyContrib, rate, maxYears,
 }: { principal: number; monthlyContrib: number; rate: number; maxYears: number }) {
+  const formatCurrency = useCurrencyFormatter();
   const step = maxYears <= 10 ? 1 : maxYears <= 30 ? 5 : 10;
 
   const bars = useMemo(() => {
@@ -70,6 +71,7 @@ function GrowthChart({
 
 export default function TimeMachine() {
   const { t }           = useTranslation();
+  const formatCurrency  = useCurrencyFormatter();
   const netWorth        = useNetWorth();
   const { playSuccess } = useAudio();
 

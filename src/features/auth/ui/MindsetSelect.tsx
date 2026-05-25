@@ -8,7 +8,7 @@ import { useGameStore } from "@/shared/stores/gameStore";
 import { useMarketStore } from "@/shared/stores/marketStore";
 import { useUiStore } from "@/shared/stores/uiStore";
 import { useAudio } from "@/shared/hooks/useAudio";
-import { formatCurrency } from "@/shared/lib/formatters";
+import { useCurrencyFormatter } from "@/shared/hooks/useCurrencyFormatter";
 
 // Difficulty tier derived from startCash
 function getTier(startCash: number): { label: string; color: string } {
@@ -19,7 +19,8 @@ function getTier(startCash: number): { label: string; color: string } {
 }
 
 export default function MindsetSelect() {
-  const audienceKey = useUserStore((s) => s.audienceKey);
+  const formatCurrency = useCurrencyFormatter();
+  const audienceKey    = useUserStore((s) => s.audienceKey);
   const user        = useUserStore((s) => s.user);
   const setMindset  = useUserStore((s) => s.setMindset);
   const setUser     = useUserStore((s) => s.setUser);

@@ -6,12 +6,13 @@ import { useGameStore, selectHealthMultiplier } from "@/shared/stores/gameStore"
 import { useUserStore } from "@/shared/stores/userStore";
 import { useUiStore } from "@/shared/stores/uiStore";
 import { useNetWorth } from "@/shared/hooks/useNetWorth";
-import { formatCurrency } from "@/shared/lib/formatters";
+import { useCurrencyFormatter } from "@/shared/hooks/useCurrencyFormatter";
 import { EasyEquitiesPrompt } from "@/shared/ui/EasyEquitiesPrompt";
 
 export default function Dashboard() {
-  const { t }    = useTranslation();
-  const navigate = useUiStore((s) => s.navigate);
+  const { t }          = useTranslation();
+  const formatCurrency = useCurrencyFormatter();
+  const navigate       = useUiStore((s) => s.navigate);
   const [eePromptDismissed, setEePromptDismissed] = useState(false);
 
   const xp                   = useGameStore((s) => s.xp);
