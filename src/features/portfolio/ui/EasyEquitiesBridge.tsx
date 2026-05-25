@@ -8,6 +8,7 @@ import { useGameStore } from "@/shared/stores/gameStore";
 import { useUserStore } from "@/shared/stores/userStore";
 import { useAudio } from "@/shared/hooks/useAudio";
 import { useCurrencyFormatter } from "@/shared/hooks/useCurrencyFormatter";
+import { CURRENCY_SYMBOLS } from "@/shared/lib/formatters";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -91,7 +92,9 @@ function SelectStep({
   onNext: () => void;
   onClose: () => void;
 }) {
-  const formatCurrency = useCurrencyFormatter();
+  const formatCurrency  = useCurrencyFormatter();
+  const currency        = useUserStore((s) => s.currency);
+  const currencySymbol  = CURRENCY_SYMBOLS[currency];
   const selected = typeof amount === "number" ? amount : parseFloat(custom) || 0;
   const canAfford = selected > 0 && selected <= cash;
   const overLimit = selected > cash;
@@ -121,7 +124,7 @@ function SelectStep({
           <h3 className="font-serif text-xl font-bold text-white">Transfer to EasyEquities</h3>
           <p className="text-xs text-muted-foreground mt-0.5">Simulate your first real investment move</p>
         </div>
-        <button type="button" onClick={onClose} className="text-muted-foreground hover:text-white transition-colors mt-0.5">
+        <button type="button" onClick={onClose} aria-label="Close" className="text-muted-foreground hover:text-white transition-colors mt-0.5">
           <X className="w-4 h-4" />
         </button>
       </div>
@@ -161,14 +164,14 @@ function SelectStep({
                 transition={{ type: "spring", stiffness: 400, damping: 30 }}
               />
             )}
-            <span className="relative">R{p}</span>
+            <span className="relative">{formatCurrency(p)}</span>
           </motion.button>
         ))}
       </div>
 
       {/* Custom amount */}
       <div className="relative mb-5">
-        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">R</span>
+        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">{currencySymbol}</span>
         <input
           type="number"
           min="1"

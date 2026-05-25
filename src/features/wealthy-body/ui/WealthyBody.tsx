@@ -5,6 +5,7 @@ import {
   Footprints, Moon, Zap, CheckCircle,
 } from "lucide-react";
 import { useGameStore, selectHealthMultiplier } from "@/shared/stores/gameStore";
+import { useCurrencyFormatter } from "@/shared/hooks/useCurrencyFormatter";
 
 // ── Daily challenges ──────────────────────────────────────────────────────────
 
@@ -57,8 +58,9 @@ function Ring({ pct, color, size = 80 }: { pct: number; color: string; size?: nu
 // ── Component ─────────────────────────────────────────────────────────────────
 
 export default function WealthyBody() {
-  const { t }      = useTranslation();
-  const health     = useGameStore((s) => s.health);
+  const { t }          = useTranslation();
+  const formatCurrency = useCurrencyFormatter();
+  const health         = useGameStore((s) => s.health);
   const syncHealth = useGameStore((s) => s.syncHealth);
   const healthMult = useGameStore(selectHealthMultiplier);
 
@@ -136,8 +138,8 @@ export default function WealthyBody() {
             <p className="text-xs text-muted-foreground">{t("wealthyBody.premiumSub")}</p>
           </div>
           <div className="text-right">
-            <p className="text-2xl font-bold text-xhosa-teal">R{premium}<span className="text-sm text-muted-foreground">/mo</span></p>
-            {saving > 0 && <p className="text-[10px] text-xhosa-teal">You save R{saving}/mo vs base</p>}
+            <p className="text-2xl font-bold text-xhosa-teal">{formatCurrency(premium)}<span className="text-sm text-muted-foreground">/mo</span></p>
+            {saving > 0 && <p className="text-[10px] text-xhosa-teal">You save {formatCurrency(saving)}/mo vs base</p>}
           </div>
         </div>
         <div className="h-2.5 bg-white/10 rounded-full overflow-hidden">
@@ -148,8 +150,8 @@ export default function WealthyBody() {
           />
         </div>
         <div className="flex justify-between text-[10px] text-muted-foreground mt-1.5">
-          <span>Base premium: R{basePremium}/mo</span>
-          <span>Annual saving: R{(saving * 12).toLocaleString()}</span>
+          <span>Base premium: {formatCurrency(basePremium)}/mo</span>
+          <span>Annual saving: {formatCurrency(saving * 12)}</span>
         </div>
       </div>
 
@@ -212,7 +214,7 @@ export default function WealthyBody() {
           </div>
           <div className="flex justify-between items-center">
             <span>Lower health insurance premiums</span>
-            <span className="text-xhosa-teal font-semibold">+R{(saving * 12).toLocaleString()}/yr</span>
+            <span className="text-xhosa-teal font-semibold">+{formatCurrency(saving * 12)}/yr</span>
           </div>
           <div className="flex justify-between items-center">
             <span>Longer compound interest timeline</span>

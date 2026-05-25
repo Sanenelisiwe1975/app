@@ -7,6 +7,7 @@ import {
   Flame, Sparkles, Clock, ChevronDown,
 } from "lucide-react";
 import { useGameStore } from "@/shared/stores/gameStore";
+import { useCurrencyFormatter } from "@/shared/hooks/useCurrencyFormatter";
 
 // ── Spend triggers ────────────────────────────────────────────────────────────
 
@@ -107,6 +108,7 @@ const BREATH_STEPS = [
 
 export default function EmotionTracker() {
   const { t }                = useTranslation();
+  const formatCurrency       = useCurrencyFormatter();
   const heartRate            = useGameStore((s) => s.health.heartRate);
   const impulseSpendsBlocked = useGameStore((s) => s.impulseSpendsBlocked);
   const simulateImpulse      = useGameStore((s) => s.simulateImpulse);
@@ -231,7 +233,7 @@ export default function EmotionTracker() {
         </div>
         <div className="glass-card p-4 text-center">
           <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-1">{t("emotion.moneySaved")}</p>
-          <p className="text-2xl font-bold gold-text">R{moneySaved.toLocaleString()}</p>
+          <p className="text-2xl font-bold gold-text">{formatCurrency(moneySaved)}</p>
         </div>
         <motion.div
           className="glass-card p-4 text-center"
@@ -266,7 +268,7 @@ export default function EmotionTracker() {
               </div>
               <p className="text-xs font-semibold text-white">{trigger.label}</p>
               <p className={`text-[10px] ${trigger.color}`}>{trigger.emotion}</p>
-              <p className="text-xs text-muted-foreground mt-1">R{trigger.amount}</p>
+              <p className="text-xs text-muted-foreground mt-1">{formatCurrency(trigger.amount)}</p>
             </motion.button>
           );
         })}
@@ -321,7 +323,7 @@ export default function EmotionTracker() {
                       </div>
                       <div className="text-right">
                         <p className={`text-xs font-medium ${entry.action === "blocked" ? "text-xhosa-teal" : "text-xhosa-red"}`}>
-                          {entry.action === "blocked" ? "+" : "−"}R{entry.amount.toLocaleString()}
+                          {entry.action === "blocked" ? "+" : "−"}{formatCurrency(entry.amount)}
                         </p>
                         <p className="text-[9px] text-muted-foreground">
                           {new Date(entry.ts).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
@@ -337,7 +339,7 @@ export default function EmotionTracker() {
                       ? "text-xhosa-teal" : "text-xhosa-red"
                   }`}>
                     {decisionLog.reduce((s, e) => s + (e.action === "blocked" ? e.amount : -e.amount), 0) >= 0 ? "+" : ""}
-                    R{Math.abs(decisionLog.reduce((s, e) => s + (e.action === "blocked" ? e.amount : -e.amount), 0)).toLocaleString()}
+                    {formatCurrency(Math.abs(decisionLog.reduce((s, e) => s + (e.action === "blocked" ? e.amount : -e.amount), 0)))}
                   </span>
                 </div>
               </motion.div>
@@ -413,7 +415,7 @@ export default function EmotionTracker() {
                     <p className="text-3xl mb-2">{activeTrigger.emotion}</p>
                     <h3 className="font-serif text-xl font-bold text-white mb-1">{activeTrigger.label}</h3>
                     <p className="text-xs text-muted-foreground">You feel the urge to spend</p>
-                    <p className="text-3xl font-bold gold-text mt-3">R{activeTrigger.amount.toLocaleString()}</p>
+                    <p className="text-3xl font-bold gold-text mt-3">{formatCurrency(activeTrigger.amount)}</p>
                   </div>
 
                   <div className="bg-white/5 border border-white/10 rounded-2xl p-4 mb-5">
@@ -429,7 +431,7 @@ export default function EmotionTracker() {
                     >
                       <ShieldCheck className="w-6 h-6" />
                       <span className="text-xs font-semibold">Block It</span>
-                      <span className="text-[9px] text-center opacity-70">Save R{activeTrigger.amount}</span>
+                      <span className="text-[9px] text-center opacity-70">Save {formatCurrency(activeTrigger.amount)}</span>
                     </button>
                     <button
                       type="button"
@@ -438,7 +440,7 @@ export default function EmotionTracker() {
                     >
                       <ShoppingBag className="w-6 h-6" />
                       <span className="text-xs font-semibold">Buy It</span>
-                      <span className="text-[9px] text-center opacity-70">Spend R{activeTrigger.amount}</span>
+                      <span className="text-[9px] text-center opacity-70">Spend {formatCurrency(activeTrigger.amount)}</span>
                     </button>
                   </div>
                 </div>
@@ -454,24 +456,24 @@ export default function EmotionTracker() {
                       </div>
                       <h3 className="font-serif text-xl font-bold text-xhosa-teal mb-2">Emotional Discipline!</h3>
                       <p className="text-sm text-white/70 mb-2">
-                        You blocked a R{activeTrigger.amount.toLocaleString()} {activeTrigger.label.toLowerCase()}.
+                        You blocked a {formatCurrency(activeTrigger.amount)} {activeTrigger.label.toLowerCase()}.
                       </p>
                       <div className="bg-gold/5 border border-gold/20 rounded-2xl p-4 mb-5">
                         <p className="text-xs text-gold mb-1">What this saves over time</p>
                         <div className="space-y-1 text-sm">
-                          <div className="flex justify-between"><span className="text-white/60">Monthly (×4)</span><span className="text-gold">R{(activeTrigger.amount * 4).toLocaleString()}</span></div>
-                          <div className="flex justify-between"><span className="text-white/60">Annually</span><span className="text-gold">R{(activeTrigger.amount * 48).toLocaleString()}</span></div>
-                          <div className="flex justify-between"><span className="text-white/60">Invested at 10% for 5 years</span><span className="text-gold font-bold">R{Math.round(activeTrigger.amount * 48 * 5 * 1.1).toLocaleString()}</span></div>
+                          <div className="flex justify-between"><span className="text-white/60">Monthly (×4)</span><span className="text-gold">{formatCurrency(activeTrigger.amount * 4)}</span></div>
+                          <div className="flex justify-between"><span className="text-white/60">Annually</span><span className="text-gold">{formatCurrency(activeTrigger.amount * 48)}</span></div>
+                          <div className="flex justify-between"><span className="text-white/60">Invested at 10% for 5 years</span><span className="text-gold font-bold">{formatCurrency(Math.round(activeTrigger.amount * 48 * 5 * 1.1))}</span></div>
                         </div>
                       </div>
-                      <p className="text-xs text-muted-foreground mb-4">+R200 cash · +10 XP added to your account</p>
+                      <p className="text-xs text-muted-foreground mb-4">+{formatCurrency(200)} cash · +10 XP added to your account</p>
                     </>
                   ) : (
                     <>
                       <div className="w-16 h-16 bg-xhosa-red/20 rounded-full flex items-center justify-center mx-auto mb-4">
                         <ShoppingBag className="w-8 h-8 text-xhosa-red" />
                       </div>
-                      <h3 className="font-serif text-xl font-bold text-xhosa-red mb-2">Spent R{activeTrigger.amount.toLocaleString()}</h3>
+                      <h3 className="font-serif text-xl font-bold text-xhosa-red mb-2">Spent {formatCurrency(activeTrigger.amount)}</h3>
                       <p className="text-sm text-white/70 mb-5">
                         Was this a need or a feeling? Track it. Next time, try the breathing exercise first.
                       </p>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { TrendingUp, X, ExternalLink, Coins } from "lucide-react";
+import { useCurrencyFormatter } from "@/shared/hooks/useCurrencyFormatter";
 
 type Trigger =
   | "trade"         // after a buy/sell
@@ -50,6 +51,7 @@ const EE_URL = "https://www.easyequities.co.za";
 
 export function EasyEquitiesPrompt({ trigger, netWorth, inline = false, onDismiss }: Props) {
   const [dismissed, setDismissed] = useState(false);
+  const formatCurrency = useCurrencyFormatter();
   const msg = MESSAGES[trigger];
 
   const handleDismiss = () => {
@@ -130,7 +132,7 @@ export function EasyEquitiesPrompt({ trigger, netWorth, inline = false, onDismis
             <div className="bg-gold/5 border border-gold/15 rounded-xl p-3 mb-5 text-center">
               <p className="text-xs text-muted-foreground mb-0.5">Your simulated net worth</p>
               <p className="text-xl font-bold gold-text">
-                R{netWorth.toLocaleString(undefined, { maximumFractionDigits: 0 })}
+                {formatCurrency(netWorth)}
               </p>
             </div>
           )}

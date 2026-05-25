@@ -150,7 +150,7 @@ export default function TimeMachine() {
           <div>
             <div className="flex justify-between text-xs text-muted-foreground mb-1">
               <span>Monthly contribution</span>
-              <span className="font-semibold text-white">R{monthlyContrib.toLocaleString()}/mo</span>
+              <span className="font-semibold text-white">{formatCurrency(monthlyContrib)}/mo</span>
             </div>
             <input
               type="range"
@@ -318,7 +318,7 @@ export default function TimeMachine() {
           ))}
         </div>
         <p className="text-[10px] text-muted-foreground mt-3">
-          Based on {(rate * 100).toFixed(1)}% annual return · R{monthlyContrib.toLocaleString()}/mo contribution · Starting {formatCurrency(principal || 10000)}
+          Based on {(rate * 100).toFixed(1)}% annual return · {formatCurrency(monthlyContrib)}/mo contribution · Starting {formatCurrency(principal || 10000)}
         </p>
       </div>
 

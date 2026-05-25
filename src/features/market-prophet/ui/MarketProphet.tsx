@@ -122,7 +122,7 @@ function PredictionCard({
       {isPending && (
         <div className="flex items-center gap-2 text-xs text-gold bg-gold/5 border border-gold/15 rounded-xl px-3 py-2 mb-3">
           <Clock className="w-3.5 h-3.5 shrink-0" />
-          <span>Bet R{pred.userBetAmount} on <strong>{pred.options[pred.userBet as 0 | 1]}</strong> — awaiting settlement</span>
+          <span>Bet {formatCurrency(pred.userBetAmount)} on <strong>{pred.options[pred.userBet as 0 | 1]}</strong> — awaiting settlement</span>
         </div>
       )}
 

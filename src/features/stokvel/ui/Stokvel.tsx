@@ -76,6 +76,7 @@ function memberColor(name: string) {
 // ── Sub-components ────────────────────────────────────────────────────────────
 
 function PotRing({ pct, pot, target }: { pct: number; pot: number; target: number }) {
+  const formatCurrency = useCurrencyFormatter();
   const r = 52;
   const circumference = 2 * Math.PI * r;
   const dashOffset = circumference * (1 - pct / 100);
@@ -106,9 +107,9 @@ function PotRing({ pct, pot, target }: { pct: number; pot: number; target: numbe
 
       <div className="text-center z-10">
         <motion.p key={pot} initial={{ scale: 1.15, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="text-lg font-black text-white leading-none">
-          R{pot.toLocaleString()}
+          {formatCurrency(pot)}
         </motion.p>
-        <p className="text-[10px] text-muted-foreground mt-0.5">of R{target.toLocaleString()}</p>
+        <p className="text-[10px] text-muted-foreground mt-0.5">of {formatCurrency(target)}</p>
         <p className="text-[10px] font-bold text-gold mt-0.5">{Math.round(pct)}%</p>
         {nearFull && (
           <motion.p
@@ -622,13 +623,13 @@ export default function Stokvel() {
                             <div className="flex-1 min-w-0">
                               <p className="text-xs font-medium text-white">{item.name}</p>
                               <div className="flex items-center gap-2 mt-0.5">
-                                <span className="text-[10px] text-muted-foreground line-through">R{item.retail}</span>
-                                <span className="text-[10px] text-xhosa-teal font-semibold">R{item.bulk}</span>
+                                <span className="text-[10px] text-muted-foreground line-through">{formatCurrency(item.retail)}</span>
+                                <span className="text-[10px] text-xhosa-teal font-semibold">{formatCurrency(item.bulk)}</span>
                               </div>
                             </div>
                             <div className="text-right">
                               <span className="text-xs font-bold text-xhosa-teal">−{pct}%</span>
-                              <p className="text-[9px] text-muted-foreground">save R{saving}</p>
+                              <p className="text-[9px] text-muted-foreground">save {formatCurrency(saving)}</p>
                             </div>
                           </motion.div>
                         );
@@ -636,15 +637,15 @@ export default function Stokvel() {
                       <div className="pt-3 mt-1 space-y-1">
                         <div className="flex justify-between text-xs">
                           <span className="text-muted-foreground">Total retail</span>
-                          <span className="text-white font-semibold">R{GROCERY_ITEMS.reduce((s, i) => s + i.retail, 0)}</span>
+                          <span className="text-white font-semibold">{formatCurrency(GROCERY_ITEMS.reduce((s, i) => s + i.retail, 0))}</span>
                         </div>
                         <div className="flex justify-between text-xs">
                           <span className="text-muted-foreground">Total bulk</span>
-                          <span className="text-xhosa-teal font-semibold">R{GROCERY_ITEMS.reduce((s, i) => s + i.bulk, 0)}</span>
+                          <span className="text-xhosa-teal font-semibold">{formatCurrency(GROCERY_ITEMS.reduce((s, i) => s + i.bulk, 0))}</span>
                         </div>
                         <div className="flex justify-between text-xs pt-1 border-t border-white/8">
                           <span className="text-muted-foreground">You save</span>
-                          <span className="text-gold font-bold">R{GROCERY_ITEMS.reduce((s, i) => s + (i.retail - i.bulk), 0)}</span>
+                          <span className="text-gold font-bold">{formatCurrency(GROCERY_ITEMS.reduce((s, i) => s + (i.retail - i.bulk), 0))}</span>
                         </div>
                       </div>
                     </div>
