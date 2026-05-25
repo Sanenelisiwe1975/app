@@ -1,0 +1,171 @@
+{
+  "common": {
+    "back": "Terug",
+    "continue": "Aanhou",
+    "save": "Stoor",
+    "reset": "Herstel",
+    "cancel": "Kanselleer",
+    "loading": "Laai tans..."
+  },
+  "nav": {
+    "dashboard": "Kontroleskerm",
+    "learn": "Leer",
+    "market": "Marks",
+    "portfolio": "Portefeulje",
+    "stokvel": "Stokvel",
+    "timeMachine": "Tydmasjien",
+    "antiScam": "B2B Skild",
+    "wealthyBody": "Gesonde Liggaam",
+    "emotion": "Emosie",
+    "prophet": "Profeet",
+    "certificate": "Sertifikaat",
+    "switch": "Wissel"
+  },
+  "register": {
+    "title": "Welkom, Toekomstige Titan",
+    "subtitle": "Jou rykdomspotjie groei as jy nou begin.",
+    "firstName": "Voornaam",
+    "surname": "Van",
+    "age": "Ouderdom",
+    "location": "Ligging (bv. Kaapstad, Johannesburg)",
+    "choosePath": "Kies Jou Pad",
+    "loadProgress": "Laai Gestoorde Vordering",
+    "mindsets": "mentaliteite"
+  },
+  "dashboard": {
+    "netWorth": "Netto Waarde",
+    "xp": "XP",
+    "badges": "Kentekens",
+    "healthBoost": "Gesondheidsverbetering",
+    "modules": "Modules",
+    "cash": "Kontant",
+    "trades": "Handel",
+    "impulseBlocks": "Impulsblokke",
+    "scamAwareness": "Bedrogbewustheid",
+    "continueLearning": "Gaan Voort met Leer",
+    "viewAll": "Sien Alles",
+    "quote": "\"Umuntu ngumuntu ngabantu\" — 'n Mens is 'n mens deur ander mense. Jou rykdomsreis word gevorm deur gemeenskap, kennis en gedissiplineerde aksie."
+  },
+  "market": {
+    "title": "Marksimulator",
+    "subtitle": "Lewende marksimulasie met bewegende gemiddelde seine.",
+    "buySignal": "KOOPSEIN",
+    "sellSignal": "VERKOOPSEIN",
+    "hold": "HOU",
+    "signal": "Sein",
+    "position": "Jou Posisie",
+    "shares": "Aandele",
+    "value": "Waarde",
+    "canBuy": "Kan Koop",
+    "buyOne": "Koop 1 Aandeel",
+    "sellOne": "Verkoop 1 Aandeel",
+    "liveSimulation": "Lewende simulasie",
+    "tip": "Wenk: Jy kan begin belê met so min as R1 op EasyEquities. Elke klein stap bou jou ryk."
+  },
+  "portfolio": {
+    "title": "Jou Beleggings",
+    "subtitle": "Volg elke bate in jou groeiende ryk.",
+    "cash": "Kontant",
+    "invested": "Belê",
+    "netWorth": "Netto Waarde",
+    "shares": "Aandele",
+    "price": "Prys",
+    "value": "Waarde",
+    "allocation": "Toewysing",
+    "change": "Verandering",
+    "noHoldings": "Geen beleggings nie. Besoek die Mark om jou portefeulje te begin bou.",
+    "tradeHistory": "Handelsgeskiedenis",
+    "noTrades": "Nog geen handel nie. Besoek die Mark om te begin handel dryf.",
+    "allocationTitle": "Portefeuljetoewysing"
+  },
+  "stokvel": {
+    "title": "Gemeenskapstokvel",
+    "quote": "\"Umuntu ngumuntu ngabantu\"",
+    "members": "Lede",
+    "pot": "Pot",
+    "nextPayout": "Volgende Uitbetaling",
+    "contribute": "Dra R100 by",
+    "votePayout": "Stem vir Uitbetaling",
+    "howItWorks": "Hoe Dit Werk"
+  },
+  "timeMachine": {
+    "title": "Geslagsrykdom Tydmasjien",
+    "subtitle": "Kyk wat gebeur wanneer geduld saamtref met saamgestelde rente.",
+    "currentNetWorth": "Huidige Netto Waarde",
+    "project": "Bereken Projeksie",
+    "descendants": "afstammelinge baat",
+    "powerOf7": "Rykdomsgroei-Mylpale"
+  },
+  "antiScam": {
+    "title": "B2B Ondernemingskild",
+    "awareness": "Bewustheid",
+    "attempts": "Pogings",
+    "avoided": "Vermy",
+    "simulate": "Gesimuleerde Uitvissing-e-pos",
+    "customTitle": "Skep Pasgemaakte Opleidingsscenario",
+    "addPool": "Voeg by Opleidingspoel",
+    "download": "Laai Nakomingsverslag Af"
+  },
+  "wealthyBody": {
+    "title": "Gesonde Liggaam",
+    "subtitle": "Jou liggaam is jou waardevolste bate. Gesondheid vermenigvuldig rykdom.",
+    "steps": "Stappe",
+    "sleep": "Slaap",
+    "heartRate": "Harttempo",
+    "multiplier": "Vermenigvuldiger",
+    "premium": "Versekeringspremie",
+    "premiumSub": "Gekoppel aan jou gesondheidstelling",
+    "sync": "Sinkroniseer Draagbare (Skyn)"
+  },
+  "emotion": {
+    "title": "Emosionele Besteding Spoorhouder",
+    "subtitle": "Beheer jou emosies voordat hulle jou beursie beheer.",
+    "heartRate": "Huidige Harttempo",
+    "stressLevel": "Stresmaat",
+    "simulate": "Simuleer Impulse Aankoop",
+    "breathe": "Haal Diep Asem",
+    "calm": "Ek Voel Nou Kalm",
+    "blockedSpends": "Geblokkeerde Bestedinge",
+    "moneySaved": "Geld Gespaar"
+  },
+  "prophet": {
+    "title": "Markprofeet",
+    "subtitle": "Voorspel markuitkomste. Wed met wysheid. Maak wins van vooruitsig.",
+    "balance": "Profeetbalans",
+    "settle": "Verdrempel Markte (Simuleer Uitkoms)"
+  },
+  "learn": {
+    "title": "Jou Modules",
+    "module": "Module",
+    "keyInsight": "Sleutelinsigte",
+    "startQuiz": "Begin Vasvra",
+    "reviewNotes": "Hersien Notas",
+    "completed": "Voltooi ✓",
+    "notStarted": "Nog nie begin",
+    "nailedIt": "Puik gedoen!",
+    "keepLearning": "Hou aan Leer",
+    "continueJourney": "Gaan Voort met Reis",
+    "tryAgain": "Probeer Weer"
+  },
+  "certificate": {
+    "title": "Voltooiingsertifikaat",
+    "subtitle": "Voltooi alle modules om jou premium FINLIT-sertifikaat te ontsluit.",
+    "certTitle": "FINLIT",
+    "certSubtitle": "Sertifikaat van Finansiële Geletterdheid",
+    "certifies": "Hierdie sertifiseer dat",
+    "awardedBy": "Toegeken deur",
+    "download": "Laai af as PNG",
+    "downloaded": "Afgelaai!"
+  },
+  "switchMindset": {
+    "title": "Wissel Mentaliteit",
+    "subtitle": "Ontwikkel jou finansiële identiteit. Begin 'n nuwe pad terwyl jy jou nalatenskap bewaar.",
+    "newTitle": "Begin Nuwe Mentaliteit",
+    "newDesc": "Jou XP en kentekens bly as permanente nalatenskap. Kontant en modulevordering stel terug vir jou nuwe pad.",
+    "newButton": "Begin Nuwe Reis",
+    "resetTitle": "Harde Herstel",
+    "resetDesc": "Volledige uitwissing. Alle vordering, XP, kentekens en geskiedenis word vir altyd uitgewis.",
+    "resetButton": "Vernietig Alle Vordering",
+    "resetConfirm": "HARDE HERSTEL: Alle vordering sal permanent uitgewis word. Is jy seker?"
+  }
+}

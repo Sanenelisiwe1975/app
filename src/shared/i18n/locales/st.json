@@ -1,0 +1,171 @@
+{
+  "common": {
+    "back": "Morao",
+    "continue": "Tswela Pele",
+    "save": "Boloka",
+    "reset": "Simolla",
+    "cancel": "Hlakola",
+    "loading": "E a laola..."
+  },
+  "nav": {
+    "dashboard": "Dashiboodo",
+    "learn": "Ithuta",
+    "market": "Mmaraka",
+    "portfolio": "Polokelo",
+    "stokvel": "Stokfeli",
+    "timeMachine": "Matshini wa Nako",
+    "antiScam": "Sesireletso",
+    "wealthyBody": "Mmele o Humileng",
+    "emotion": "Maikutlo",
+    "prophet": "Porofete",
+    "certificate": "Setifikeiti",
+    "switch": "Fetola"
+  },
+  "register": {
+    "title": "Wamkelehile, Mogale wa Nako",
+    "subtitle": "Leqoa la hao la lenyora le hola ha o qala hona joale.",
+    "firstName": "Lebitso la Pele",
+    "surname": "Fane",
+    "age": "Dilemo",
+    "location": "Sebaka (bek., Itheku, Kapa)",
+    "choosePath": "Kgetha Tsela ya Hao",
+    "loadProgress": "Laola Tsoelo-pele e Bolokilweng",
+    "mindsets": "ditsela"
+  },
+  "dashboard": {
+    "netWorth": "Boleng ba Net",
+    "xp": "XP",
+    "badges": "Dibetja",
+    "healthBoost": "Ntlafatso ya Bophelo",
+    "modules": "Dimodyulu",
+    "cash": "Tjhelete",
+    "trades": "Ditshebetso",
+    "impulseBlocks": "Thibelo tsa Maikutlo",
+    "scamAwareness": "Tsebo ya Bohata",
+    "continueLearning": "Tswela Pele ho Ithuta",
+    "viewAll": "Bona Tsohle",
+    "quote": "\"Motho ke motho ka batho\" — Motho ke motho ka batho. Leeto la hao la lenyora le hlahiswa ke sechaba, tsebo, le mesebetsi e loketseng."
+  },
+  "market": {
+    "title": "Sebapali sa Mmaraka",
+    "subtitle": "Sebapali sa mmaraka se phethang le maele a phapang.",
+    "buySignal": "LETSHWAO LA REKA",
+    "sellSignal": "LETSHWAO LA REKISA",
+    "hold": "TSHWARA",
+    "signal": "Letshwao",
+    "position": "Boemo ba Hao",
+    "shares": "Diqhekellwane",
+    "value": "Boleng",
+    "canBuy": "O ka Reka",
+    "buyOne": "Reka Qhekellwane e Nngwe",
+    "sellOne": "Rekisa Qhekellwane e Nngwe",
+    "liveSimulation": "Sebapali se phelang",
+    "tip": "Keletso: O ka simolla ho tshehetsa ho tloha ho R1 ho EasyEquities. Mohato o mong le o mong o aha mmuso wa hao."
+  },
+  "portfolio": {
+    "title": "Dithoto tsa Hao",
+    "subtitle": "Latela thoto e nngwe le e nngwe mmung wa hao o holeng.",
+    "cash": "Tjhelete",
+    "invested": "E Hlaselitsweng",
+    "netWorth": "Boleng ba Net",
+    "shares": "Diqhekellwane",
+    "price": "Theko",
+    "value": "Boleng",
+    "allocation": "Kabo",
+    "change": "Phetoho",
+    "noHoldings": "Ha ho dithoto. Etela Mmaraka ho qala ho aha polokelo ya hao.",
+    "tradeHistory": "Histori ya Ditshebetso",
+    "noTrades": "Ha ho ditshebetso. Etela Mmaraka ho qala ho rekisa.",
+    "allocationTitle": "Kabo ya Polokelo"
+  },
+  "stokvel": {
+    "title": "Stokfeli wa Setjhaba",
+    "quote": "\"Motho ke motho ka batho\"",
+    "members": "Ditho",
+    "pot": "Sesaka",
+    "nextPayout": "Tefo e Tlang",
+    "contribute": "Kenyelletsa R100",
+    "votePayout": "Vouta Tefo",
+    "howItWorks": "E Sebetsa Joang"
+  },
+  "timeMachine": {
+    "title": "Matshini wa Nako wa Lenyora la Ditshaba",
+    "subtitle": "Bona se etsahalang ha boitelo bo kopana le tswala e hlephuhileng.",
+    "currentNetWorth": "Boleng ba Net Hona Jwale",
+    "project": "Bala Hore E tla ba Bokae",
+    "descendants": "bana ba bang ba hola",
+    "powerOf7": "Diqeto tsa Kgolo ya Lenyora"
+  },
+  "antiScam": {
+    "title": "Sesireletso sa B2B",
+    "awareness": "Tsebo",
+    "attempts": "Manollo",
+    "avoided": "E Phemotsoe",
+    "simulate": "Lengolo la Bohata le Phethiswang",
+    "customTitle": "Etsa Sehlopha sa Koetliso",
+    "addPool": "Kenya ho Pool ya Koetliso",
+    "download": "Latolla Tlaleho ya Tekatekano"
+  },
+  "wealthyBody": {
+    "title": "Mmele o Humileng",
+    "subtitle": "Mmele wa hao ke thoto ya hao e bohlokwa ka ho fetisisa. Bophelo bo atisa lenyora.",
+    "steps": "Dikgato",
+    "sleep": "Boroko",
+    "heartRate": "Pela ya Pelo",
+    "multiplier": "Karolo ya Atiso",
+    "premium": "Tefo ya Inshorense",
+    "premiumSub": "E amahana le manane a bophelo ba hao",
+    "sync": "Kopanya Disebediswa (Qapelo)"
+  },
+  "emotion": {
+    "title": "Hlokomelo ya Ditshenyehelo tsa Maikutlo",
+    "subtitle": "Laola maikutlo a hao pele a sa laole sehwantshi sa hao.",
+    "heartRate": "Pela ya Pelo Hona Jwale",
+    "stressLevel": "Boemo ba Kwalehelo",
+    "simulate": "Phethisa Pheello ya Karabelo",
+    "breathe": "Hema Mowa o Tebileng",
+    "calm": "Ke Utlwa Ke Kgotsofalehile Hona Jwale",
+    "blockedSpends": "Ditshenyehelo tse Thibetsweng",
+    "moneySaved": "Tjhelete e Hlokometswe"
+  },
+  "prophet": {
+    "title": "Porofete wa Mmaraka",
+    "subtitle": "Porofetsa diphetho tsa mmaraka. Beha tjhelete ka bohlale. Bola ka phono.",
+    "balance": "Tekanyo ya Porofete",
+    "settle": "Phetha Dimmaraka (Phethisa Diphetho)"
+  },
+  "learn": {
+    "title": "Dimodyulu tsa Hao",
+    "module": "Modyulu",
+    "keyInsight": "Tlhaloso e Bohlokwa",
+    "startQuiz": "Qala Dipotso",
+    "reviewNotes": "Sheba Hape Dipampiri",
+    "completed": "E Phethilwe ✓",
+    "notStarted": "Ha e qalwa",
+    "nailedIt": "O e Phethile!",
+    "keepLearning": "Tswela Pele ho Ithuta",
+    "continueJourney": "Tswela Pele Leetong",
+    "tryAgain": "Leka Hape"
+  },
+  "certificate": {
+    "title": "Setifikeiti sa Phethelo",
+    "subtitle": "Phethela dimodyulu tsohle ho qhobolla setifikeiti sa hao sa FINLIT.",
+    "certTitle": "FINLIT",
+    "certSubtitle": "Setifikeiti sa Thuto ya Ditjhelete",
+    "certifies": "Sena se netefatsa hore",
+    "awardedBy": "E neilwe ke",
+    "download": "Latolla e le setshwantsho sa PNG",
+    "downloaded": "E Latollilwe!"
+  },
+  "switchMindset": {
+    "title": "Fetola Mohopolo",
+    "subtitle": "Fetola boitsebiso ba hao ba ditjhelete. Qala tsela e ntjha o boloka lefa la hao.",
+    "newTitle": "Qala Mohopolo o Motjha",
+    "newDesc": "XP le dibetja tsa hao di hlaha e le lefa la kgantlo. Tjhelete le tsoelo-pele ya modyulu di simolla hape.",
+    "newButton": "Qala Leeto le Lecha",
+    "resetTitle": "Seta ka Botlalo",
+    "resetDesc": "Phumola tsohle. Tsoelo-pele yohle, XP, dibetja, le histori di hlakolwa ka ho sa feleng.",
+    "resetButton": "Senya Tsoelo-pele Yohle",
+    "resetConfirm": "SETA KA BOTLALO: Tsoelo-pele yohle e tla hlakollwa ka ho sa feleng. Na o na le bonnete?"
+  }
+}

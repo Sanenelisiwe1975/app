@@ -89,7 +89,7 @@ export default function MindsetSelect() {
                 onClick={() => handleSelect(mindset)}
                 onMouseEnter={() => setHovered(mindset.id)}
                 onMouseLeave={() => setHovered(null)}
-                className="relative text-left rounded-3xl border border-white/10 overflow-hidden group transition-all duration-300 hover:border-gold/40 hover:shadow-[0_0_32px_rgba(212,175,55,0.12)]"
+                className="relative text-left rounded-3xl border border-white/10 overflow-hidden group transition-all duration-300 hover:border-gold/40 hover:shadow-[0_0_32px_rgba(212,175,55,0.12)] touch-manipulation"
                 style={{ background: "rgba(15,13,11,0.85)" }}
                 whileHover={{ y: -5, scale: 1.015 }}
                 whileTap={{ scale: 0.97 }}

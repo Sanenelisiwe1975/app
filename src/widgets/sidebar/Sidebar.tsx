@@ -6,12 +6,17 @@ import {
   LayoutDashboard, BookOpen, TrendingUp, Briefcase,
   Users, Clock, Shield, Heart, Brain, Award, RefreshCw, ChevronRight, Globe,
 } from "lucide-react";
+import { MuteButton } from "@/shared/ui/MuteButton";
+import { CurrencySelector } from "@/shared/ui/CurrencySelector";
 import { useUiStore, type Page } from "@/shared/stores/uiStore";
 import { useUserStore } from "@/shared/stores/userStore";
 
 const LANGUAGES = [
-  { code: "en", label: "EN" },
-  { code: "zu", label: "ZU" },
+  { code: "en", label: "EN", title: "English"    },
+  { code: "zu", label: "ZU", title: "isiZulu"    },
+  { code: "xh", label: "XH", title: "isiXhosa"  },
+  { code: "st", label: "ST", title: "Sesotho"    },
+  { code: "af", label: "AF", title: "Afrikaans"  },
 ] as const;
 
 const NAV_ITEMS: { id: Page; icon: React.ElementType; labelKey: string }[] = [
@@ -91,7 +96,7 @@ export default memo(function Sidebar() {
         <div className="flex items-center gap-2">
           <Globe className="w-3 h-3 text-muted-foreground" />
           <div className="flex gap-1">
-            {LANGUAGES.map(({ code, label }) => (
+            {LANGUAGES.map(({ code, label, title }) => (
               <button
                 key={code}
                 type="button"
@@ -101,12 +106,18 @@ export default memo(function Sidebar() {
                     ? "bg-gold/20 text-gold border border-gold/30"
                     : "text-muted-foreground hover:text-white"
                 }`}
-                aria-label={`Switch to ${code === "en" ? "English" : "Zulu"}`}
+                aria-label={`Switch to ${title}`}
+                title={title}
               >
                 {label}
               </button>
             ))}
           </div>
+        </div>
+        {/* Sound + Currency controls */}
+        <div className="flex items-center gap-2">
+          <MuteButton />
+          <CurrencySelector />
         </div>
         <div className="beadwork-bar w-full" />
         <p className="text-[10px] text-muted-foreground text-center tracking-wider uppercase">

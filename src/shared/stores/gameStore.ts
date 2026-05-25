@@ -134,7 +134,12 @@ export const useGameStore = create<GameState & GameActions>()(
           set((s) => { s.cash = Math.max(0, s.cash + delta); }, false, 'game/addCash'),
 
         addXp: (delta) =>
-          set((s) => { s.xp = Math.max(0, s.xp + delta); }, false, 'game/addXp'),
+          set((s) => {
+            s.xp = Math.max(0, s.xp + delta);
+            // Auto-advance level based on XP milestones
+            if (s.xp >= 700 && s.level === 'intermediate') s.level = 'advanced';
+            else if (s.xp >= 300 && s.level === 'beginner') s.level = 'intermediate';
+          }, false, 'game/addXp'),
 
         addBadge: (badge) =>
           set((s) => {

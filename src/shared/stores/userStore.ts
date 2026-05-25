@@ -4,12 +4,15 @@ import { immer } from 'zustand/middleware/immer';
 import type { User, AudienceKey } from '@/entities';
 import type { Mindset } from '@/data/mindsets';
 
+export type CurrencyCode = 'ZAR' | 'USD' | 'EUR' | 'GBP' | 'AED';
+
 interface UserState {
   user: User | null;
   audienceKey: AudienceKey | null;
   mindset: Mindset | null;
-  /** True after the Wamkelekile welcome video has been dismissed once */
   hasSeenWelcome: boolean;
+  soundEnabled: boolean;
+  currency: CurrencyCode;
 }
 
 interface UserActions {
@@ -17,6 +20,8 @@ interface UserActions {
   setAudience: (key: AudienceKey) => void;
   setMindset: (mindset: Mindset) => void;
   markWelcomeSeen: () => void;
+  setSoundEnabled: (enabled: boolean) => void;
+  setCurrency: (currency: CurrencyCode) => void;
   clear: () => void;
 }
 
@@ -25,6 +30,8 @@ const INITIAL: UserState = {
   audienceKey: null,
   mindset: null,
   hasSeenWelcome: false,
+  soundEnabled: true,
+  currency: 'ZAR',
 };
 
 export const useUserStore = create<UserState & UserActions>()(
@@ -45,6 +52,12 @@ export const useUserStore = create<UserState & UserActions>()(
         markWelcomeSeen: () =>
           set((s) => { s.hasSeenWelcome = true; }, false, 'user/markWelcomeSeen'),
 
+        setSoundEnabled: (enabled) =>
+          set((s) => { s.soundEnabled = enabled; }, false, 'user/setSoundEnabled'),
+
+        setCurrency: (currency) =>
+          set((s) => { s.currency = currency; }, false, 'user/setCurrency'),
+
         clear: () =>
           set(() => ({ ...INITIAL }), false, 'user/clear'),
       })),
@@ -55,6 +68,8 @@ export const useUserStore = create<UserState & UserActions>()(
           audienceKey: s.audienceKey,
           mindset: s.mindset ? { id: s.mindset.id } : null,
           hasSeenWelcome: s.hasSeenWelcome,
+          soundEnabled: s.soundEnabled,
+          currency: s.currency,
         }),
       }
     ),

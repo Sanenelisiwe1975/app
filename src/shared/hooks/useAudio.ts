@@ -1,4 +1,5 @@
 import { useCallback, useRef } from "react";
+import { useUserStore } from "@/shared/stores/userStore";
 
 export function useAudio() {
   const ctxRef = useRef<AudioContext | null>(null);
@@ -14,6 +15,7 @@ export function useAudio() {
   }, []);
 
   const playDrum = useCallback(() => {
+    if (!useUserStore.getState().soundEnabled) return;
     try {
       const ctx = getCtx();
       const now = ctx.currentTime;
@@ -30,6 +32,7 @@ export function useAudio() {
   }, [getCtx]);
 
   const playSuccess = useCallback(() => {
+    if (!useUserStore.getState().soundEnabled) return;
     try {
       const ctx = getCtx();
       const now = ctx.currentTime;
@@ -48,6 +51,7 @@ export function useAudio() {
   }, [getCtx]);
 
   const playClick = useCallback(() => {
+    if (!useUserStore.getState().soundEnabled) return;
     try {
       const ctx = getCtx();
       const now = ctx.currentTime;
@@ -64,6 +68,7 @@ export function useAudio() {
   }, [getCtx]);
 
   const playHymn = useCallback(() => {
+    if (!useUserStore.getState().soundEnabled) return;
     try {
       const ctx = getCtx();
       const now = ctx.currentTime;

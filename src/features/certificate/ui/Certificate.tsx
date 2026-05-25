@@ -1,7 +1,6 @@
 import { useRef, useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import { QRCodeSVG } from "qrcode.react";
 import {
   Award, Download, CheckCircle, Shield,
   Wallet, Zap, ExternalLink, RefreshCw, AlertCircle,
@@ -30,40 +29,112 @@ interface CertMeta {
   id: string;
   hash: string;
   issuedAt: number;
-  expiresAt: number;
 }
 
 async function buildCertMeta(name: string, mindset: string, date: string): Promise<CertMeta> {
-  const issuedAt  = Date.now();
-  const expiresAt = issuedAt + 60 * 60 * 1000;
-  const raw       = `${name}|${mindset}|${date}|${issuedAt}`;
-  const hash      = await sha256(raw);
-  const id        = `FINLIT-${hash.slice(0, 8).toUpperCase()}-${hash.slice(8, 16).toUpperCase()}`;
-  return { id, hash, issuedAt, expiresAt };
+  const issuedAt = Date.now();
+  const raw      = `${name}|${mindset}|${date}|${issuedAt}`;
+  const hash     = await sha256(raw);
+  const id       = `FINLIT-${hash.slice(0, 8).toUpperCase()}-${hash.slice(8, 16).toUpperCase()}`;
+  return { id, hash, issuedAt };
 }
 
-function buildQrPayload(meta: CertMeta, name: string, mindset: string) {
-  return JSON.stringify({
-    certId:    meta.id,
-    holder:    name,
-    mindset,
-    hash:      meta.hash,
-    issuedAt:  new Date(meta.issuedAt).toISOString(),
-    expiresAt: new Date(meta.expiresAt).toISOString(),
-    issuer:    "Xhosa Rise Global Holdings",
-  });
+// ── Xhosa-inspired decorative components ────────────────────────────────────
+
+const BEAD_COLORS = ["#D4AF37","#E74C3C","#1ABC9C","#3498DB","#9B59B6","#E67E22","#F1C40F"];
+
+function BeadworkBorder({ flip = false }: { flip?: boolean }) {
+  return (
+    <div className="flex overflow-hidden" style={{ height: 10, width: "100%" }}>
+      {Array.from({ length: 80 }).map((_, i) => (
+        <div
+          key={i}
+          style={{
+            width: 10,
+            height: 10,
+            flexShrink: 0,
+            background: BEAD_COLORS[i % BEAD_COLORS.length],
+            clipPath: flip
+              ? "polygon(50% 100%, 100% 0%, 0% 0%)"
+              : "polygon(50% 0%, 100% 100%, 0% 100%)",
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
+function XhosaSeal() {
+  return (
+    <svg width="96" height="96" viewBox="0 0 96 96" className="mx-auto">
+      {/* Outer ring */}
+      <circle cx="48" cy="48" r="46" fill="none" stroke="#D4AF37" strokeWidth="1.5"/>
+      {/* Dashed inner ring */}
+      <circle cx="48" cy="48" r="37" fill="none" stroke="#D4AF37" strokeWidth="0.75" strokeDasharray="3 2.5"/>
+      {/* 8-pointed star (outer) */}
+      <polygon
+        points="48,8 53,37 82,48 53,59 48,88 43,59 14,48 43,37"
+        fill="#D4AF37" fillOpacity="0.15"
+      />
+      {/* 8-pointed star (inner) */}
+      <polygon
+        points="48,20 52,39 71,48 52,57 48,76 44,57 25,48 44,39"
+        fill="#D4AF37" fillOpacity="0.40"
+      />
+      {/* Centre diamond */}
+      <polygon points="48,32 57,48 48,64 39,48" fill="#D4AF37"/>
+      {/* Cardinal accent arrows */}
+      <polygon points="48,10 51,18 45,18" fill="#D4AF37"/>
+      <polygon points="86,48 78,45 78,51" fill="#D4AF37"/>
+      <polygon points="48,86 51,78 45,78" fill="#D4AF37"/>
+      <polygon points="10,48 18,45 18,51" fill="#D4AF37"/>
+      {/* Diagonal dot accents */}
+      <circle cx="72" cy="24" r="2" fill="#D4AF37" fillOpacity="0.5"/>
+      <circle cx="24" cy="72" r="2" fill="#D4AF37" fillOpacity="0.5"/>
+      <circle cx="72" cy="72" r="2" fill="#D4AF37" fillOpacity="0.5"/>
+      <circle cx="24" cy="24" r="2" fill="#D4AF37" fillOpacity="0.5"/>
+    </svg>
+  );
+}
+
+function CornerDecor({ pos }: { pos: "tl" | "tr" | "bl" | "br" }) {
+  const deg = { tl: 0, tr: 90, br: 180, bl: 270 }[pos];
+  return (
+    <div
+      className="absolute pointer-events-none"
+      style={{
+        top:    pos.startsWith("t") ? 8   : undefined,
+        bottom: pos.startsWith("b") ? 8   : undefined,
+        left:   pos.endsWith("l")   ? 8   : undefined,
+        right:  pos.endsWith("r")   ? 8   : undefined,
+        width: 48, height: 48,
+      }}
+    >
+      <svg width="48" height="48" viewBox="0 0 48 48">
+        <g transform={`rotate(${deg}, 24, 24)`}>
+          <line x1="0" y1="0" x2="48" y2="0" stroke="#D4AF37" strokeWidth="1.5"/>
+          <line x1="0" y1="0" x2="0"  y2="48" stroke="#D4AF37" strokeWidth="1.5"/>
+          <polygon points="0,0 22,0 0,22" fill="#D4AF37" fillOpacity="0.18"/>
+          <rect x="3" y="3" width="8" height="8" fill="#D4AF37" fillOpacity="0.55"
+            transform="rotate(45, 7, 7)"/>
+          <circle cx="16" cy="3" r="1.5" fill="#D4AF37" fillOpacity="0.5"/>
+          <circle cx="3"  cy="16" r="1.5" fill="#D4AF37" fillOpacity="0.5"/>
+        </g>
+      </svg>
+    </div>
+  );
 }
 
 // ── Status label helpers ─────────────────────────────────────────────────────
 
 const STATUS_LABELS: Record<string, string> = {
-  idle:               "Ready",
+  idle:                 "Ready",
   "requesting-airdrop": "Requesting test SOL…",
-  building:           "Building transaction…",
-  signing:            "Waiting for wallet signature…",
-  confirming:         "Confirming on Devnet…",
-  success:            "Anchored on Devnet!",
-  error:              "Error",
+  building:             "Building transaction…",
+  signing:              "Waiting for wallet signature…",
+  confirming:           "Confirming on Devnet…",
+  success:              "Anchored on Devnet!",
+  error:                "Error",
 };
 
 // ── Devnet NFT tab ───────────────────────────────────────────────────────────
@@ -89,7 +160,6 @@ function DevnetTab({ meta }: { meta: CertMeta }) {
 
   return (
     <div className="space-y-4">
-      {/* Test environment banner */}
       <div className="flex items-start gap-3 bg-xhosa-blue/10 border border-xhosa-blue/30 rounded-2xl p-4">
         <FlaskConical className="w-5 h-5 text-xhosa-blue shrink-0 mt-0.5" />
         <div>
@@ -102,7 +172,7 @@ function DevnetTab({ meta }: { meta: CertMeta }) {
         </div>
       </div>
 
-      {/* Step 1 — Connect wallet */}
+      {/* Step 1 */}
       <div className="glass-card p-5">
         <div className="flex items-center gap-2 mb-3">
           <span className="w-6 h-6 rounded-full bg-gold/20 text-gold text-xs font-bold flex items-center justify-center">1</span>
@@ -111,32 +181,23 @@ function DevnetTab({ meta }: { meta: CertMeta }) {
         <p className="text-xs text-muted-foreground mb-4">
           Supports Phantom and Solflare. Make sure your wallet is set to <strong className="text-white">Devnet</strong>.
         </p>
-        {/* WalletMultiButton injects its own styles via the imported CSS */}
         <WalletMultiButton />
-
         {publicKey && (
-          <motion.div
-            initial={{ opacity: 0, y: 6 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mt-3 flex items-center gap-2"
-          >
+          <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} className="mt-3 flex items-center gap-2">
             <span className="font-mono text-[11px] text-muted-foreground truncate max-w-[220px]">
               {publicKey.toBase58()}
             </span>
-            <button type="button" aria-label="Copy wallet address" onClick={copyAddress} className="text-gold hover:text-gold-light transition-colors shrink-0">
+            <button type="button" aria-label="Copy wallet address" onClick={copyAddress}
+              className="text-gold hover:text-gold-light transition-colors shrink-0">
               {copied ? <CheckCheck className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
             </button>
           </motion.div>
         )}
       </div>
 
-      {/* Step 2 — Get Devnet SOL */}
+      {/* Step 2 */}
       {publicKey && (
-        <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="glass-card p-5"
-        >
+        <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="glass-card p-5">
           <div className="flex items-center gap-2 mb-3">
             <span className="w-6 h-6 rounded-full bg-gold/20 text-gold text-xs font-bold flex items-center justify-center">2</span>
             <p className="font-semibold text-white text-sm">Get Devnet SOL</p>
@@ -147,7 +208,8 @@ function DevnetTab({ meta }: { meta: CertMeta }) {
               <span className="font-mono text-sm font-bold text-white">
                 {balance !== null ? `${balance.toFixed(4)} SOL` : "—"}
               </span>
-              <button type="button" aria-label="Refresh balance" onClick={fetchBalance} className="text-muted-foreground hover:text-white transition-colors">
+              <button type="button" aria-label="Refresh balance" onClick={fetchBalance}
+                className="text-muted-foreground hover:text-white transition-colors">
                 <RefreshCw className="w-3.5 h-3.5" />
               </button>
             </div>
@@ -164,8 +226,7 @@ function DevnetTab({ meta }: { meta: CertMeta }) {
             </button>
             <a
               href="https://faucet.solana.com"
-              target="_blank"
-              rel="noopener noreferrer"
+              target="_blank" rel="noopener noreferrer"
               className="flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold bg-white/5 text-muted-foreground border border-white/10 hover:bg-white/10 hover:text-white transition-all"
             >
               <ExternalLink className="w-3.5 h-3.5" /> Solana Faucet
@@ -174,13 +235,9 @@ function DevnetTab({ meta }: { meta: CertMeta }) {
         </motion.div>
       )}
 
-      {/* Step 3 — Mint */}
+      {/* Step 3 */}
       {publicKey && result?.certId !== meta.id && (
-        <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="glass-card p-5"
-        >
+        <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="glass-card p-5">
           <div className="flex items-center gap-2 mb-3">
             <span className="w-6 h-6 rounded-full bg-gold/20 text-gold text-xs font-bold flex items-center justify-center">3</span>
             <p className="font-semibold text-white text-sm">Anchor Certificate On-Chain</p>
@@ -189,45 +246,36 @@ function DevnetTab({ meta }: { meta: CertMeta }) {
             Records your certificate hash (<span className="font-mono text-white">{meta.id}</span>) to the Solana Devnet
             blockchain using the Memo Program. Costs ~0.000005 SOL.
           </p>
-
-          {/* Status indicator */}
           {status !== "idle" && (
             <div className="flex items-center gap-2 mb-4 text-xs text-muted-foreground">
               {busy && <RefreshCw className="w-3.5 h-3.5 animate-spin text-gold" />}
               {status === "error" && <AlertCircle className="w-3.5 h-3.5 text-xhosa-red" />}
-              <span className={status === "error" ? "text-xhosa-red" : "text-gold"}>
-                {STATUS_LABELS[status]}
-              </span>
+              <span className={status === "error" ? "text-xhosa-red" : "text-gold"}>{STATUS_LABELS[status]}</span>
             </div>
           )}
-
           {error && (
             <div className="bg-xhosa-red/10 border border-xhosa-red/25 rounded-xl p-3 mb-4 text-xs text-xhosa-red">
               {error}
             </div>
           )}
-
           <button
             type="button"
             disabled={busy || (balance !== null && balance < 0.000005)}
             onClick={mintCertificate}
             className="btn-premium flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {busy ? (
-              <><RefreshCw className="w-4 h-4 animate-spin" /> {STATUS_LABELS[status]}</>
-            ) : (
-              <><Wallet className="w-4 h-4" /> Anchor to Devnet</>
-            )}
+            {busy
+              ? <><RefreshCw className="w-4 h-4 animate-spin" /> {STATUS_LABELS[status]}</>
+              : <><Wallet className="w-4 h-4" /> Anchor to Devnet</>}
           </button>
         </motion.div>
       )}
 
-      {/* Success screen */}
+      {/* Success */}
       <AnimatePresence>
         {result?.certId === meta.id && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.96 }}
-            animate={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }}
             className="glass-card p-6 border border-gold/30"
           >
             <div className="flex flex-col items-center text-center gap-3">
@@ -243,19 +291,12 @@ function DevnetTab({ meta }: { meta: CertMeta }) {
                 <p className="font-mono text-[11px] text-white break-all">{result.txSignature}</p>
               </div>
               <div className="flex flex-wrap gap-2 justify-center">
-                <a
-                  href={result.explorerUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-premium flex items-center gap-2 text-sm"
-                >
+                <a href={result.explorerUrl} target="_blank" rel="noopener noreferrer"
+                  className="btn-premium flex items-center gap-2 text-sm">
                   <ExternalLink className="w-4 h-4" /> View on Explorer
                 </a>
-                <button
-                  type="button"
-                  onClick={() => navigator.clipboard.writeText(result.txSignature)}
-                  className="btn-outline-premium flex items-center gap-2 text-sm"
-                >
+                <button type="button" onClick={() => navigator.clipboard.writeText(result.txSignature)}
+                  className="btn-outline-premium flex items-center gap-2 text-sm">
                   <Copy className="w-4 h-4" /> Copy Signature
                 </button>
               </div>
@@ -289,24 +330,15 @@ function CertificateContent() {
   const [tab, setTab]               = useState<Tab>("digital");
   const [downloaded, setDownloaded] = useState(false);
   const [meta, setMeta]             = useState<CertMeta | null>(null);
-  const [qrExpired, setQrExpired]   = useState(false);
 
-  const holderName   = `${user?.name ?? ""} ${user?.surname ?? ""}`.trim();
-  const mindsetName  = mindset?.name ?? "";
+  const holderName  = `${user?.name ?? ""} ${user?.surname ?? ""}`.trim();
+  const mindsetName = mindset?.name ?? "";
 
   useEffect(() => {
     if (!allDone || !user || !mindset) return;
     const dateStr = new Date().toLocaleDateString();
     buildCertMeta(holderName, mindsetName, dateStr).then(setMeta);
   }, [allDone]);
-
-  useEffect(() => {
-    if (!meta) return;
-    const remaining = meta.expiresAt - Date.now();
-    if (remaining <= 0) { setQrExpired(true); return; }
-    const timer = setTimeout(() => setQrExpired(true), remaining);
-    return () => clearTimeout(timer);
-  }, [meta]);
 
   const handleDownload = async () => {
     if (!certRef.current) return;
@@ -323,14 +355,6 @@ function CertificateContent() {
     }
   };
 
-  const refreshQr = async () => {
-    if (!user || !mindset) return;
-    const dateStr = new Date().toLocaleDateString();
-    const fresh   = await buildCertMeta(holderName, mindsetName, dateStr);
-    setMeta(fresh);
-    setQrExpired(false);
-  };
-
   return (
     <div className="page-container pb-24">
       <h2 className="font-serif text-3xl font-bold text-white mb-2 flex items-center gap-3">
@@ -340,7 +364,7 @@ function CertificateContent() {
 
       {allDone && meta ? (
         <>
-          {/* ── Tab bar ──────────────────────────────────────────────── */}
+          {/* Tab bar */}
           <div className="flex gap-1 bg-white/5 p-1 rounded-2xl mb-6 max-w-xs">
             {(["digital", "devnet"] as Tab[]).map((t) => (
               <button
@@ -365,82 +389,147 @@ function CertificateContent() {
 
           <AnimatePresence mode="wait">
             {tab === "digital" ? (
-              <motion.div
-                key="digital"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.2 }}
-              >
-                {/* ── Premium Certificate ─────────────────────────────── */}
+              <motion.div key="digital" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.2 }}>
+
+                {/* ── Premium Xhosa-Inspired Certificate ──────────────────── */}
                 <div
                   ref={certRef}
-                  className="cert-root bg-[#fff8e7] text-[#1a1a2e] rounded-3xl text-center border-8 border-double border-gold max-w-2xl mx-auto mb-6 overflow-hidden"
+                  className="max-w-2xl mx-auto mb-6 overflow-hidden rounded-2xl shadow-2xl"
+                  style={{ background: "#fff8e7", color: "#1a1a2e" }}
                 >
-                  <div className="bg-gradient-to-r from-gold-dark via-gold to-gold-light py-4 px-8">
-                    <p className="text-dark text-[10px] font-bold uppercase tracking-[0.4em]">Certificate of Achievement</p>
+                  {/* Top beadwork strip */}
+                  <BeadworkBorder />
+
+                  {/* Gold header band */}
+                  <div
+                    className="py-5 px-8 text-center"
+                    style={{
+                      background: "linear-gradient(135deg, #a67c00 0%, #D4AF37 38%, #F0D699 60%, #D4AF37 82%, #a67c00 100%)",
+                    }}
+                  >
+                    <p className="text-[9px] font-bold uppercase tracking-[0.45em]" style={{ color: "rgba(26,26,46,0.65)" }}>
+                      Xhosa Rise Global Holdings
+                    </p>
+                    <p className="text-xl font-black uppercase tracking-[0.18em] mt-0.5" style={{ color: "#1a1a2e" }}>
+                      Certificate of Achievement
+                    </p>
+                    <p className="text-[9px] uppercase tracking-[0.45em] mt-0.5" style={{ color: "rgba(26,26,46,0.55)" }}>
+                      Financial Literacy Excellence
+                    </p>
                   </div>
 
-                  <div className="p-8 md:p-10">
-                    <div className="w-20 h-20 bg-gradient-to-br from-gold-light to-gold rounded-full flex items-center justify-center mx-auto mb-5 shadow-lg">
-                      <Award className="w-10 h-10 text-dark" />
+                  {/* Body */}
+                  <div className="relative px-8 py-9 md:px-12 md:py-10 text-center">
+                    <CornerDecor pos="tl" />
+                    <CornerDecor pos="tr" />
+                    <CornerDecor pos="bl" />
+                    <CornerDecor pos="br" />
+
+                    {/* Ceremonial seal */}
+                    <div className="mb-5">
+                      <XhosaSeal />
                     </div>
 
-                    <h1 className="cert-text-dark text-4xl font-black mb-1">{t("certificate.certTitle")}</h1>
-                    <h2 className="cert-text-dark text-lg font-semibold mb-5">{t("certificate.certSubtitle")}</h2>
+                    {/* Title lines */}
+                    <p className="text-[10px] uppercase tracking-[0.35em] mb-2" style={{ color: "rgba(26,26,46,0.5)" }}>
+                      {t("certificate.certTitle")}
+                    </p>
+                    <h1
+                      className="text-4xl font-black mb-1 leading-tight"
+                      style={{ fontFamily: "'Playfair Display', serif", color: "#1a1a2e" }}
+                    >
+                      {t("certificate.certSubtitle")}
+                    </h1>
 
-                    <p className="text-sm mb-1 text-[#1a1a2e]/70">{t("certificate.certifies")}</p>
-                    <h3 className="cert-text-dark text-3xl font-bold mb-1">{holderName}</h3>
-                    <p className="text-[#1a1a2e]/60 text-xs mb-5">{user?.location}</p>
+                    {/* Gold rule */}
+                    <div className="flex items-center justify-center gap-3 my-5">
+                      <div className="h-px flex-1 max-w-[100px]"
+                        style={{ background: "linear-gradient(to right, transparent, #D4AF37)" }} />
+                      <div className="w-2.5 h-2.5 rotate-45" style={{ background: "#D4AF37" }} />
+                      <div className="h-px flex-1 max-w-[100px]"
+                        style={{ background: "linear-gradient(to left, transparent, #D4AF37)" }} />
+                    </div>
 
-                    <p className="text-sm mb-1 text-[#1a1a2e]/70">for successfully completing</p>
-                    <p className="cert-text-dark font-bold text-xl mb-1">{mindsetName}</p>
-                    <p className="text-sm text-[#1a1a2e]/70 mb-4">
-                      {badges.length} badge{badges.length !== 1 ? "s" : ""} earned · {xp.toLocaleString()} XP · {completedModules.length} modules
+                    {/* Holder */}
+                    <p className="text-[11px] mb-1" style={{ color: "rgba(26,26,46,0.5)" }}>
+                      {t("certificate.certifies")}
+                    </p>
+                    <h3
+                      className="text-3xl font-bold mb-0.5"
+                      style={{ fontFamily: "'Playfair Display', serif", color: "#1a1a2e" }}
+                    >
+                      {holderName}
+                    </h3>
+                    {user?.location && (
+                      <p className="text-[11px] mb-5" style={{ color: "rgba(26,26,46,0.42)" }}>{user.location}</p>
+                    )}
+
+                    {/* Mindset */}
+                    <p className="text-[11px] mb-1" style={{ color: "rgba(26,26,46,0.5)" }}>
+                      for successfully completing
+                    </p>
+                    <p className="text-xl font-bold mb-1" style={{ color: "#a67c00" }}>{mindsetName}</p>
+                    <p className="text-[10px] mb-6" style={{ color: "rgba(26,26,46,0.5)" }}>
+                      {badges.length} badge{badges.length !== 1 ? "s" : ""} earned
+                      &nbsp;·&nbsp; {xp.toLocaleString()} XP
+                      &nbsp;·&nbsp; {completedModules.length} modules completed
                     </p>
 
-                    <div className="beadwork-bar w-48 mx-auto my-4" />
-
-                    <div className="bg-[#1a1a2e]/5 rounded-xl p-3 mb-5 inline-block">
-                      <div className="flex items-center gap-2 justify-center mb-1">
-                        <Shield className="w-3 h-3 text-[#1a1a2e]/50" />
-                        <span className="text-[10px] text-[#1a1a2e]/50 uppercase tracking-wider">Verified Certificate ID</span>
-                      </div>
-                      <p className="font-mono text-sm font-bold cert-text-dark">{meta.id}</p>
-                      <p className="font-mono text-[9px] text-[#1a1a2e]/40 mt-0.5">SHA-256: {meta.hash.slice(0, 32)}…</p>
+                    {/* Beadwork dot row */}
+                    <div className="flex gap-1.5 justify-center mb-6">
+                      {BEAD_COLORS.map((c, i) => (
+                        <div key={i} style={{
+                          width: 10, height: 10, borderRadius: "50%",
+                          background: c, opacity: 0.72,
+                        }} />
+                      ))}
                     </div>
 
-                    <div className="flex flex-col items-center gap-2">
-                      {qrExpired ? (
-                        <div className="w-28 h-28 border-2 border-dashed border-[#1a1a2e]/20 rounded-lg flex flex-col items-center justify-center">
-                          <p className="text-[10px] text-[#1a1a2e]/40 text-center">QR expired</p>
-                        </div>
-                      ) : (
-                        <QRCodeSVG
-                          value={buildQrPayload(meta, holderName, mindsetName)}
-                          size={112}
-                          bgColor="#fff8e7"
-                          fgColor="#1a1a2e"
-                          level="M"
-                          includeMargin
-                        />
-                      )}
-                      <p className="text-[9px] text-[#1a1a2e]/40 text-center">
-                        Scan to verify · expires {new Date(meta.expiresAt).toLocaleTimeString()}
+                    {/* Verification panel */}
+                    <div
+                      className="rounded-xl p-4 mx-auto max-w-sm text-left"
+                      style={{ background: "rgba(26,26,46,0.06)", border: "1px solid rgba(26,26,46,0.11)" }}
+                    >
+                      <div className="flex items-center gap-1.5 mb-2">
+                        <Shield className="w-3 h-3" style={{ color: "rgba(26,26,46,0.45)" }} />
+                        <span className="text-[9px] uppercase tracking-[0.3em]"
+                          style={{ color: "rgba(26,26,46,0.45)" }}>
+                          Cryptographically Verified
+                        </span>
+                      </div>
+                      <p className="font-mono text-sm font-bold" style={{ color: "#1a1a2e" }}>{meta.id}</p>
+                      <p className="font-mono text-[9px] mt-0.5" style={{ color: "rgba(26,26,46,0.35)" }}>
+                        SHA-256: {meta.hash.slice(0, 32)}…
                       </p>
                     </div>
 
-                    <div className="mt-5">
-                      <p className="text-[10px] uppercase tracking-widest text-[#1a1a2e]/50 mb-0.5">{t("certificate.awardedBy")}</p>
-                      <p className="cert-text-dark font-bold text-base">Xhosa Rise Global Holdings</p>
-                      <p className="text-[10px] text-[#1a1a2e]/40">
-                        Issued: {new Date(meta.issuedAt).toLocaleDateString()}
+                    {/* Footer */}
+                    <div className="mt-7">
+                      <div className="h-px mx-auto mb-3" style={{
+                        maxWidth: 220,
+                        background: "linear-gradient(to right, transparent, #D4AF37, transparent)",
+                      }} />
+                      <p className="text-[9px] uppercase tracking-[0.35em] mb-0.5"
+                        style={{ color: "rgba(26,26,46,0.45)" }}>
+                        {t("certificate.awardedBy")}
+                      </p>
+                      <p className="font-bold text-base" style={{ color: "#1a1a2e" }}>
+                        Xhosa Rise Global Holdings
+                      </p>
+                      <p className="text-[9px] mt-1" style={{ color: "rgba(26,26,46,0.4)" }}>
+                        Issued: {new Date(meta.issuedAt).toLocaleDateString("en-ZA", {
+                          year: "numeric", month: "long", day: "numeric",
+                        })}
                       </p>
                     </div>
                   </div>
+
+                  {/* Bottom beadwork strip */}
+                  <BeadworkBorder flip />
                 </div>
 
-                <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                <div className="flex justify-center">
                   <button
                     type="button"
                     className="btn-premium flex items-center justify-center gap-2"
@@ -449,25 +538,11 @@ function CertificateContent() {
                     <Download className="w-4 h-4" />
                     {downloaded ? t("certificate.downloaded") : t("certificate.download")}
                   </button>
-                  {qrExpired && (
-                    <button
-                      type="button"
-                      className="btn-outline-premium flex items-center justify-center gap-2"
-                      onClick={refreshQr}
-                    >
-                      Refresh QR Code
-                    </button>
-                  )}
                 </div>
               </motion.div>
             ) : (
-              <motion.div
-                key="devnet"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.2 }}
-              >
+              <motion.div key="devnet" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.2 }}>
                 <DevnetTab meta={meta} />
               </motion.div>
             )}

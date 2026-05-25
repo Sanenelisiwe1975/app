@@ -134,7 +134,7 @@ export default function Register() {
                   key={key}
                   type="button"
                   onClick={() => handleSelectPath(key)}
-                  className="glass-card-hover p-6 text-left group"
+                  className="glass-card-hover p-6 text-left group touch-manipulation"
                   whileHover={{ y: -4 }}
                   whileTap={{ scale: 0.98 }}
                 >

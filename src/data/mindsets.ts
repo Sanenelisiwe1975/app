@@ -1318,3 +1318,57 @@ export const marketAssets = [
   { symbol: "FSR", name: "FirstRand", basePrice: 72, volatility: 0.009 },
   { symbol: "MTN", name: "MTN Group", basePrice: 145, volatility: 0.011 },
 ];
+
+// ─── Shared modules — shown for every mindset ─────────────────────────────────
+// IDs 101–110 are reserved for these cross-cutting educational modules.
+
+export const sharedModules: Module[] = [
+  {
+    id: 101,
+    name: "How to Read JSE Graphs",
+    notes: "A candlestick chart tells a story. The green candle (close > open) shows buyers won that period. Red means sellers won. The 'wick' shows how far price went but couldn't hold. On the JSE, volume spikes on Thursdays often signal institutional rebalancing — watch for that. Support level = floor price buyers defend. Resistance = ceiling sellers attack. When price breaks resistance on high volume, that's a real breakout. When it's low volume, be cautious — it's often a trap.",
+    quiz: [
+      { q: "A green (bullish) candlestick means?", opts: ["Price fell during the period", "Price closed higher than it opened", "Price didn't move"], correct: 1 },
+      { q: "High volume on a breakout above resistance means?", opts: ["The move is likely a trap", "Strong buyer conviction — more reliable signal", "Time to sell immediately"], correct: 1 },
+      { q: "JSE All Share at 'support' level. You should?", opts: ["Panic sell — it's falling", "Watch volume — strong support + low volume = potential bounce", "Ignore it completely"], correct: 1 },
+      { q: "A long upper wick on a candle means?", opts: ["Buyers pushed price up but sellers pushed it back down", "Price rose strongly and held", "Volume was high"], correct: 0 },
+      { q: "Moving average (MA) crossing above the price line usually signals?", opts: ["Strong buy signal", "Bearish — price may continue down", "No meaning — just lines"], correct: 1 },
+    ],
+  },
+  {
+    id: 102,
+    name: "JSE Trading Strategies",
+    notes: "Three strategies rule the JSE. (1) Buy and Hold: buy quality blue chips (Naspers, Anglo, FirstRand) and hold 5+ years. Beats 80% of active traders. (2) Dividend Capture: buy before ex-dividend date, collect dividend, sell. Works best with high-yield stocks like Redefine Properties and British American Tobacco SA. (3) Momentum: buy stocks making new 52-week highs on high volume. Cut losses at 8% below entry. Never average down on a losing position — you're fighting the market. The golden rule: never risk more than 2% of your portfolio on any single trade.",
+    quiz: [
+      { q: "Buy-and-hold strategy works best for?", opts: ["Quick daily profits", "5–10+ year wealth building with blue-chip stocks", "Traders with lots of time to watch markets"], correct: 1 },
+      { q: "Ex-dividend date in dividend capture means?", opts: ["Last day to buy and still receive the dividend", "Day dividends are paid", "First day stock trades without dividend rights"], correct: 0 },
+      { q: "Momentum trading: stock is down 9% from your entry. You should?", opts: ["Average down — buy more at the lower price", "Cut the loss — your 8% stop was breached", "Hold and hope it recovers"], correct: 1 },
+      { q: "2% portfolio risk rule means: R100,000 portfolio. Max loss per trade?", opts: ["R10,000", "R2,000", "R500"], correct: 1 },
+      { q: "A stock makes a new 52-week high on triple average volume. This suggests?", opts: ["It's overbought — sell immediately", "Strong momentum — potential trend continuation", "Nothing meaningful"], correct: 1 },
+    ],
+  },
+  {
+    id: 103,
+    name: "Smart Investing Principles",
+    notes: "Warren Buffett's Rule #1: Never lose money. Rule #2: Never forget Rule #1. Diversification is not owning 10 tech stocks — it's owning different asset classes (equities, bonds, property, cash, commodities). A South African investor's blind spot: too much Rand exposure. Hedge by holding global ETFs (like the Satrix MSCI World) alongside local stocks. Time IN the market beats TIMING the market 93% of the time over 10+ years. Tax: capital gains tax (CGT) in SA has a R40,000 annual exclusion — use it. Keep an investment diary — track your thesis for every investment. If you can't explain it in 2 sentences, you don't understand it.",
+    quiz: [
+      { q: "True diversification means?", opts: ["10 different tech stocks", "Different asset classes: equities, bonds, property, cash, global", "Stocks from different brokers"], correct: 1 },
+      { q: "Satrix MSCI World ETF helps a SA investor by?", opts: ["Tracking the JSE top 40", "Providing global exposure, hedging Rand risk", "Giving tax benefits"], correct: 1 },
+      { q: "Annual CGT exclusion in South Africa is?", opts: ["R0 — all gains are taxed", "R40,000 — gains below this are tax-free", "R100,000"], correct: 1 },
+      { q: "You've held a stock for 3 years. If you sell now with a R50,000 gain, you pay CGT on?", opts: ["R50,000 fully", "R10,000 (R50,000 - R40,000 exclusion)", "Nothing — held over 1 year"], correct: 1 },
+      { q: "Best strategy for a new investor with R500/month to invest?", opts: ["Save until you have R50,000 then invest", "Monthly debit order into a diversified ETF — benefit from rand cost averaging", "Wait for a market crash"], correct: 1 },
+    ],
+  },
+  {
+    id: 104,
+    name: "EasyEquities — Your Gateway to the JSE",
+    notes: "EasyEquities is South Africa's most accessible investment platform. Minimum investment: R1. You can buy fractional shares — so you can own a slice of Naspers (R2,850/share) for just R10. They offer: JSE stocks, ETFs, US shares (in USD), and a TFSA (Tax-Free Savings Account) that gives you up to R36,000/year in tax-free growth. How to start: (1) Open account at easyequities.co.za — free, takes 5 minutes with just your ID. (2) FICA verify — upload selfie + ID. (3) Fund with EFT or debit card from R1. (4) Buy. TFSA tip: put your highest-growth assets in your TFSA. All dividends and gains inside a TFSA are 100% tax-free for life. The fee: 0.25% per trade (+ VAT). On a R100 trade, that's 25 cents.",
+    quiz: [
+      { q: "EasyEquities minimum investment is?", opts: ["R100", "R1,000", "R1"], correct: 2 },
+      { q: "TFSA annual contribution limit in South Africa is?", opts: ["R36,000", "R100,000", "Unlimited"], correct: 0 },
+      { q: "Fractional shares mean?", opts: ["Shares that are broken or faulty", "You can own a percentage of a full share from R1", "Shares sold at a discount"], correct: 1 },
+      { q: "EasyEquities trade fee is approximately?", opts: ["5% per trade", "0.25% per trade (+ VAT)", "R50 flat per trade"], correct: 1 },
+      { q: "Best assets to put inside your TFSA are?", opts: ["Cash savings — safest option", "High-growth equities and ETFs — tax-free compounding is most valuable", "Bonds — stable and low risk"], correct: 1 },
+    ],
+  },
+];

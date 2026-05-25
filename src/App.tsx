@@ -9,7 +9,6 @@ import { useNetworkStatus } from "@/shared/hooks/useNetworkStatus";
 import Sidebar from "@/widgets/sidebar/Sidebar";
 import MobileNav from "@/widgets/mobile-nav/MobileNav";
 import SplashScreen from "@/widgets/splash/SplashScreen";
-import WelcomeVideo from "@/widgets/welcome-video/WelcomeVideo";
 import "./App.css";
 
 // ─── Code-split pages — each chunk loads only when navigated to ───────────────
@@ -80,15 +79,11 @@ export default function App() {
   }, []);
 
   const handleSplashComplete = useCallback(() => {
+    if (!hasSeenWelcome) markWelcomeSeen();
     navigate(user ? "dashboard" : "register");
-  }, [user, navigate]);
+  }, [user, navigate, hasSeenWelcome, markWelcomeSeen]);
 
   if (page === "splash") return <SplashScreen onComplete={handleSplashComplete} />;
-
-  // Show welcome video once — right after the splash, before the register screen
-  if (!hasSeenWelcome && page === "register") {
-    return <WelcomeVideo onComplete={markWelcomeSeen} />;
-  }
 
   const config = PAGE_CONFIG[page];
 

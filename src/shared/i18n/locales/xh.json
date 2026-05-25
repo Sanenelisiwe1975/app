@@ -1,0 +1,171 @@
+{
+  "common": {
+    "back": "Emva",
+    "continue": "Qhubeka",
+    "save": "Gcina",
+    "reset": "Seta Ngokutsha",
+    "cancel": "Rhoxisa",
+    "loading": "Iyalayisha..."
+  },
+  "nav": {
+    "dashboard": "Isibonisi",
+    "learn": "Funda",
+    "market": "IMakethe",
+    "portfolio": "Iportfolio",
+    "stokvel": "Istokfeli",
+    "timeMachine": "Umtshini Wexesha",
+    "antiScam": "Isikhuselo",
+    "wealthyBody": "Umzimba Onotho",
+    "emotion": "Imvakalelo",
+    "prophet": "Umprofeti",
+    "certificate": "Isatifikethi",
+    "switch": "Tshintsha"
+  },
+  "register": {
+    "title": "Wamkelekile, Igqwirha Lentlalo",
+    "subtitle": "Inqaba yakho iyakhula ukuba uqale ngoku.",
+    "firstName": "Igama Lokuqala",
+    "surname": "Ifani",
+    "age": "Iminyaka",
+    "location": "Indawo (umz., iMonti, iSoweto)",
+    "choosePath": "Khetha Indlela Yakho",
+    "loadProgress": "Layisha Inkqubela Egciniweyo",
+    "mindsets": "iindlela"
+  },
+  "dashboard": {
+    "netWorth": "Ixabiso Elimiyo",
+    "xp": "XP",
+    "badges": "Iibheji",
+    "healthBoost": "Ukuphucuka Kwempilo",
+    "modules": "Iimodyuli",
+    "cash": "Imali",
+    "trades": "Ukuthengisa",
+    "impulseBlocks": "Iizivalo Zokuthatha Isigqibo",
+    "scamAwareness": "Ulwazi Lwenkohliso",
+    "continueLearning": "Qhubeka Ufunde",
+    "viewAll": "Jonga Zonke",
+    "quote": "\"Umntu ngumntu ngabantu\" — Umntu ngumntu ngenxa yabantu. Uhambo lwakho lwenotho lwakhiwa ngesizwe, ulwazi, nomkhwa wezenzo ezinomgaqo."
+  },
+  "market": {
+    "title": "Umdlalo WeMakethe",
+    "subtitle": "Umdlalo wemakethe ngaphakathi nezicebiso zesilinganiso esihambayo.",
+    "buySignal": "UMQONDISO WOKUTHENGISA",
+    "sellSignal": "UMQONDISO WOKUTHENGISA",
+    "hold": "BAMBA",
+    "signal": "Umqondiso",
+    "position": "Indawo Yakho",
+    "shares": "Izabelo",
+    "value": "Ixabiso",
+    "canBuy": "Ungathenga",
+    "buyOne": "Thenga Isabelo Esinye",
+    "sellOne": "Thengisa Isabelo Esinye",
+    "liveSimulation": "Umdlalo ophilayo",
+    "tip": "Ingcebiso: Ungathenga ukusuka ku-R1 kwi-EasyEquities. Nyathelo ngalinye liakha umbuso wakho."
+  },
+  "portfolio": {
+    "title": "Izinto Zakho",
+    "subtitle": "Landelela isixhobo ngasinye endlwini yakho.",
+    "cash": "Imali",
+    "invested": "Ilahlwe Ngaphakathi",
+    "netWorth": "Ixabiso Elimiyo",
+    "shares": "Izabelo",
+    "price": "Ixabiso",
+    "value": "Ixabiso",
+    "allocation": "Ukwabiwa",
+    "change": "Utshintsho",
+    "noHoldings": "Akukho zinto nazo. Tyelela iMakethe ukuqala ukwakha iportfolio yakho.",
+    "tradeHistory": "Imbali Yokuthengisa",
+    "noTrades": "Akukho nithengisanga nakanye. Tyelela iMakethe ukuqala ukuthenga.",
+    "allocationTitle": "Ukwabiwa Kweportfolio"
+  },
+  "stokvel": {
+    "title": "Istokfeli Sesizwe",
+    "quote": "\"Umntu ngumntu ngabantu\"",
+    "members": "Amalungu",
+    "pot": "Ingxowa",
+    "nextPayout": "Inkokhelo Ezayo",
+    "contribute": "Faka i-R100",
+    "votePayout": "Vota Inkokhelo",
+    "howItWorks": "Isebenza Njani"
+  },
+  "timeMachine": {
+    "title": "Umtshini Wexesha Wenotho Yezizukulwana",
+    "subtitle": "Bona okwenzekayo xa umntu enesabelo nemali.",
+    "currentNetWorth": "Ixabiso Elimiyo Ngoku",
+    "project": "Bala Isiqulatho",
+    "descendants": "izizukulwana ezisizuzayo",
+    "powerOf7": "Iinqanaba Zokukhula Kwenotho"
+  },
+  "antiScam": {
+    "title": "Isikhuselo se-B2B",
+    "awareness": "Ulwazi",
+    "attempts": "Iimizamo",
+    "avoided": "Igwetyelwe",
+    "simulate": "I-imeyile Yokuzingca Ephushiweyo",
+    "customTitle": "Yenza Isifundo Soqeqesho Esifunekayo",
+    "addPool": "Faka kwi-Pool Yokufunda",
+    "download": "Khuphela Ingxelo Yokukhokhela"
+  },
+  "wealthyBody": {
+    "title": "Umzimba Onotho",
+    "subtitle": "Umzimba wakho sisixhobo sakho esibalulekileyo. Impilo iphindaphinda inotho.",
+    "steps": "Amanyathelo",
+    "sleep": "Ubuthongo",
+    "heartRate": "Intloko Yentliziyo",
+    "multiplier": "Isikhondlakhondla",
+    "premium": "Umrhumo Womtshingo",
+    "premiumSub": "Unxibelelene nayo isilinganiso sempilo yakho",
+    "sync": "Synca Izixhobo (Ukuzenzisa)"
+  },
+  "emotion": {
+    "title": "Ulandelo Lweendleko Zemvakalelo",
+    "subtitle": "Phatha iimvakalelo zakho phambi kokuba ziphatha isikhwama sakho.",
+    "heartRate": "Intloko Yentliziyo Yangoku",
+    "stressLevel": "Inqanaba Loxinzelelo",
+    "simulate": "Zenzisa Ukuthenga Ngokungacinganga",
+    "breathe": "Phefumla Nzulu",
+    "calm": "Ndiziva Ndizolile Ngoku",
+    "blockedSpends": "Iindleko Ezivaliweyo",
+    "moneySaved": "Imali Esindiswayo"
+  },
+  "prophet": {
+    "title": "Umprofeti WeMakethe",
+    "subtitle": "Profeta iziphumo zemakethe. Bhetisha ngobulumko. Zuzisa ekuboneni.",
+    "balance": "Imali Yomprofeti",
+    "settle": "Misa iMakethe (Zenzisa Iziphumo)"
+  },
+  "learn": {
+    "title": "Iimodyuli Zakho",
+    "module": "Imodyuli",
+    "keyInsight": "Ingcinga Eyintloko",
+    "startQuiz": "Qala iKuzi",
+    "reviewNotes": "Phinda Jonga Amanothi",
+    "completed": "Igqityiwe ✓",
+    "notStarted": "Ayiqalwanga",
+    "nailedIt": "Uyiphumeze!",
+    "keepLearning": "Qhubeka Ufunde",
+    "continueJourney": "Qhubeka Nohambo",
+    "tryAgain": "Zama Kwakhona"
+  },
+  "certificate": {
+    "title": "Isatifikethi Sokugqiba",
+    "subtitle": "Gqiba iimodyuli zonke ukuvula isatifikethi sakho se-FINLIT.",
+    "certTitle": "FINLIT",
+    "certSubtitle": "Isatifikethi Seemfundo Zezimali",
+    "certifies": "Esi siphumo sibonisa ukuba",
+    "awardedBy": "Inikezwe ngu",
+    "download": "Khuphela njengesithombe i-PNG",
+    "downloaded": "Ikhutshiwe!"
+  },
+  "switchMindset": {
+    "title": "Tshintsha Ingcinga",
+    "subtitle": "Guqula ubuqu bakho bezemali. Qala indlela entsha ugcina ilifa lakho.",
+    "newTitle": "Qala Ingcinga Entsha",
+    "newDesc": "I-XP nezibiyeli zakho zihlala njengefa lozuko. Imali nenkqubela yemodyuli ziqalisa kwakhona.",
+    "newButton": "Qala Uhambo Olutsha",
+    "resetTitle": "Seta Ngokuzeleyo",
+    "resetDesc": "Sula yonke into. Inkqubela yonke, i-XP, izibiyeli, nembali zisuswa ngonaphakade.",
+    "resetButton": "Sula Yonke Inkqubela",
+    "resetConfirm": "SETA NGOKUZELEYO: Inkqubela yonke iya kususwa ngonaphakade. Uqinisekile?"
+  }
+}

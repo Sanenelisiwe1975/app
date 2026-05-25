@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import { BookOpen, CheckCircle, XCircle, Trophy, ArrowRight, ArrowLeft, Lightbulb } from "lucide-react";
+import { BookOpen, CheckCircle, XCircle, Trophy, ArrowRight, ArrowLeft, Lightbulb, Globe2 } from "lucide-react";
 import { useGameStore } from "@/shared/stores/gameStore";
 import { useUserStore } from "@/shared/stores/userStore";
 import { useAudio } from "@/shared/hooks/useAudio";
 import { EasyEquitiesPrompt } from "@/shared/ui/EasyEquitiesPrompt";
+import { sharedModules } from "@/data/mindsets";
 
 export default function Learn() {
   const { t }            = useTranslation();
@@ -22,7 +23,9 @@ export default function Learn() {
   const [showNotes, setShowNotes]       = useState(false);
   const [showEEPrompt, setShowEEPrompt] = useState(false);
 
-  const module = activeModule !== null ? currentModules.find((m) => m.id === activeModule) : null;
+  // Search both mindset-specific and shared modules
+  const allModules = [...currentModules, ...sharedModules];
+  const module     = activeModule !== null ? allModules.find((m) => m.id === activeModule) : null;
 
   const startModule = (id: number) => {
     setActiveModule(id);
@@ -55,6 +58,7 @@ export default function Learn() {
           : "Select a mindset to unlock your learning path"}
       </p>
 
+      {/* Mindset-specific modules */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {currentModules.map((m, i) => {
           const isCompleted = completedModules.includes(m.id);
@@ -90,6 +94,60 @@ export default function Learn() {
             </motion.button>
           );
         })}
+      </div>
+
+      {/* ── Shared market education modules ─────────────────────────────── */}
+      <div className="mt-10">
+        <div className="flex items-center gap-2 mb-1">
+          <Globe2 className="w-4 h-4 text-xhosa-teal" />
+          <h3 className="text-sm font-semibold text-white uppercase tracking-wider">Market Education</h3>
+          <div className="flex-1 h-px bg-xhosa-teal/20 ml-1" />
+        </div>
+        <p className="text-xs text-muted-foreground mb-4">
+          JSE investing, trading strategies &amp; EasyEquities guides — available to all mindsets
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {sharedModules.map((m, i) => {
+            const isCompleted = completedModules.includes(m.id);
+            return (
+              <motion.button
+                key={m.id}
+                type="button"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.08 }}
+                onClick={() => startModule(m.id)}
+                className={`glass-card-hover p-5 text-left relative overflow-hidden ${isCompleted ? "border-xhosa-teal/30" : ""}`}
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                {isCompleted && (
+                  <div className="absolute top-3 right-3">
+                    <CheckCircle className="w-5 h-5 text-xhosa-teal" />
+                  </div>
+                )}
+                <div className="flex items-center gap-2 mb-2">
+                  <Globe2 className="w-4 h-4 text-xhosa-teal" />
+                  <span className="text-xs text-xhosa-teal uppercase tracking-wider">
+                    Market Module {m.id}
+                  </span>
+                </div>
+                <h3 className="font-semibold text-white mb-2">{m.name}</h3>
+                <p className="text-xs text-muted-foreground line-clamp-2">{m.notes.substring(0, 140)}...</p>
+                <div className="mt-3 h-1.5 bg-white/10 rounded-full overflow-hidden">
+                  <div
+                    className={`h-full rounded-full transition-[width] duration-500 ${
+                      isCompleted
+                        ? "bg-xhosa-teal"
+                        : "bg-gradient-to-r from-xhosa-teal/40 to-xhosa-teal"
+                    }`}
+                    style={{ width: isCompleted ? "100%" : "0%" }}
+                  />
+                </div>
+              </motion.button>
+            );
+          })}
+        </div>
       </div>
 
       {/* ── Module Modal ─────────────────────────────────────────────────── */}
@@ -174,7 +232,7 @@ export default function Learn() {
                 </div>
               )}
 
-              {/* Result view — aria-live so screen readers announce the outcome */}
+              {/* Result view */}
               {showResult && (() => {
                 const correct = answers.filter((a, i) => a === module.quiz[i].correct).length;
                 const passed  = correct === module.quiz.length;

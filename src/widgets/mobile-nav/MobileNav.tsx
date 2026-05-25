@@ -6,6 +6,8 @@ import {
   LayoutDashboard, BookOpen, TrendingUp, Users, MoreHorizontal,
   Briefcase, Clock, Shield, Heart, Brain, Award, RefreshCw, Globe, X,
 } from "lucide-react";
+import { MuteButton } from "@/shared/ui/MuteButton";
+import { CurrencySelector } from "@/shared/ui/CurrencySelector";
 import { useUiStore, type Page } from "@/shared/stores/uiStore";
 
 // ── Primary nav (always visible in bottom bar) ────────────────────────────────
@@ -28,7 +30,13 @@ const MORE_NAV: { id: Page; icon: React.ElementType; labelKey: string }[] = [
   { id: "switch",      icon: RefreshCw,   labelKey: "nav.switch"      },
 ];
 
-const LANGUAGES = ["en", "zu"] as const;
+const LANGUAGES = [
+  { code: "en", label: "EN", title: "English"   },
+  { code: "zu", label: "ZU", title: "isiZulu"   },
+  { code: "xh", label: "XH", title: "isiXhosa" },
+  { code: "st", label: "ST", title: "Sesotho"   },
+  { code: "af", label: "AF", title: "Afrikaans" },
+] as const;
 
 export default memo(function MobileNav() {
   const { t, i18n: i18nInstance } = useTranslation();
@@ -119,24 +127,31 @@ export default memo(function MobileNav() {
         className="md:hidden fixed bottom-0 left-0 right-0 z-[100] bg-dark-card/95 backdrop-blur-xl border-t border-gold/20 pb-safe"
         aria-label="Mobile navigation"
       >
-        {/* Language switcher strip */}
-        <div className="flex items-center justify-end gap-1 px-4 pt-1.5">
-          <Globe className="w-3 h-3 text-muted-foreground mr-0.5" />
-          {LANGUAGES.map((code) => (
-            <button
-              key={code}
-              type="button"
-              onClick={() => i18n.changeLanguage(code)}
-              aria-label={`Switch to ${code === "en" ? "English" : "Zulu"}`}
-              className={`px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider transition-all ${
-                i18nInstance.language === code
-                  ? "bg-gold/20 text-gold border border-gold/30"
-                  : "text-muted-foreground hover:text-white"
-              }`}
-            >
-              {code}
-            </button>
-          ))}
+        {/* Controls strip: Language + Mute + Currency */}
+        <div className="flex items-center justify-between gap-1 px-3 pt-1.5">
+          <div className="flex items-center gap-0.5">
+            <Globe className="w-3 h-3 text-muted-foreground mr-0.5 shrink-0" />
+            {LANGUAGES.map(({ code, label, title }) => (
+              <button
+                key={code}
+                type="button"
+                onClick={() => i18n.changeLanguage(code)}
+                aria-label={`Switch to ${title}`}
+                title={title}
+                className={`px-1 py-0.5 rounded text-[8px] font-bold uppercase tracking-wide transition-all touch-manipulation ${
+                  i18nInstance.language === code
+                    ? "bg-gold/20 text-gold border border-gold/30"
+                    : "text-muted-foreground hover:text-white"
+                }`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+          <div className="flex items-center gap-1.5">
+            <MuteButton compact />
+            <CurrencySelector compact />
+          </div>
         </div>
 
         {/* Nav items */}
