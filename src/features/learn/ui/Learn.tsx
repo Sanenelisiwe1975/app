@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { BookOpen, CheckCircle, XCircle, Trophy, ArrowRight, ArrowLeft, Lightbulb, Globe2 } from "lucide-react";
 import { useGameStore } from "@/shared/stores/gameStore";
 import { useUserStore } from "@/shared/stores/userStore";
+import { useUiStore } from "@/shared/stores/uiStore";
 import { useAudio } from "@/shared/hooks/useAudio";
 import { EasyEquitiesPrompt } from "@/shared/ui/EasyEquitiesPrompt";
 import { sharedModules } from "@/data/mindsets";
@@ -15,6 +16,7 @@ export default function Learn() {
   const mindset          = useUserStore((s) => s.mindset);
   const currentModules   = mindset?.modules ?? [];
   const { playSuccess }  = useAudio();
+  const navigate         = useUiStore((s) => s.navigate);
 
   const [activeModule, setActiveModule] = useState<number | null>(null);
   const [quizIndex, setQuizIndex]       = useState(0);
@@ -52,11 +54,22 @@ export default function Learn() {
   return (
     <div className="page-container pb-24">
       <h2 className="font-serif text-3xl font-bold text-white mb-2">{t("learn.title")}</h2>
-      <p className="text-muted-foreground text-sm mb-6">
-        {mindset
-          ? `${mindset.name} — ${currentModules.length} modules`
-          : "Select a mindset to unlock your learning path"}
-      </p>
+      {mindset ? (
+        <p className="text-muted-foreground text-sm mb-6">
+          {mindset.name} — {currentModules.length} modules
+        </p>
+      ) : (
+        <motion.button
+          type="button"
+          onClick={() => navigate("mindset")}
+          whileTap={{ scale: 0.97 }}
+          className="touch-manipulation flex items-center gap-2 text-gold text-sm font-medium mb-6 px-4 py-2.5 rounded-xl border border-gold/30 bg-gold/5 hover:bg-gold/10 transition-colors"
+        >
+          <BookOpen className="w-4 h-4 shrink-0" />
+          <span>Select a mindset to unlock your learning path</span>
+          <ArrowRight className="w-4 h-4 shrink-0" />
+        </motion.button>
+      )}
 
       {/* Mindset-specific modules */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
