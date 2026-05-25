@@ -68,6 +68,14 @@ export default function App() {
   const markWelcomeSeen = useUserStore((s) => s.markWelcomeSeen);
   const { isOffline }   = useNetworkStatus();
 
+  // Auto-reload when a new service worker takes control — ensures deploys are seen immediately
+  useEffect(() => {
+    if (!('serviceWorker' in navigator)) return;
+    const reload = () => window.location.reload();
+    navigator.serviceWorker.addEventListener('controllerchange', reload);
+    return () => navigator.serviceWorker.removeEventListener('controllerchange', reload);
+  }, []);
+
   // Resume AudioContext on first user interaction (browser autoplay policy)
   useEffect(() => {
     const resume = () => {
