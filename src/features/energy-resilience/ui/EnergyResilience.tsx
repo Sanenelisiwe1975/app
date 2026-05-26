@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { Zap, TrendingDown, Shield, Award, ChevronDown, ChevronUp } from "lucide-react";
 import { useCurrencyFormatter } from "@/shared/hooks/useCurrencyFormatter";
+import { useGameStore } from "@/shared/stores/gameStore";
 
 // ── Data ─────────────────────────────────────────────────────────────────────
 
@@ -158,14 +159,20 @@ function calcLoss(downtimeCostPerHour: number, weeklyHours: number, years: numbe
 export default function EnergyResilience() {
   const { t }          = useTranslation();
   const formatCurrency = useCurrencyFormatter();
+  const addBadge       = useGameStore((s) => s.addBadge);
+  const storedBadges   = useGameStore((s) => s.badges);
 
   const [industryId,   setIndustryId]   = useState(INDUSTRIES[0].id);
   const [solutionIdx,  setSolutionIdx]  = useState(0);
   const [weeklyHours,  setWeeklyHours]  = useState(8);
   const [years,        setYears]        = useState(3);
-  const [earnedBadges, setEarnedBadges] = useState<Set<string>>(new Set());
   const [explored,     setExplored]     = useState<Set<string>>(new Set([INDUSTRIES[0].id]));
   const [showDetails,  setShowDetails]  = useState(false);
+
+  // Derive local earned set from persisted gameStore badges
+  const earnedBadges = new Set(
+    BADGES.filter((b) => storedBadges.includes(`${b.icon} ${b.label}`)).map((b) => b.id)
+  );
 
   const industry = INDUSTRIES.find((i) => i.id === industryId) ?? INDUSTRIES[0];
   const solution = industry.solutions[solutionIdx] ?? industry.solutions[0];
@@ -190,10 +197,8 @@ export default function EnergyResilience() {
   };
 
   const awardBadge = (id: string) => {
-    setEarnedBadges((prev) => {
-      if (prev.has(id)) return prev;
-      return new Set([...prev, id]);
-    });
+    const badge = BADGES.find((b) => b.id === id);
+    if (badge) addBadge(`${badge.icon} ${badge.label}`);
   };
 
   const roiColour = roi >= 100 ? "text-xhosa-teal" : roi >= 0 ? "text-xhosa-yellow" : "text-xhosa-red";
@@ -297,10 +302,11 @@ export default function EnergyResilience() {
         <div className="space-y-5">
           <div>
             <div className="flex justify-between mb-2">
-              <label className="text-sm text-white">Load-shedding hours per week</label>
+              <label htmlFor="weekly-hours" className="text-sm text-white">Load-shedding hours per week</label>
               <span className="text-sm font-bold text-gold">{weeklyHours} hrs</span>
             </div>
             <input
+              id="weekly-hours"
               type="range"
               min={1}
               max={40}
@@ -315,10 +321,11 @@ export default function EnergyResilience() {
 
           <div>
             <div className="flex justify-between mb-2">
-              <label className="text-sm text-white">Planning horizon</label>
+              <label htmlFor="planning-years" className="text-sm text-white">Planning horizon</label>
               <span className="text-sm font-bold text-gold">{years} years</span>
             </div>
             <input
+              id="planning-years"
               type="range"
               min={1}
               max={10}

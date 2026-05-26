@@ -470,11 +470,24 @@ function CertificateContent() {
                       for successfully completing
                     </p>
                     <p className="text-xl font-bold mb-1" style={{ color: "#a67c00" }}>{mindsetName}</p>
-                    <p className="text-[10px] mb-6" style={{ color: "rgba(26,26,46,0.5)" }}>
+                    <p className="text-[10px] mb-3" style={{ color: "rgba(26,26,46,0.5)" }}>
                       {badges.length} badge{badges.length !== 1 ? "s" : ""} earned
                       &nbsp;·&nbsp; {xp.toLocaleString()} XP
                       &nbsp;·&nbsp; {completedModules.length} modules completed
                     </p>
+                    {badges.length > 0 && (
+                      <div className="flex flex-wrap justify-center gap-1.5 mb-6 max-w-md mx-auto">
+                        {badges.map((b) => (
+                          <span
+                            key={b}
+                            className="px-2 py-0.5 rounded-full text-[9px] font-semibold"
+                            style={{ background: "rgba(212,175,55,0.15)", border: "1px solid rgba(212,175,55,0.35)", color: "#a67c00" }}
+                          >
+                            {b}
+                          </span>
+                        ))}
+                      </div>
+                    )}
 
                     {/* Beadwork dot row */}
                     <div className="flex gap-1.5 justify-center mb-6">
