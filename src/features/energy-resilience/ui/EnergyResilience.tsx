@@ -336,23 +336,23 @@ export default function EnergyResilience() {
       {/* ── Results ──────────────────────────────────────────────────────── */}
       <div className="glass-card p-5 mb-4">
         <p className="text-xs text-muted-foreground uppercase tracking-wider mb-4">Analysis Results ({years}yr horizon)</p>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5">
-          <div className="min-w-0">
-            <p className="text-xs text-muted-foreground">Total TCO</p>
-            <p className="text-sm font-bold text-xhosa-red break-words">{formatCurrency(tco)}</p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 mb-5">
+          <div className="flex items-center justify-between sm:flex-col sm:items-start gap-1">
+            <p className="text-xs text-muted-foreground shrink-0">Total TCO</p>
+            <p className="text-sm font-bold text-xhosa-red text-right sm:text-left">{formatCurrency(tco)}</p>
           </div>
-          <div className="min-w-0">
-            <p className="text-xs text-muted-foreground">Loss Avoided</p>
-            <p className="text-sm font-bold text-xhosa-teal break-words">{formatCurrency(lossAvoid)}</p>
+          <div className="flex items-center justify-between sm:flex-col sm:items-start gap-1">
+            <p className="text-xs text-muted-foreground shrink-0">Loss Avoided</p>
+            <p className="text-sm font-bold text-xhosa-teal text-right sm:text-left">{formatCurrency(lossAvoid)}</p>
           </div>
-          <div className="min-w-0">
-            <p className="text-xs text-muted-foreground">Net Saving</p>
-            <p className={`text-sm font-bold break-words ${netSaving >= 0 ? "text-xhosa-teal" : "text-xhosa-red"}`}>
+          <div className="flex items-center justify-between sm:flex-col sm:items-start gap-1">
+            <p className="text-xs text-muted-foreground shrink-0">Net Saving</p>
+            <p className={`text-sm font-bold text-right sm:text-left ${netSaving >= 0 ? "text-xhosa-teal" : "text-xhosa-red"}`}>
               {netSaving >= 0 ? "+" : ""}{formatCurrency(netSaving)}
             </p>
           </div>
-          <div className="min-w-0">
-            <p className="text-xs text-muted-foreground">ROI</p>
+          <div className="flex items-center justify-between sm:flex-col sm:items-start gap-1">
+            <p className="text-xs text-muted-foreground shrink-0">ROI</p>
             <p className={`text-sm font-bold ${roiColour}`}>{roi.toFixed(1)}%</p>
           </div>
         </div>
