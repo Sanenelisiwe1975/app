@@ -106,8 +106,8 @@ export default function App() {
     navigate("register");
   }, [markWelcomeSeen, navigate]);
 
-  if (page === "splash") return <SplashScreen onComplete={handleSplashComplete} />;
   if (showWelcomeVideo) return <WelcomeVideo onComplete={handleWelcomeComplete} />;
+  if (page === "splash") return <SplashScreen onComplete={handleSplashComplete} />;
 
   const config = PAGE_CONFIG[page];
 
