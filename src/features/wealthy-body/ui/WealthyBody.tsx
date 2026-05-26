@@ -210,7 +210,7 @@ export default function WealthyBody() {
         <div className="space-y-2 text-sm text-white/70">
           <div className="flex justify-between items-center">
             <span>Healthy SA employee misses fewer work days</span>
-            <span className="text-xhosa-teal font-semibold">+R18k/yr</span>
+            <span className="text-xhosa-teal font-semibold">+{formatCurrency(18_000)}/yr</span>
           </div>
           <div className="flex justify-between items-center">
             <span>Lower health insurance premiums</span>
