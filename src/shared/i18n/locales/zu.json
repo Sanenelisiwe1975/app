@@ -19,7 +19,8 @@
     "emotion": "Imizwa",
     "prophet": "UMprofethi",
     "certificate": "Isitifiketi",
-    "switch": "Shintsha"
+    "switch": "Shintsha",
+    "energy": "Amandla"
   },
   "register": {
     "title": "Wamkelekile, Isikhulu Esizayo",
@@ -156,6 +157,10 @@
     "awardedBy": "Inikezwe ngu",
     "download": "Landa njengo-PNG",
     "downloaded": "Kulayishiwe!"
+  },
+  "energy": {
+    "title": "Ukumelana Nomthamo",
+    "subtitle": "Qhathanisa izindleko zamandla emuva nesivuno sabo ezimbonini zaseNingizimu Afrika."
   },
   "switchMindset": {
     "title": "Shintsha Indlela Yokucabanga",

@@ -25,7 +25,8 @@ const WealthyBody    = lazy(() => import("@/features/wealthy-body/ui/WealthyBody
 const EmotionTracker = lazy(() => import("@/features/emotion-tracker/ui/EmotionTracker"));
 const MarketProphet  = lazy(() => import("@/features/market-prophet/ui/MarketProphet"));
 const Certificate    = lazy(() => import("@/features/certificate/ui/Certificate"));
-const SwitchMindset  = lazy(() => import("@/features/auth/ui/SwitchMindset"));
+const SwitchMindset      = lazy(() => import("@/features/auth/ui/SwitchMindset"));
+const EnergyResilience   = lazy(() => import("@/features/energy-resilience/ui/EnergyResilience"));
 
 // ─── Page → component + boundary label map ────────────────────────────────────
 const PAGE_CONFIG: Partial<Record<Page, { Component: React.LazyExoticComponent<() => React.JSX.Element>; label: string }>> = {
@@ -41,8 +42,9 @@ const PAGE_CONFIG: Partial<Record<Page, { Component: React.LazyExoticComponent<(
   wealthybody: { Component: WealthyBody,    label: "Wealthy Body"   },
   emotion:     { Component: EmotionTracker, label: "Emotion Tracker"},
   prophet:     { Component: MarketProphet,  label: "Market Prophet" },
-  certificate: { Component: Certificate,    label: "Certificate"    },
-  switch:      { Component: SwitchMindset,  label: "Switch Mindset" },
+  certificate: { Component: Certificate,       label: "Certificate"          },
+  energy:      { Component: EnergyResilience, label: "Energy Resilience"    },
+  switch:      { Component: SwitchMindset,    label: "Switch Mindset"       },
 };
 
 const pageVariants = {

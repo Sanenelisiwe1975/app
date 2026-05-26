@@ -19,7 +19,8 @@
     "emotion": "Emotion",
     "prophet": "Prophet",
     "certificate": "Certificate",
-    "switch": "Switch"
+    "switch": "Switch",
+    "energy": "Energy"
   },
   "register": {
     "title": "Wamkelekile, Future Titan",
@@ -156,6 +157,10 @@
     "awardedBy": "Awarded by",
     "download": "Download as PNG",
     "downloaded": "Downloaded!"
+  },
+  "energy": {
+    "title": "Energy Resilience",
+    "subtitle": "Model backup power costs and ROI for load-shedding scenarios across South African industries."
   },
   "switchMindset": {
     "title": "Switch Mindset",

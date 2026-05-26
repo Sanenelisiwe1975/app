@@ -19,7 +19,8 @@
     "emotion": "Imvakalelo",
     "prophet": "Umprofeti",
     "certificate": "Isatifikethi",
-    "switch": "Tshintsha"
+    "switch": "Tshintsha",
+    "energy": "Amandla"
   },
   "register": {
     "title": "Wamkelekile, Igqwirha Lentlalo",
@@ -156,6 +157,10 @@
     "awardedBy": "Inikezwe ngu",
     "download": "Khuphela njengesithombe i-PNG",
     "downloaded": "Ikhutshiwe!"
+  },
+  "energy": {
+    "title": "Ukomelela Kwamandla",
+    "subtitle": "Bala iindleko zamandla emuva nezinzuzo kwiishishini zaseMzantsi Afrika."
   },
   "switchMindset": {
     "title": "Tshintsha Ingcinga",

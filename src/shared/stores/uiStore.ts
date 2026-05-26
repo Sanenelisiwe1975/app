@@ -17,7 +17,8 @@ export type Page =
   | 'emotion'
   | 'prophet'
   | 'certificate'
-  | 'switch';
+  | 'switch'
+  | 'energy';
 
 interface UiState {
   page: Page;
