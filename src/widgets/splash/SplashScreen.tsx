@@ -142,10 +142,10 @@ export default function SplashScreen({ onComplete }: Props) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.2, duration: 0.8 }}
           >
-            <p className="text-[12px] text-white/60 italic leading-relaxed">
+            <p className="text-[12px] text-white italic leading-relaxed">
               "Umntu ngumntu ngabantu"
             </p>
-            <p className="text-[10px] text-gold/40 mt-1 tracking-wide">
+            <p className="text-[10px] text-gold mt-1 tracking-wide">
               A person is a person through others
             </p>
           </motion.div>

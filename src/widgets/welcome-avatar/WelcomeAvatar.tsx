@@ -140,18 +140,18 @@ export default function WelcomeAvatar({ onTap, autoGreet = false }: Props) {
             exit={{ opacity: 0, y: -10, scale: 0.85 }}
             transition={{ type: "spring", stiffness: 420, damping: 24 }}
           >
-            <div className="relative bg-[#12100e] border border-gold/50 rounded-2xl px-5 py-3 shadow-xl shadow-gold/20">
+            <div className="relative bg-[#1c1810] border border-gold/80 rounded-2xl px-5 py-3 shadow-xl shadow-gold/30">
               {/* Shimmer line */}
-              <div className="absolute top-0 left-4 right-4 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent rounded-full" />
+              <div className="absolute top-0 left-4 right-4 h-px bg-gradient-to-r from-transparent via-gold/60 to-transparent rounded-full" />
               <p className="font-serif text-xl font-bold gold-text whitespace-nowrap text-center">
                 Wamkelekile! 🌟
               </p>
-              <p className="text-[11px] text-white/55 text-center mt-0.5 tracking-wide">
+              <p className="text-[11px] text-white text-center mt-0.5 tracking-wide">
                 Welcome, Future Wealth Builder
               </p>
               {/* Bubble tail */}
               <div
-                className="absolute -bottom-[9px] left-1/2 -translate-x-1/2 w-4 h-4 bg-[#12100e] border-r border-b border-gold/50 rotate-45"
+                className="absolute -bottom-[9px] left-1/2 -translate-x-1/2 w-4 h-4 bg-[#1c1810] border-r border-b border-gold/80 rotate-45"
               />
             </div>
           </motion.div>
