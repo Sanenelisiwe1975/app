@@ -252,7 +252,7 @@ export default function EmotionTracker() {
       <p className="text-xs text-muted-foreground uppercase tracking-widest mb-3">
         Simulate a spending trigger
       </p>
-      <div className="grid grid-cols-2 gap-3 mb-6">
+      <div className="grid grid-cols-2 gap-2 sm:gap-3 mb-6">
         {TRIGGERS.map((trigger) => {
           const Icon = trigger.icon;
           return (
@@ -261,7 +261,7 @@ export default function EmotionTracker() {
               type="button"
               whileTap={{ scale: 0.96 }}
               onClick={() => handleTrigger(trigger)}
-              className="glass-card-hover p-4 text-left"
+              className="glass-card-hover p-3 sm:p-4 text-left"
             >
               <div className={`w-8 h-8 rounded-xl bg-white/5 flex items-center justify-center mb-2 ${trigger.color}`}>
                 <Icon className="w-4 h-4" />

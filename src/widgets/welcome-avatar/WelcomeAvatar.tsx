@@ -74,7 +74,6 @@ function playWelcomeChord() {
 export default function WelcomeAvatar({ onTap, autoGreet = false }: Props) {
   const prefersReduced = useReducedMotion();
   const [showBubble, setShowBubble]   = useState(autoGreet);
-  const [waving, setWaving]           = useState(autoGreet);
   const [glowing, setGlowing]         = useState(false);
   const [interacted, setInteracted]   = useState(false);
   const bubbleTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -85,26 +84,23 @@ export default function WelcomeAvatar({ onTap, autoGreet = false }: Props) {
     if (waveTimer.current)   clearTimeout(waveTimer.current);
 
     setShowBubble(true);
-    setWaving(true);
     setGlowing(true);
     setInteracted(true);
     playWelcomeChord();
     onTap?.();
 
     bubbleTimer.current = setTimeout(() => setShowBubble(false), 3800);
-    waveTimer.current   = setTimeout(() => { setWaving(false); setGlowing(false); }, 2200);
+    waveTimer.current   = setTimeout(() => setGlowing(false), 2200);
   }, [onTap]);
 
   const handleHoverStart = () => {
     if (prefersReduced) return;
     setShowBubble(true);
-    setWaving(true);
   };
 
   const handleHoverEnd = () => {
     if (prefersReduced) return;
     setShowBubble(false);
-    setWaving(false);
   };
 
   return (
@@ -208,32 +204,7 @@ export default function WelcomeAvatar({ onTap, autoGreet = false }: Props) {
         </div>
       </motion.button>
 
-      {/* ── Waving hand ────────────────────────────────────────────────── */}
-      <AnimatePresence>
-        {waving && (
-          <motion.div
-            key="wave"
-            className="absolute z-20 pointer-events-none select-none text-4xl"
-            style={{ bottom: 80, right: 50 }}
-            initial={{ opacity: 0, scale: 0.4, rotate: -30 }}
-            animate={{
-              opacity: 1,
-              scale: 1,
-              rotate: [0, 18, -12, 20, -8, 15, 0],
-            }}
-            exit={{ opacity: 0, scale: 0.4, rotate: -20 }}
-            transition={{
-              opacity: { duration: 0.2 },
-              scale:   { type: "spring", stiffness: 350, damping: 18 },
-              rotate:  { duration: 1.4, ease: "easeInOut", repeat: 1, repeatDelay: 0.3 },
-            }}
-          >
-            👋
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* ── Tap hint ───────────────────────────────────────────────────── */}
+{/* ── Tap hint ───────────────────────────────────────────────────── */}
       <AnimatePresence>
         {!interacted && (
           <motion.div

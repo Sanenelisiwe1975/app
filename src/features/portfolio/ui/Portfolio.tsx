@@ -106,14 +106,14 @@ export default function Portfolio() {
             ))}
           </div>
           {/* Legend */}
-          <div className="flex flex-wrap gap-x-4 gap-y-1.5">
+          <div className="flex flex-wrap gap-x-2 sm:gap-x-4 gap-y-1.5">
             {allocationRows.map(({ label, value, color }) => {
               const pct = ((value / allocationTotal) * 100).toFixed(1);
               return (
-                <div key={label} className="flex items-center gap-1.5">
-                  <span className={`w-2.5 h-2.5 rounded-sm shrink-0 ${color}`} />
-                  <span className="text-xs text-muted-foreground">{label}</span>
-                  <span className="text-xs font-semibold text-white">{pct}%</span>
+                <div key={label} className="flex items-center gap-1">
+                  <span className={`w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-sm shrink-0 ${color}`} />
+                  <span className="text-[10px] sm:text-xs text-muted-foreground">{label}</span>
+                  <span className="text-[10px] sm:text-xs font-semibold text-white">{pct}%</span>
                 </div>
               );
             })}
