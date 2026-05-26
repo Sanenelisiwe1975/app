@@ -214,7 +214,7 @@ export default function WelcomeAvatar({ onTap, autoGreet = false }: Props) {
           <motion.div
             key="wave"
             className="absolute z-20 pointer-events-none select-none text-4xl"
-            style={{ bottom: 70, right: 6 }}
+            style={{ bottom: 80, right: 50 }}
             initial={{ opacity: 0, scale: 0.4, rotate: -30 }}
             animate={{
               opacity: 1,

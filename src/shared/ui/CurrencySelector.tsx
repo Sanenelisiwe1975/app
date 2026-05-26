@@ -47,7 +47,7 @@ export function CurrencySelector({ compact = false }: Props) {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -6, scale: 0.95 }}
               transition={{ duration: 0.15 }}
-              className="absolute bottom-full mb-2 left-0 z-[999] min-w-[140px] bg-dark-card border border-gold/20 rounded-2xl p-1.5 shadow-xl shadow-black/60"
+              className={`absolute bottom-full mb-2 z-[999] min-w-[140px] bg-dark-card border border-gold/20 rounded-2xl p-1.5 shadow-xl shadow-black/60 ${compact ? "right-0" : "left-0"}`}
             >
               {CURRENCIES.map((code) => (
                 <button
