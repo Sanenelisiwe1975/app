@@ -19,7 +19,8 @@
     "emotion": "Maikutlo",
     "prophet": "Porofete",
     "certificate": "Setifikeiti",
-    "switch": "Fetola"
+    "switch": "Fetola",
+    "energy": "Matla"
   },
   "register": {
     "title": "Wamkelehile, Mogale wa Nako",
@@ -156,6 +157,10 @@
     "awardedBy": "E neilwe ke",
     "download": "Latolla e le setshwantsho sa PNG",
     "downloaded": "E Latollilwe!"
+  },
+  "energy": {
+    "title": "Matla a Boiketlo",
+    "subtitle": "Bala ditjehelete tsa matla a emuva le ditshenyehelo ka diindasteri tsa Afrika Borwa."
   },
   "switchMindset": {
     "title": "Fetola Mohopolo",

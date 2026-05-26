@@ -19,7 +19,8 @@
     "emotion": "Emosie",
     "prophet": "Profeet",
     "certificate": "Sertifikaat",
-    "switch": "Wissel"
+    "switch": "Wissel",
+    "energy": "Energie"
   },
   "register": {
     "title": "Welkom, Toekomstige Titan",
@@ -156,6 +157,10 @@
     "awardedBy": "Toegeken deur",
     "download": "Laai af as PNG",
     "downloaded": "Afgelaai!"
+  },
+  "energy": {
+    "title": "Energie Veerkragtigheid",
+    "subtitle": "Bereken rugkragkoste en opbrengs op belegging vir beurtkrag-scenarios oor Suid-Afrikaanse industrieë."
   },
   "switchMindset": {
     "title": "Wissel Mentaliteit",

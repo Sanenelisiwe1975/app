@@ -1,4 +1,4 @@
-import { Suspense, lazy, useCallback, useEffect } from "react";
+import { Suspense, lazy, useCallback, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useUiStore, type Page } from "@/shared/stores/uiStore";
 import { useUserStore } from "@/shared/stores/userStore";
@@ -9,6 +9,7 @@ import { useNetworkStatus } from "@/shared/hooks/useNetworkStatus";
 import Sidebar from "@/widgets/sidebar/Sidebar";
 import MobileNav from "@/widgets/mobile-nav/MobileNav";
 import SplashScreen from "@/widgets/splash/SplashScreen";
+import WelcomeVideo from "@/widgets/welcome-video/WelcomeVideo";
 import "./App.css";
 
 // ─── Code-split pages — each chunk loads only when navigated to ───────────────
@@ -70,6 +71,8 @@ export default function App() {
   const markWelcomeSeen = useUserStore((s) => s.markWelcomeSeen);
   const { isOffline }   = useNetworkStatus();
 
+  const [showWelcomeVideo, setShowWelcomeVideo] = useState(false);
+
   // Auto-reload when a new service worker takes control — ensures deploys are seen immediately
   useEffect(() => {
     if (!('serviceWorker' in navigator)) return;
@@ -89,11 +92,22 @@ export default function App() {
   }, []);
 
   const handleSplashComplete = useCallback(() => {
-    if (!hasSeenWelcome) markWelcomeSeen();
-    navigate(user ? "dashboard" : "register");
-  }, [user, navigate, hasSeenWelcome, markWelcomeSeen]);
+    if (!hasSeenWelcome && !user) {
+      // First-time visitor — show welcome video before registration
+      setShowWelcomeVideo(true);
+    } else {
+      navigate(user ? "dashboard" : "register");
+    }
+  }, [user, navigate, hasSeenWelcome]);
+
+  const handleWelcomeComplete = useCallback(() => {
+    markWelcomeSeen();
+    setShowWelcomeVideo(false);
+    navigate("register");
+  }, [markWelcomeSeen, navigate]);
 
   if (page === "splash") return <SplashScreen onComplete={handleSplashComplete} />;
+  if (showWelcomeVideo) return <WelcomeVideo onComplete={handleWelcomeComplete} />;
 
   const config = PAGE_CONFIG[page];
 

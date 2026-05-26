@@ -30,7 +30,7 @@ npm run test       # run all tests
 | Server State | TanStack Query 5 |
 | Persistence | Dexie.js (IndexedDB) + Zustand persist (localStorage) |
 | Charts | Chart.js 4.5 |
-| i18n | i18next + react-i18next (English + Zulu) |
+| i18n | i18next + react-i18next (EN, ZU, XH, ST, AF) |
 | PWA | vite-plugin-pwa + Workbox (44 precached entries) |
 | Audio | Web Audio API (procedural, no library) |
 | Testing | Vitest + Testing Library + fake-indexeddb |
@@ -60,6 +60,7 @@ npm run test       # run all tests
 | Emotion Tracker | Blocks impulse spending, tracks emotional discipline |
 | Market Prophet | Bet on financial market predictions |
 | Certificate | Verified achievement certificate with SHA-256 ID + expiring QR code |
+| Energy Resilience | 10-industry load-shedding cost modeller — backup solution TCO, ROI calculator, Section 12B tax tip |
 | Switch Mindset | Change learning path or hard reset |
 
 ---
@@ -86,10 +87,11 @@ src/
 │   ├── anti-scam/ui/          # AntiScam
 │   ├── wealthy-body/ui/       # WealthyBody
 │   ├── emotion-tracker/ui/    # EmotionTracker
-│   └── market-prophet/ui/     # MarketProphet
+│   ├── market-prophet/ui/     # MarketProphet
+│   └── energy-resilience/ui/  # EnergyResilience (load-shedding ROI modeller)
 ├── widgets/
-│   ├── sidebar/               # Desktop navigation (EN/ZU switcher)
-│   ├── mobile-nav/            # Mobile bottom nav (EN/ZU switcher)
+│   ├── sidebar/               # Desktop navigation (5-language switcher)
+│   ├── mobile-nav/            # Mobile bottom nav (5-language switcher)
 │   ├── splash/                # SplashScreen
 │   └── welcome-video/         # WelcomeVideo (Wamkelekile)
 ├── shared/
@@ -97,7 +99,7 @@ src/
 │   ├── hooks/                 # useNetWorth, useTradeHistory, useMarketWorker, useAudio
 │   ├── workers/               # market.worker.ts (Web Worker price simulation)
 │   ├── lib/                   # db.ts (Dexie), formatters.ts
-│   ├── i18n/                  # i18next setup + en.json + zu.json
+│   ├── i18n/                  # i18next setup + en/zu/xh/st/af locale files
 │   └── ui/                    # ErrorBoundary, EasyEquitiesPrompt
 └── data/
     └── mindsets.ts            # 17 mindsets, 530 quiz questions, market assets
@@ -156,7 +158,7 @@ Each load shedding module (IDs 201-217) covers cost impact on the specific busin
 
 ### Internationalisation
 
-Full EN and ZU (Zulu) translations. Language toggle available in the desktop sidebar and mobile bottom nav. Falls back to English for any missing Zulu key.
+Five locale files: EN (English), ZU (isiZulu), XH (isiXhosa), ST (Sesotho), AF (Afrikaans). Language toggle available in the desktop sidebar and mobile bottom nav. Falls back to English for any missing key.
 
 ### PWA
 
@@ -190,7 +192,7 @@ npm run test:coverage   # coverage report
 - ~16,000+ lines of source code
 - 17 mindsets × 6 modules × 5 questions = 510 mindset quiz questions + 20 shared = **530 total**
 - 20 AntiScam scenarios across 6 scam categories
-- 14 lazy-loaded pages (code-split per route)
+- 15 lazy-loaded pages (code-split per route)
 - 4 Zustand stores, 6 custom hooks
 - Main bundle: ~455 kB (151 kB gzip)
 - 61 PWA precache entries
