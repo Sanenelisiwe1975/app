@@ -78,6 +78,7 @@ interface GameActions {
   addXp: (delta: number) => void;
   addBadge: (badge: string) => void;
   completeModule: (id: number) => void;
+  setLevel: (level: Level) => void;
   buyShares: (symbol: string, amount: number, price: number) => boolean;
   sellShares: (symbol: string, amount: number, price: number) => boolean;
   contributeStokvel: () => boolean;
@@ -129,6 +130,9 @@ export const useGameStore = create<GameState & GameActions>()(
             false,
             'game/initMindset'
           ),
+
+        setLevel: (level) =>
+          set((s) => { s.level = level; }, false, 'game/setLevel'),
 
         addCash: (delta) =>
           set((s) => { s.cash = Math.max(0, s.cash + delta); }, false, 'game/addCash'),

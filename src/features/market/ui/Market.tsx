@@ -18,9 +18,9 @@ import { EasyEquitiesPrompt } from "@/shared/ui/EasyEquitiesPrompt";
 Chart.register(...registerables);
 
 const LEVELS = [
-  { id: "beginner",     name: "Seedling", icon: "🌱", unlockNetWorth: 0,       volatilityLabel: "Low" },
-  { id: "intermediate", name: "Growth",   icon: "⚡", unlockNetWorth: 10_000,  volatilityLabel: "Medium" },
-  { id: "advanced",     name: "Harvest",  icon: "🔥", unlockNetWorth: 100_000, volatilityLabel: "High" },
+  { id: "beginner",     name: "Seedling", icon: "🌱", unlockNetWorth: 0,       volatilityLabel: "Low",    maxVolatility: 0.010 },
+  { id: "intermediate", name: "Growth",   icon: "⚡", unlockNetWorth: 10_000,  volatilityLabel: "Medium", maxVolatility: 0.020 },
+  { id: "advanced",     name: "Harvest",  icon: "🔥", unlockNetWorth: 100_000, volatilityLabel: "High",   maxVolatility: Infinity },
 ] as const;
 
 export default function Market() {
@@ -32,6 +32,7 @@ export default function Market() {
   const level     = useGameStore((s) => s.level);
   const buyShares  = useGameStore((s) => s.buyShares);
   const sellShares = useGameStore((s) => s.sellShares);
+  const setLevel   = useGameStore((s) => s.setLevel);
 
   const assets          = useMarketStore((s) => s.assets);
   const activeSymbol    = useMarketStore((s) => s.activeSymbol);
@@ -47,8 +48,10 @@ export default function Market() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const chartRef  = useRef<Chart | null>(null);
 
-  const asset      = assets.find((a) => a.symbol === localSymbol) ?? assets[0];
-  const sharesOwned = shares[localSymbol] ?? 0;
+  const currentLevel   = LEVELS.find((l) => l.id === level) ?? LEVELS[0];
+  const visibleAssets  = assets.filter((a) => a.volatility <= currentLevel.maxVolatility);
+  const asset          = visibleAssets.find((a) => a.symbol === localSymbol) ?? visibleAssets[0];
+  const sharesOwned    = shares[asset?.symbol ?? localSymbol] ?? 0;
 
   const shortMA = asset
     ? asset.history.slice(-5).reduce((a, b) => a + b, 0) / Math.min(5, asset.history.length || 1)
@@ -192,6 +195,15 @@ export default function Market() {
               key={lvl.id}
               type="button"
               disabled={!isUnlocked}
+              onClick={() => {
+                if (isUnlocked) {
+                  setLevel(lvl.id as "beginner" | "intermediate" | "advanced");
+                  const nextAssets = assets.filter((a) => a.volatility <= lvl.maxVolatility);
+                  if (nextAssets.length > 0 && !nextAssets.find((a) => a.symbol === localSymbol)) {
+                    selectAsset(nextAssets[0].symbol);
+                  }
+                }
+              }}
               className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium whitespace-nowrap transition-all ${
                 isActive   ? "bg-gold/15 text-gold border border-gold/30"
                 : isUnlocked ? "bg-white/5 text-white border border-white/10 hover:bg-white/10"
@@ -201,6 +213,7 @@ export default function Market() {
             >
               <span>{lvl.icon}</span>
               <span>{lvl.name}</span>
+              <span className="text-[10px] opacity-60">{lvl.volatilityLabel}</span>
               {isUnlocked ? <Unlock className="w-3 h-3" /> : <Lock className="w-3 h-3" />}
             </motion.button>
           );
@@ -209,7 +222,7 @@ export default function Market() {
 
       {/* ── Asset Selector ────────────────────────────────────────────────── */}
       <div className="flex gap-2 mb-4 flex-wrap">
-        {assets.map((a) => (
+        {visibleAssets.map((a) => (
           <button
             key={a.symbol}
             type="button"
