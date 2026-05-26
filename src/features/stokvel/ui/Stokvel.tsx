@@ -341,9 +341,9 @@ export default function Stokvel() {
             {/* Stats row */}
             <div className="grid grid-cols-3 gap-3 mb-4">
               {[
-                { label: t("stokvel.members"), value: community.members, color: "text-white" },
-                { label: t("stokvel.pot"),     value: `R${community.pot.toLocaleString()}`, color: "gold-text" },
-                { label: "Rounds Done",         value: roundsCompleted,  color: "text-xhosa-teal" },
+                { label: t("stokvel.members"), value: community.members,              color: "text-white"      },
+                { label: t("stokvel.pot"),     value: formatCurrency(community.pot),  color: "gold-text"       },
+                { label: "Rounds Done",        value: roundsCompleted,                color: "text-xhosa-teal" },
               ].map(({ label, value, color }) => (
                 <motion.div key={label} className="glass-card p-4 text-center" whileHover={{ scale: 1.03 }}>
                   <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-1">{label}</p>

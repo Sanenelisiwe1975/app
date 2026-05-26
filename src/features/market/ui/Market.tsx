@@ -11,6 +11,8 @@ import { useMarketStore } from "@/shared/stores/marketStore";
 import { useNetWorth } from "@/shared/hooks/useNetWorth";
 import { useAudio } from "@/shared/hooks/useAudio";
 import { useCurrencyFormatter } from "@/shared/hooks/useCurrencyFormatter";
+import { useUserStore } from "@/shared/stores/userStore";
+import { CURRENCY_SYMBOLS } from "@/shared/lib/formatters";
 import { EasyEquitiesPrompt } from "@/shared/ui/EasyEquitiesPrompt";
 
 Chart.register(...registerables);
@@ -24,6 +26,7 @@ const LEVELS = [
 export default function Market() {
   const { t }          = useTranslation();
   const formatCurrency = useCurrencyFormatter();
+  const currency       = useUserStore((s) => s.currency);
   const cash      = useGameStore((s) => s.cash);
   const shares    = useGameStore((s) => s.shares);
   const level     = useGameStore((s) => s.level);
@@ -137,7 +140,8 @@ export default function Market() {
               font: { size: 10 },
               callback: (value) => {
                 const n = Number(value);
-                return n >= 1000 ? `R${(n / 1000).toFixed(1)}K` : `R${n.toFixed(0)}`;
+                const sym = CURRENCY_SYMBOLS[currency] ?? "R";
+                return n >= 1000 ? `${sym}${(n / 1000).toFixed(1)}K` : `${sym}${n.toFixed(0)}`;
               },
             },
           },
@@ -146,7 +150,7 @@ export default function Market() {
     });
 
     return () => { chartRef.current?.destroy(); chartRef.current = null; };
-  }, [asset?.history.length, localSymbol]);
+  }, [asset?.history.length, localSymbol, currency]);
 
   const selectAsset = (symbol: string) => {
     setLocalSymbol(symbol);

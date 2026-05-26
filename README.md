@@ -48,14 +48,14 @@ npm run test       # run all tests
 | Splash Screen | Animated golden orb + 7-bead beadwork progress bar |
 | Welcome Video | First-time Wamkelekile greeting (video or branded fallback) |
 | Register | Onboarding — name, age, location, audience selection |
-| Mindset Select | Choose one of 17 learning paths across 5 audience categories |
+| Mindset Select | Choose one of 17 learning paths across 5 audience categories; each includes a load shedding module |
 | Dashboard | Net worth, XP, badges, health multiplier, module progress |
 | Learn | Educational modules + scenario-based quizzes with instant feedback |
 | Market | Buy/sell simulated JSE stocks; live chart; MA signal indicator |
 | Portfolio | Holdings, trade history (from IndexedDB), performance stats |
 | Stokvel | Community rotating savings simulator with payout voting |
 | Time Machine | 100-year compound interest wealth projection |
-| B2B Shield | Phishing and scam detection training scenarios |
+| B2B Shield | 20 phishing and scam detection scenarios across 6 categories |
 | Wealthy Body | Health tracking (steps, sleep, heart rate) — boosts net worth |
 | Emotion Tracker | Blocks impulse spending, tracks emotional discipline |
 | Market Prophet | Bet on financial market predictions |
@@ -100,7 +100,7 @@ src/
 │   ├── i18n/                  # i18next setup + en.json + zu.json
 │   └── ui/                    # ErrorBoundary, EasyEquitiesPrompt
 └── data/
-    └── mindsets.ts            # 17 mindsets, 255 quiz questions, market assets
+    └── mindsets.ts            # 17 mindsets, 530 quiz questions, market assets
 ```
 
 ### State Management — 4 Zustand Stores
@@ -142,7 +142,7 @@ Every buy/sell calls `logTrade()` (fire-and-forget) which writes to **Dexie.js I
 
 ### Mindsets
 
-**17 mindsets** across 5 audience paths, each with 5 modules and 3 scenario-based quiz questions (255 questions total):
+**17 mindsets** across 5 audience paths, each with **6 modules** (5 business/finance modules + 1 load shedding impact module) and 5 quiz questions per module — **510 mindset quiz questions** plus 20 shared module questions = **530 total**.
 
 | Audience | Mindsets |
 |---|---|
@@ -151,6 +151,8 @@ Every buy/sell calls `logTrade()` (fire-and-forget) which writes to **Dexie.js I
 | Corporate Professional | Restaurateur, Salon Owner, Logistics Director, E-commerce CEO |
 | Wealth Builder | Mining Magnate, Property Tycoon, Tech Titan |
 | Professional Health | Doctor, Dentist, Physiotherapist |
+
+Each load shedding module (IDs 201-217) covers cost impact on the specific business type, practical workarounds, and tax treatment of backup power infrastructure.
 
 ### Internationalisation
 
@@ -185,9 +187,10 @@ npm run test:coverage   # coverage report
 
 ## Project Scale
 
-- ~15,000+ lines of source code
-- 17 mindsets, 255 scenario-based quiz questions
+- ~16,000+ lines of source code
+- 17 mindsets × 6 modules × 5 questions = 510 mindset quiz questions + 20 shared = **530 total**
+- 20 AntiScam scenarios across 6 scam categories
 - 14 lazy-loaded pages (code-split per route)
 - 4 Zustand stores, 6 custom hooks
-- Main bundle: 341 kB (111 kB gzip)
-- 44 PWA precache entries
+- Main bundle: ~455 kB (151 kB gzip)
+- 61 PWA precache entries
