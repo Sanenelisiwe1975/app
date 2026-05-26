@@ -249,11 +249,13 @@ export default function EnergyResilience() {
 
       {/* ── Downtime Cost Banner ──────────────────────────────────────────── */}
       <div className="glass-card p-4 mb-4 border-l-4 border-l-xhosa-red">
-        <div className="flex items-center gap-3">
-          <TrendingDown className="w-5 h-5 text-xhosa-red shrink-0" />
-          <div>
-            <p className="text-xs text-muted-foreground">Estimated downtime cost for {industry.label}</p>
-            <p className="text-xl font-bold text-xhosa-red">{formatCurrency(industry.downtimeCostPerHour)} / hour</p>
+        <div className="flex items-start gap-3">
+          <TrendingDown className="w-5 h-5 text-xhosa-red shrink-0 mt-0.5" />
+          <div className="min-w-0">
+            <p className="text-xs text-muted-foreground leading-snug">Estimated downtime cost for {industry.label}</p>
+            <p className="text-lg font-bold text-xhosa-red break-words mt-0.5">
+              {formatCurrency(industry.downtimeCostPerHour)}<span className="text-sm font-normal"> / hr</span>
+            </p>
           </div>
         </div>
       </div>
@@ -275,11 +277,11 @@ export default function EnergyResilience() {
                   : "bg-white/5 border-white/10 text-muted-foreground hover:bg-white/10"
               }`}
             >
-              <div className="flex items-center justify-between">
-                <span className="text-sm font-medium">{sol.name}</span>
-                <span className="text-xs text-gold font-bold">{formatCurrency(sol.upfront)}</span>
+              <div className="flex items-start justify-between gap-2">
+                <span className="text-sm font-medium flex-1 min-w-0 leading-snug">{sol.name}</span>
+                <span className="text-xs text-gold font-bold shrink-0">{formatCurrency(sol.upfront)}</span>
               </div>
-              <div className="flex gap-4 mt-1 text-xs opacity-70">
+              <div className="flex flex-wrap gap-x-3 gap-y-0.5 mt-1.5 text-xs opacity-70">
                 <span>Fuel: {sol.fuelCostPerHour === 0 ? "Free" : `${formatCurrency(sol.fuelCostPerHour)}/hr`}</span>
                 <span>Maint: {formatCurrency(sol.maintenancePerYear)}/yr</span>
                 <span>Life: {sol.lifespanYears}yr</span>
@@ -334,24 +336,24 @@ export default function EnergyResilience() {
       {/* ── Results ──────────────────────────────────────────────────────── */}
       <div className="glass-card p-5 mb-4">
         <p className="text-xs text-muted-foreground uppercase tracking-wider mb-4">Analysis Results ({years}yr horizon)</p>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-5">
-          <div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5">
+          <div className="min-w-0">
             <p className="text-xs text-muted-foreground">Total TCO</p>
-            <p className="text-lg font-bold text-xhosa-red">{formatCurrency(tco)}</p>
+            <p className="text-sm font-bold text-xhosa-red break-words">{formatCurrency(tco)}</p>
           </div>
-          <div>
+          <div className="min-w-0">
             <p className="text-xs text-muted-foreground">Loss Avoided</p>
-            <p className="text-lg font-bold text-xhosa-teal">{formatCurrency(lossAvoid)}</p>
+            <p className="text-sm font-bold text-xhosa-teal break-words">{formatCurrency(lossAvoid)}</p>
           </div>
-          <div>
+          <div className="min-w-0">
             <p className="text-xs text-muted-foreground">Net Saving</p>
-            <p className={`text-lg font-bold ${netSaving >= 0 ? "text-xhosa-teal" : "text-xhosa-red"}`}>
+            <p className={`text-sm font-bold break-words ${netSaving >= 0 ? "text-xhosa-teal" : "text-xhosa-red"}`}>
               {netSaving >= 0 ? "+" : ""}{formatCurrency(netSaving)}
             </p>
           </div>
-          <div>
+          <div className="min-w-0">
             <p className="text-xs text-muted-foreground">ROI</p>
-            <p className={`text-lg font-bold ${roiColour}`}>{roi.toFixed(1)}%</p>
+            <p className={`text-sm font-bold ${roiColour}`}>{roi.toFixed(1)}%</p>
           </div>
         </div>
 
