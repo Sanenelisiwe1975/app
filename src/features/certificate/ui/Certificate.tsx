@@ -480,8 +480,7 @@ function CertificateContent() {
                         {badges.map((b) => (
                           <span
                             key={b}
-                            className="px-2 py-0.5 rounded-full text-[9px] font-semibold"
-                            style={{ background: "rgba(212,175,55,0.15)", border: "1px solid rgba(212,175,55,0.35)", color: "#a67c00" }}
+                            className="px-2 py-0.5 rounded-full text-[9px] font-semibold bg-gold/15 border border-gold/30 text-[#a67c00]"
                           >
                             {b}
                           </span>
