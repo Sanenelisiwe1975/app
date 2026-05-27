@@ -10,6 +10,15 @@ import type {
   ScamAttempt,
 } from '@/entities';
 
+export interface Invite {
+  code: string;
+  createdAt: number;
+  expiresAt: number;
+  maxUses: number;
+  message: string;
+  fromName: string;
+}
+
 export interface NftMint {
   txSignature: string;
   explorerUrl: string;
@@ -70,6 +79,8 @@ interface GameState {
   impulseSpendsBlocked: number;
   mindsetHistory: MindsetRecord[];
   nftMint: NftMint | null;
+  invites: Invite[];
+  redeemedCodes: string[];
 }
 
 interface GameActions {
@@ -92,6 +103,10 @@ interface GameActions {
   simulateImpulse: () => void;
   saveMindsetProgress: (mindsetId: string, mindsetName: string) => void;
   recordNftMint: (mint: NftMint) => void;
+  createInvite: (invite: Invite) => void;
+  deleteInvite: (code: string) => void;
+  redeemInvite: (code: string) => boolean;
+  pruneExpiredInvites: () => void;
   reset: () => void;
 }
 
@@ -114,6 +129,8 @@ const INITIAL: GameState = {
   impulseSpendsBlocked: 0,
   mindsetHistory: [],
   nftMint: null,
+  invites: [],
+  redeemedCodes: [],
 };
 
 // ─── Store ────────────────────────────────────────────────────────────────────
@@ -295,6 +312,28 @@ export const useGameStore = create<GameState & GameActions>()(
 
         recordNftMint: (mint) =>
           set((s) => { s.nftMint = mint; }, false, 'game/recordNftMint'),
+
+        createInvite: (invite) =>
+          set((s) => { s.invites.push(invite); }, false, 'game/createInvite'),
+
+        deleteInvite: (code) =>
+          set((s) => { s.invites = s.invites.filter((i) => i.code !== code); }, false, 'game/deleteInvite'),
+
+        redeemInvite: (code) => {
+          if (get().redeemedCodes.includes(code)) return false;
+          set((s) => {
+            s.redeemedCodes.push(code);
+            s.xp += 50;
+            s.cash += 500;
+          }, false, 'game/redeemInvite');
+          return true;
+        },
+
+        pruneExpiredInvites: () =>
+          set((s) => {
+            const now = Date.now();
+            s.invites = s.invites.filter((i) => i.expiresAt > now);
+          }, false, 'game/pruneExpiredInvites'),
 
         reset: () =>
           set(

@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import i18n from "@/shared/i18n";
 import {
   LayoutDashboard, BookOpen, TrendingUp, Users, MoreHorizontal,
-  Briefcase, Clock, Shield, Heart, Brain, Award, RefreshCw, Globe, X, Zap,
+  Briefcase, Clock, Shield, Heart, Brain, Award, RefreshCw, Globe, X, Zap, Share2,
 } from "lucide-react";
 import { MuteButton } from "@/shared/ui/MuteButton";
 import { CurrencySelector } from "@/shared/ui/CurrencySelector";
@@ -28,6 +28,7 @@ const MORE_NAV: { id: Page; icon: React.ElementType; labelKey: string }[] = [
   { id: "prophet",     icon: TrendingUp,  labelKey: "nav.prophet"     },
   { id: "certificate", icon: Award,       labelKey: "nav.certificate" },
   { id: "energy",      icon: Zap,         labelKey: "nav.energy"      },
+  { id: "invite",      icon: Share2,      labelKey: "nav.invite"      },
   { id: "switch",      icon: RefreshCw,   labelKey: "nav.switch"      },
 ];
 

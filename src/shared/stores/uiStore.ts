@@ -18,7 +18,8 @@ export type Page =
   | 'prophet'
   | 'certificate'
   | 'switch'
-  | 'energy';
+  | 'energy'
+  | 'invite';
 
 interface UiState {
   page: Page;

@@ -1,7 +1,9 @@
-import { Suspense, lazy, useCallback, useEffect, useState } from "react";
+import { Suspense, lazy, useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useUiStore, type Page } from "@/shared/stores/uiStore";
 import { useUserStore } from "@/shared/stores/userStore";
+import { useGameStore } from "@/shared/stores/gameStore";
+import { parseInviteUrl } from "@/shared/hooks/useInviteSystem";
 import { ErrorBoundary } from "@/shared/ui/ErrorBoundary";
 import { OfflineBanner } from "@/shared/ui/OfflineBanner";
 import { InstallPWA } from "@/shared/ui/InstallPWA";
@@ -28,6 +30,7 @@ const MarketProphet  = lazy(() => import("@/features/market-prophet/ui/MarketPro
 const Certificate    = lazy(() => import("@/features/certificate/ui/Certificate"));
 const SwitchMindset      = lazy(() => import("@/features/auth/ui/SwitchMindset"));
 const EnergyResilience   = lazy(() => import("@/features/energy-resilience/ui/EnergyResilience"));
+const InviteQR           = lazy(() => import("@/features/invite/ui/InviteQR"));
 
 // ─── Page → component + boundary label map ────────────────────────────────────
 const PAGE_CONFIG: Partial<Record<Page, { Component: React.LazyExoticComponent<() => React.JSX.Element>; label: string }>> = {
@@ -45,6 +48,7 @@ const PAGE_CONFIG: Partial<Record<Page, { Component: React.LazyExoticComponent<(
   prophet:     { Component: MarketProphet,  label: "Market Prophet" },
   certificate: { Component: Certificate,       label: "Certificate"          },
   energy:      { Component: EnergyResilience, label: "Energy Resilience"    },
+  invite:      { Component: InviteQR,         label: "Invite & Earn"        },
   switch:      { Component: SwitchMindset,    label: "Switch Mindset"       },
 };
 
@@ -70,8 +74,23 @@ export default function App() {
   const hasSeenWelcome  = useUserStore((s) => s.hasSeenWelcome);
   const markWelcomeSeen = useUserStore((s) => s.markWelcomeSeen);
   const { isOffline }   = useNetworkStatus();
+  const redeemInvite    = useGameStore((s) => s.redeemInvite);
 
   const [showWelcomeVideo, setShowWelcomeVideo] = useState(false);
+  const pendingInvite   = useRef(parseInviteUrl());
+
+  // Process invite link once user is set
+  useEffect(() => {
+    const inv = pendingInvite.current;
+    if (!inv || !user) return;
+    if (Date.now() > inv.expiresAt) return;
+    const wasNew = redeemInvite(inv.code);
+    if (wasNew) {
+      // Clean URL so a refresh doesn't re-trigger
+      window.history.replaceState({}, '', window.location.pathname);
+    }
+    pendingInvite.current = null;
+  }, [user, redeemInvite]);
 
   // Auto-reload when a new service worker takes control — ensures deploys are seen immediately
   useEffect(() => {

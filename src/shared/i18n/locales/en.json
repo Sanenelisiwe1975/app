@@ -20,7 +20,8 @@
     "prophet": "Prophet",
     "certificate": "Certificate",
     "switch": "Switch",
-    "energy": "Energy"
+    "energy": "Energy",
+    "invite": "Invite"
   },
   "register": {
     "title": "Wamkelekile, Future Titan",
@@ -161,6 +162,26 @@
   "energy": {
     "title": "Energy Resilience",
     "subtitle": "Model backup power costs and ROI for load-shedding scenarios across South African industries."
+  },
+  "invite": {
+    "title": "Invite & Earn",
+    "subtitle": "Share FINLIT with friends. Earn R500 + 50 XP for every friend who joins.",
+    "create": "Create Invite Link",
+    "active": "Active Invites",
+    "noInvites": "No active invites. Create one to start sharing.",
+    "copy": "Copy Link",
+    "copied": "Copied!",
+    "download": "Download QR",
+    "delete": "Delete",
+    "expires": "Expires",
+    "maxUses": "Max Uses",
+    "message": "Personal Message",
+    "messagePlaceholder": "Join me on FINLIT!",
+    "expiry": "Link Expires In",
+    "unlimited": "Unlimited",
+    "generate": "Generate QR Code",
+    "expired": "Expired",
+    "tip": "Tip: Share your QR code at community events. The more wealth-minded people you bring in, the stronger our community grows."
   },
   "switchMindset": {
     "title": "Switch Mindset",
