@@ -98,7 +98,7 @@ src/
 │   └── welcome-video/         # WelcomeVideo (Wamkelekile)
 ├── shared/
 │   ├── stores/                # gameStore, userStore, marketStore, uiStore
-│   ├── hooks/                 # useNetWorth, useTradeHistory, useMarketWorker, useAudio
+│   ├── hooks/                 # useNetWorth, useTradeHistory, useMarketWorker, useAudio, useInviteSystem
 │   ├── workers/               # market.worker.ts (Web Worker price simulation)
 │   ├── lib/                   # db.ts (Dexie), formatters.ts
 │   ├── i18n/                  # i18next setup + en/zu/xh/st/af locale files
@@ -194,7 +194,7 @@ npm run test:coverage   # coverage report
 - ~16,000+ lines of source code
 - 17 mindsets × 6 modules × 5 questions = 510 mindset quiz questions + 20 shared = **530 total**
 - 20 AntiScam scenarios across 6 scam categories
-- 15 lazy-loaded pages (code-split per route)
-- 4 Zustand stores, 6 custom hooks
+- 16 lazy-loaded pages (code-split per route)
+- 4 Zustand stores, 7 custom hooks
 - Main bundle: ~455 kB (151 kB gzip)
 - 61 PWA precache entries
