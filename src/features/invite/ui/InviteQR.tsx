@@ -133,13 +133,13 @@ function CreateModal({ fromName, onClose, onCreate }: CreateModalProps) {
         <label className="block text-xs text-muted-foreground mb-1.5 uppercase tracking-wider">
           {t("invite.expiry")}
         </label>
-        <div className="flex gap-2 mb-5">
+        <div className="grid grid-cols-3 gap-2 mb-5">
           {EXPIRY_OPTIONS.map((o) => (
             <button
               key={o.ms}
               type="button"
               onClick={() => setExpiryMs(o.ms)}
-              className={`flex-1 py-2 rounded-xl text-xs font-medium transition-all border ${
+              className={`py-2 rounded-xl text-xs font-medium transition-all border ${
                 expiryMs === o.ms
                   ? "bg-gold/15 text-gold border-gold/30"
                   : "bg-white/5 text-muted-foreground border-white/10 hover:bg-white/10"
