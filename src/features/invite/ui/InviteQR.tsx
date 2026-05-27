@@ -15,9 +15,12 @@ import {
 import type { Invite } from "@/shared/stores/gameStore";
 
 const EXPIRY_OPTIONS = [
-  { label: "24 Hours",  ms: 24 * 60 * 60 * 1000 },
-  { label: "48 Hours",  ms: 48 * 60 * 60 * 1000 },
-  { label: "7 Days",    ms: 7  * 24 * 60 * 60 * 1000 },
+  { label: "1 Hour",   ms:  1 * 60 * 60 * 1000 },
+  { label: "6 Hours",  ms:  6 * 60 * 60 * 1000 },
+  { label: "12 Hours", ms: 12 * 60 * 60 * 1000 },
+  { label: "24 Hours", ms: 24 * 60 * 60 * 1000 },
+  { label: "48 Hours", ms: 48 * 60 * 60 * 1000 },
+  { label: "7 Days",   ms:  7 * 24 * 60 * 60 * 1000 },
 ] as const;
 
 const MAX_USES_OPTIONS = [1, 5, 10, 50] as const;
