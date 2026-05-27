@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { QRCodeCanvas } from "qrcode.react";
@@ -108,7 +108,7 @@ function CreateModal({ fromName, onClose, onCreate }: CreateModalProps) {
           <h3 className="font-semibold text-white text-lg flex items-center gap-2">
             <Plus className="w-5 h-5 text-gold" /> {t("invite.create")}
           </h3>
-          <button type="button" onClick={onClose} className="text-muted-foreground hover:text-white transition-colors">
+          <button type="button" onClick={onClose} aria-label="Close" className="text-muted-foreground hover:text-white transition-colors">
             <X className="w-5 h-5" />
           </button>
         </div>
@@ -267,6 +267,7 @@ function InviteCard({ invite, onDelete }: { invite: Invite; onDelete: () => void
             <button
               type="button"
               onClick={onDelete}
+              aria-label={t("invite.delete")}
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-xhosa-red/10 border border-xhosa-red/20 hover:bg-xhosa-red/20 text-xs text-xhosa-red transition-all ml-auto"
             >
               <Trash2 className="w-3 h-3" />
@@ -288,7 +289,6 @@ export default function InviteQR() {
   const deleteInvite  = useGameStore((s) => s.deleteInvite);
   const pruneExpired  = useGameStore((s) => s.pruneExpiredInvites);
   const [showModal, setShowModal] = useState(false);
-  const redeemedBonusRef = useRef(false);
 
   useEffect(() => {
     pruneExpired();

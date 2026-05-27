@@ -61,6 +61,7 @@ npm run test       # run all tests
 | Market Prophet | Bet on financial market predictions |
 | Certificate | Verified achievement certificate with SHA-256 ID + expiring QR code |
 | Energy Resilience | 10-industry load-shedding cost modeller — backup solution TCO, ROI calculator, Section 12B tax tip |
+| Invite & Earn | Generate shareable QR codes + deep links; rewards R500 + 50 XP per successful referral |
 | Switch Mindset | Change learning path or hard reset |
 
 ---
@@ -88,7 +89,8 @@ src/
 │   ├── wealthy-body/ui/       # WealthyBody
 │   ├── emotion-tracker/ui/    # EmotionTracker
 │   ├── market-prophet/ui/     # MarketProphet
-│   └── energy-resilience/ui/  # EnergyResilience (load-shedding ROI modeller)
+│   ├── energy-resilience/ui/  # EnergyResilience (load-shedding ROI modeller)
+│   └── invite/ui/             # InviteQR (QR code referral system)
 ├── widgets/
 │   ├── sidebar/               # Desktop navigation (5-language switcher)
 │   ├── mobile-nav/            # Mobile bottom nav (5-language switcher)

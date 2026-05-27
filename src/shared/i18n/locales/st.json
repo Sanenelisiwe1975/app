@@ -20,7 +20,8 @@
     "prophet": "Porofete",
     "certificate": "Setifikeiti",
     "switch": "Fetola",
-    "energy": "Matla"
+    "energy": "Matla",
+    "invite": "Mema"
   },
   "register": {
     "title": "Wamkelehile, Mogale wa Nako",
@@ -161,6 +162,26 @@
   "energy": {
     "title": "Matla a Boiketlo",
     "subtitle": "Bala ditjehelete tsa matla a emuva le ditshenyehelo ka diindasteri tsa Afrika Borwa."
+  },
+  "invite": {
+    "title": "Mema & Hola",
+    "subtitle": "Arolelana FINLIT le metsoalle ya hao. Hola R500 + 50 XP bakeng sa motho ka mong ya kenang.",
+    "create": "Theha Ketsahalo ya Memo",
+    "active": "Ditsiboso tse Sebetsang",
+    "noInvites": "Ha ho memo e sebetsang. Theha e nngwe ho qala ho arolelana.",
+    "copy": "Kopa Sehokelo",
+    "copied": "E kopilwe!",
+    "download": "Khuphela QR",
+    "delete": "Hlakola",
+    "expires": "E Fela",
+    "maxUses": "Tshebediso e Phahameng",
+    "message": "Molaetsa wa Botho",
+    "messagePlaceholder": "Nkenyeng ho FINLIT!",
+    "expiry": "Sehokelo se Fela Ka",
+    "unlimited": "Ha ho Moeli",
+    "generate": "Theha QR Code",
+    "expired": "E Fedile",
+    "tip": "Temana: Arolelana khouthu ya hao ya QR ditiragalong tsa sechaba. Batho ba bangata ba nang le mohopolo wa leruo o ba kenyelletsang, sechaba sa rona se matlafala."
   },
   "switchMindset": {
     "title": "Fetola Mohopolo",

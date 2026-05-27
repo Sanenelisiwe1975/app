@@ -20,7 +20,8 @@
     "prophet": "Profeet",
     "certificate": "Sertifikaat",
     "switch": "Wissel",
-    "energy": "Energie"
+    "energy": "Energie",
+    "invite": "Nooi"
   },
   "register": {
     "title": "Welkom, Toekomstige Titan",
@@ -161,6 +162,26 @@
   "energy": {
     "title": "Energie Veerkragtigheid",
     "subtitle": "Bereken rugkragkoste en opbrengs op belegging vir beurtkrag-scenarios oor Suid-Afrikaanse industrieë."
+  },
+  "invite": {
+    "title": "Nooi & Verdien",
+    "subtitle": "Deel FINLIT met vriende. Verdien R500 + 50 XP vir elke vriend wat aansluit.",
+    "create": "Skep Uitnodigingskakel",
+    "active": "Aktiewe Uitnodigings",
+    "noInvites": "Geen aktiewe uitnodigings. Skep een om te begin deel.",
+    "copy": "Kopieer Kakel",
+    "copied": "Gekopieer!",
+    "download": "Laai QR af",
+    "delete": "Verwyder",
+    "expires": "Verval",
+    "maxUses": "Maksimum Gebruike",
+    "message": "Persoonlike Boodskap",
+    "messagePlaceholder": "Sluit by my aan op FINLIT!",
+    "expiry": "Kakel Verval Na",
+    "unlimited": "Onbeperk",
+    "generate": "Genereer QR-kode",
+    "expired": "Verval",
+    "tip": "Wenk: Deel jou QR-kode by gemeenskapsgebeurtenisse. Hoe meer welvaartsgerigte mense jy inbring, hoe sterker groei ons gemeenskap."
   },
   "switchMindset": {
     "title": "Wissel Mentaliteit",

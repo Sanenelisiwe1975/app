@@ -20,7 +20,8 @@
     "prophet": "Umprofeti",
     "certificate": "Isatifikethi",
     "switch": "Tshintsha",
-    "energy": "Amandla"
+    "energy": "Amandla",
+    "invite": "Mema"
   },
   "register": {
     "title": "Wamkelekile, Igqwirha Lentlalo",
@@ -161,6 +162,26 @@
   "energy": {
     "title": "Ukomelela Kwamandla",
     "subtitle": "Bala iindleko zamandla emuva nezinzuzo kwiishishini zaseMzantsi Afrika."
+  },
+  "invite": {
+    "title": "Mema & Hola",
+    "subtitle": "Yabelana nge-FINLIT nabahlobo bakho. Hola i-R500 + 50 XP ngomfundi ngamnye ohlangeneyo.",
+    "create": "Yenza Isixhobo Sememo",
+    "active": "Imemo Esebenzayo",
+    "noInvites": "Akukho memo isebenzayo. Yenza eyodwa ukuqala ukwabelana.",
+    "copy": "Kopisha Isixhobo",
+    "copied": "Ikopishiwe!",
+    "download": "Khuphela i-QR",
+    "delete": "Cima",
+    "expires": "Iphela",
+    "maxUses": "Ukusetyenziswa Okuninzi",
+    "message": "Umyalezo Wobuqu",
+    "messagePlaceholder": "Hlangana nam ku-FINLIT!",
+    "expiry": "Isixhobo Siphela Nge",
+    "unlimited": "Ayinakuphela",
+    "generate": "Yenza i-QR Code",
+    "expired": "Iphele",
+    "tip": "Icebiso: Yabelana ngekhowudi yakho ye-QR kwiziganeko zoluntu. Abantu abaninzi abanomdla kobutyebi obafaka bona, uluntu lwethu luya luqina."
   },
   "switchMindset": {
     "title": "Tshintsha Ingcinga",
