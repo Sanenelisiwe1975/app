@@ -76,7 +76,7 @@ interface CreateModalProps {
 function CreateModal({ fromName, onClose, onCreate }: CreateModalProps) {
   const { t } = useTranslation();
   const [message,  setMessage]  = useState("");
-  const [expiryMs, setExpiryMs] = useState(EXPIRY_OPTIONS[1].ms);
+  const [expiryMs, setExpiryMs] = useState(EXPIRY_OPTIONS[3].ms); // default: 24 Hours
   const [maxUses,  setMaxUses]  = useState<number>(10);
 
   const handleCreate = () => {
