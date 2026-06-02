@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import { ArrowRight, Rocket, GraduationCap, Briefcase, Diamond, Heart } from "lucide-react";
+import { ArrowRight, Rocket, GraduationCap, Briefcase, Diamond, Heart, Shield } from "lucide-react";
 import { audiences } from "@/data/mindsets";
 import { useUserStore } from "@/shared/stores/userStore";
 import { useUiStore } from "@/shared/stores/uiStore";
@@ -47,6 +47,12 @@ export default function Register() {
     setUser({ name: firstName, surname, age, location, audience: key as AudienceKey, mindset: "" });
     setAudience(key as AudienceKey);
     navigate("mindset");
+    playDrum();
+  };
+
+  const handleSelectSAPS = () => {
+    setUser({ name: firstName, surname, age, location, audience: "youth" as AudienceKey, mindset: "saps" });
+    navigate("synchrolearn");
     playDrum();
   };
 
@@ -148,6 +154,28 @@ export default function Register() {
                   <ArrowRight className="w-4 h-4 text-gold mt-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </motion.button>
               ))}
+
+              {/* SAPS SynchroLearn pathway */}
+              <motion.button
+                type="button"
+                onClick={handleSelectSAPS}
+                className="p-6 text-left group touch-manipulation rounded-2xl transition-all duration-300 hover:border-gold/40 hover:shadow-[0_0_24px_rgba(212,175,55,0.1)]"
+                style={{
+                  background: "rgba(8,14,28,0.85)",
+                  border: "1px solid rgba(30,58,95,0.5)",
+                }}
+                whileHover={{ y: -4 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-xhosa-blue to-xhosa-teal flex items-center justify-center text-white mb-4 shadow-lg">
+                  <Shield className="w-8 h-8" />
+                </div>
+                <h3 className="font-semibold text-white mb-1">SAPS SynchroLearn</h3>
+                <p className="text-xs text-muted-foreground">
+                  Crime Prevention Portal
+                </p>
+                <ArrowRight className="w-4 h-4 text-gold mt-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+              </motion.button>
             </div>
             <button
               type="button"

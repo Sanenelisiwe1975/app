@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, ArrowLeft, Sparkles, BookOpen, Zap, Trophy, ChevronRight, Shield } from "lucide-react";
+import { ArrowRight, ArrowLeft, Sparkles, BookOpen, Zap, Trophy, ChevronRight } from "lucide-react";
 import { audiences } from "@/data/mindsets";
 import type { Mindset } from "@/data/mindsets";
 import { useUserStore } from "@/shared/stores/userStore";
@@ -74,7 +74,6 @@ export default function MindsetSelect() {
 
         {/* Mindset grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-8">
-          {/* ── Standard mindset cards ── */}
           {audience.mindsets.map((mindset, i) => {
             const tier       = getTier(mindset.startCash);
             const moduleCount = mindset.modules.length;
@@ -197,113 +196,6 @@ export default function MindsetSelect() {
               </motion.button>
             );
           })}
-
-          {/* ── SAPS SynchroLearn card ── */}
-          <motion.button
-            type="button"
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: audience.mindsets.length * 0.09, type: "spring", stiffness: 200, damping: 22 }}
-            onClick={() => navigate("synchrolearn")}
-            onMouseEnter={() => setHovered("saps")}
-            onMouseLeave={() => setHovered(null)}
-            className="relative text-left rounded-3xl overflow-hidden group transition-all duration-300 hover:border-gold/40 hover:shadow-[0_0_32px_rgba(212,175,55,0.12)] touch-manipulation"
-            style={{ background: "rgba(8,14,28,0.92)", border: "1px solid rgba(30,58,95,0.5)" }}
-            whileHover={{ y: -5, scale: 1.015 }}
-            whileTap={{ scale: 0.97 }}
-          >
-            {/* Shimmer top line — two-tone SAPS blue/gold */}
-            <div
-              className="absolute top-0 left-0 right-0 h-px opacity-70"
-              style={{ background: "linear-gradient(to right, transparent, #1E3A5F, #D4AF37, #1E3A5F, transparent)" }}
-            />
-
-            {/* Glow orb */}
-            <motion.div
-              className="absolute -top-8 -right-8 w-32 h-32 rounded-full blur-2xl pointer-events-none"
-              style={{ backgroundColor: "#1E3A5F" }}
-              animate={{ opacity: hovered === "saps" ? 0.35 : 0.12 }}
-              transition={{ duration: 0.3 }}
-            />
-
-            <div className="relative p-6">
-              {/* Tier badge */}
-              <div className="flex items-center justify-between mb-4">
-                <span className="text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full border text-gold border-gold/40 bg-gold/10">
-                  Institutional
-                </span>
-                <motion.div
-                  animate={{ opacity: hovered === "saps" ? 1 : 0, x: hovered === "saps" ? 0 : 8 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <ChevronRight className="w-4 h-4 text-gold" />
-                </motion.div>
-              </div>
-
-              {/* Icon + name */}
-              <div className="flex items-center gap-3 mb-3">
-                <div
-                  className="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl shrink-0 border border-white/10"
-                  style={{ backgroundColor: "rgba(30,58,95,0.3)" }}
-                >
-                  ⚖️
-                </div>
-                <div>
-                  <h3 className="font-serif text-base font-bold text-white leading-tight">SAPS SynchroLearn</h3>
-                  <p className="text-[11px] text-muted-foreground mt-0.5 leading-tight">Crime Prevention &amp; Financial Intelligence</p>
-                </div>
-              </div>
-
-              {/* Tagline */}
-              <div className="flex items-center gap-1.5 mb-4">
-                <Shield className="w-3 h-3 text-gold shrink-0" />
-                <span className="text-[11px] text-gold italic">Reintegration through financial literacy</span>
-              </div>
-
-              {/* Stats row */}
-              <div className="grid grid-cols-3 gap-2 mb-4">
-                <div className="bg-white/5 rounded-xl p-2.5 text-center border border-white/8">
-                  <p className="text-xs font-bold text-white">Portal</p>
-                  <p className="text-[9px] text-muted-foreground uppercase tracking-wider mt-0.5">Access</p>
-                </div>
-                <div className="bg-white/5 rounded-xl p-2.5 text-center border border-white/8">
-                  <div className="flex items-center justify-center gap-1">
-                    <BookOpen className="w-3 h-3 text-xhosa-teal" />
-                    <p className="text-xs font-bold text-white">5</p>
-                  </div>
-                  <p className="text-[9px] text-muted-foreground uppercase tracking-wider mt-0.5">Modules</p>
-                </div>
-                <div className="bg-white/5 rounded-xl p-2.5 text-center border border-white/8">
-                  <p className="text-xs font-bold text-white">100</p>
-                  <p className="text-[9px] text-muted-foreground uppercase tracking-wider mt-0.5">Max Pts</p>
-                </div>
-              </div>
-
-              {/* JSE concept tags */}
-              <div className="flex flex-wrap gap-1.5 mb-4">
-                {["JSE", "Opportunity Cost", "Cash Flow", "Diversification"].map((tag) => (
-                  <span
-                    key={tag}
-                    className="text-[9px] px-2 py-0.5 rounded-full bg-white/5 text-muted-foreground border border-white/10 font-medium"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-
-              {/* CTA row */}
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-1">
-                  {[...Array(5)].map((_, j) => (
-                    <div key={j} className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: "#1E3A5F" }} />
-                  ))}
-                </div>
-                <div className="flex items-center gap-1.5 text-gold text-xs font-semibold group-hover:gap-2.5 transition-all">
-                  Enter Portal <ArrowRight className="w-3.5 h-3.5" />
-                </div>
-              </div>
-            </div>
-          </motion.button>
         </div>
 
         {/* Bottom info strip */}
