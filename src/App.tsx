@@ -31,6 +31,7 @@ const Certificate    = lazy(() => import("@/features/certificate/ui/Certificate"
 const SwitchMindset      = lazy(() => import("@/features/auth/ui/SwitchMindset"));
 const EnergyResilience   = lazy(() => import("@/features/energy-resilience/ui/EnergyResilience"));
 const InviteQR           = lazy(() => import("@/features/invite/ui/InviteQR"));
+const SynchroLearn       = lazy(() => import("@/features/synchrolearn/ui/SynchroLearn"));
 
 // ─── Page → component + boundary label map ────────────────────────────────────
 const PAGE_CONFIG: Partial<Record<Page, { Component: React.LazyExoticComponent<() => React.JSX.Element>; label: string }>> = {
@@ -49,6 +50,7 @@ const PAGE_CONFIG: Partial<Record<Page, { Component: React.LazyExoticComponent<(
   certificate: { Component: Certificate,       label: "Certificate"          },
   energy:      { Component: EnergyResilience, label: "Energy Resilience"    },
   invite:      { Component: InviteQR,         label: "Invite & Earn"        },
+  synchrolearn:{ Component: SynchroLearn,    label: "SAPS SynchroLearn"    },
   switch:      { Component: SwitchMindset,    label: "Switch Mindset"       },
 };
 

@@ -19,7 +19,8 @@ export type Page =
   | 'certificate'
   | 'switch'
   | 'energy'
-  | 'invite';
+  | 'invite'
+  | 'synchrolearn';
 
 interface UiState {
   page: Page;

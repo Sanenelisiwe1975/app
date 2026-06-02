@@ -21,7 +21,8 @@
     "certificate": "Certificate",
     "switch": "Switch",
     "energy": "Energy",
-    "invite": "Invite"
+    "invite": "Invite",
+    "synchro": "SynchroLearn"
   },
   "register": {
     "title": "Wamkelekile, Future Titan",

@@ -21,7 +21,8 @@
     "certificate": "Sertifikaat",
     "switch": "Wissel",
     "energy": "Energie",
-    "invite": "Nooi"
+    "invite": "Nooi",
+    "synchro": "SynchroLearn"
   },
   "register": {
     "title": "Welkom, Toekomstige Titan",
