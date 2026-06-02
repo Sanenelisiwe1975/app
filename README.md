@@ -62,7 +62,7 @@ npm run test       # run all tests
 | Certificate | Verified achievement certificate with SHA-256 ID + expiring QR code |
 | Energy Resilience | 10-industry load-shedding cost modeller — backup solution TCO, ROI calculator, Section 12B tax tip |
 | Invite & Earn | Generate shareable QR codes + deep links; rewards R500 + 50 XP per successful referral |
-| SAPS SynchroLearn | Institutional portal: facilitator login, offender case management, 5 financial-literacy modules with JSE concepts, quiz scoring, certificate issuance, parole report PDF |
+| SAPS SynchroLearn | Institutional portal: facilitator login, offender case management, 5 JSE-linked modules, quiz scoring, SHA-256 certificate modal with confetti, parole report PDF, offline sync |
 | Switch Mindset | Change learning path or hard reset |
 
 ---
@@ -198,5 +198,5 @@ npm run test:coverage   # coverage report
 - 20 AntiScam scenarios across 6 scam categories
 - 17 lazy-loaded pages (code-split per route)
 - 5 Zustand stores, 7 custom hooks
-- Main bundle: ~455 kB (151 kB gzip)
-- 61 PWA precache entries
+- Main bundle: ~466 kB (155 kB gzip)
+- 65 PWA precache entries
