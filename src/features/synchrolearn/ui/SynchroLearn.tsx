@@ -263,10 +263,20 @@ function CertificateModal({ data, onClose }: { data: CertData; onClose: () => vo
 
           {/* Seal */}
           <div className="flex justify-center mb-4">
-            <div className="w-16 h-16 rounded-full flex items-center justify-center text-2xl"
-              style={{ background: "linear-gradient(135deg,#B8960C,#D4AF37)", boxShadow: "0 0 30px rgba(212,175,55,.35)" }}>
+            <motion.div
+              className="w-20 h-20 rounded-full flex items-center justify-center text-3xl"
+              style={{ background: "linear-gradient(135deg,#B8960C,#D4AF37)" }}
+              animate={{
+                boxShadow: [
+                  "0 0 20px rgba(212,175,55,0.3)",
+                  "0 0 40px rgba(212,175,55,0.6)",
+                  "0 0 20px rgba(212,175,55,0.3)",
+                ],
+              }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            >
               🏆
-            </div>
+            </motion.div>
           </div>
 
           {/* Recipient */}
@@ -411,7 +421,11 @@ function LoginScreen() {
           <Shield className="w-4 h-4" /> Access Secure Dashboard
         </button>
 
-        <p className="font-mono text-[10px] text-muted-foreground mt-5 tracking-wider">
+        {/* Divider */}
+        <div className="my-5 h-px w-16 mx-auto rounded-full"
+          style={{ background: "linear-gradient(90deg,transparent,#D4AF37,transparent)" }} />
+
+        <p className="font-mono text-[10px] text-muted-foreground tracking-wider">
           Demo credentials: any name · offline capable · SAPS endorsed
         </p>
       </motion.div>
@@ -431,17 +445,50 @@ interface ModuleQuizProps {
 }
 
 function ModuleQuiz({ offenderId, moduleIdx, quizTaken, score, onSubmit, onRetake }: ModuleQuizProps) {
-  const [answers, setAnswers] = useState<Record<number, number>>({});
+  const [answers, setAnswers]               = useState<Record<number, number>>({});
+  const [submitted, setSubmitted]           = useState<Record<number, number> | null>(null);
   const questions = SYNCHRO_MODULES[moduleIdx].questions;
 
+  // After a failed submission — show per-option correct/wrong highlighting
   if (quizTaken && score !== null && score < 3) {
     return (
-      <div className="mt-3 p-4 rounded-xl" style={{ background: "rgba(192,57,43,.1)", border: "1px solid rgba(192,57,43,.3)" }}>
-        <p className="font-serif text-lg font-bold mb-1" style={{ color: "#C0392B" }}>{score}/4</p>
-        <p className="text-sm mb-3" style={{ color: "#C0392B" }}>Correct answers — need 3/4 to pass</p>
-        <button type="button" className="btn-outline-premium text-xs px-4 py-1.5" onClick={onRetake}>
-          🔄 Retake Quiz
-        </button>
+      <div className="mt-4 space-y-5">
+        {/* Result box — fail */}
+        <div className="rounded-2xl p-5" style={{ background: "linear-gradient(145deg,rgba(13,17,23,.9),rgba(8,12,20,.95))", border: "1px solid rgba(192,57,43,.3)" }}>
+          <p className="font-serif text-3xl font-bold text-center mb-1" style={{ color: "#C0392B" }}>{score}/4</p>
+          <p className="text-center text-sm mb-3" style={{ color: "#C0392B" }}>Correct answers — need 3/4 to pass</p>
+          <button type="button" className="btn-outline-premium w-full text-xs" onClick={() => { setSubmitted(null); onRetake(); }}>
+            🔄 Retake Quiz
+          </button>
+        </div>
+
+        {/* Per-option highlighting (only when answers are still in memory) */}
+        {submitted && questions.map((q, qi) => (
+          <div key={qi}>
+            <p className="text-sm font-semibold text-white mb-2 pl-4 border-l-2 border-gold">
+              {qi + 1}. {q.text}
+            </p>
+            <div className="space-y-2">
+              {q.options.map((opt, oi) => {
+                const isCorrect   = q.correct === oi;
+                const wasSelected = submitted[qi] === oi;
+                let cls = "bg-white/3 border-white/8 text-white/50";
+                if (wasSelected && isCorrect)  cls = "border-[#2D9C5E] text-[#2D9C5E]";
+                else if (wasSelected)           cls = "border-[#C0392B] text-[#C0392B]";
+                else if (isCorrect)             cls = "border-[#2D9C5E]/40 text-[#2D9C5E]/60";
+                return (
+                  <div key={oi} className={`px-4 py-2.5 rounded-xl text-sm border transition-all ${cls}`}
+                    style={wasSelected && isCorrect ? { background: "rgba(45,156,94,.1)" }
+                          : wasSelected           ? { background: "rgba(192,57,43,.1)" }
+                          : isCorrect             ? { background: "rgba(45,156,94,.05)" }
+                          : { background: "rgba(255,255,255,.02)" }}>
+                    {opt}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        ))}
       </div>
     );
   }
@@ -462,7 +509,7 @@ function ModuleQuiz({ offenderId, moduleIdx, quizTaken, score, onSubmit, onRetak
                 className={`flex items-center gap-3 px-4 py-2.5 rounded-xl cursor-pointer transition-all text-sm border ${
                   answers[qi] === oi
                     ? "bg-gold/10 border-gold/40 text-gold"
-                    : "bg-white/3 border-white/8 text-white/75 hover:bg-white/8 hover:border-white/20"
+                    : "text-white/75 hover:border-white/20"
                 }`}
                 style={answers[qi] === oi ? {} : { background: "rgba(255,255,255,.03)", borderColor: "rgba(255,255,255,.08)" }}
               >
@@ -486,6 +533,7 @@ function ModuleQuiz({ offenderId, moduleIdx, quizTaken, score, onSubmit, onRetak
         onClick={() => {
           let c = 0;
           questions.forEach((q, qi) => { if (answers[qi] === q.correct) c++; });
+          setSubmitted({ ...answers });
           onSubmit(c);
         }}
         disabled={!allAnswered}
@@ -822,11 +870,15 @@ function SynchroDashboard() {
       {/* Offender management */}
       <div className="glass-card p-5 mb-6">
         <div className="flex items-center justify-between mb-4">
-          <div>
-            <h3 className="font-semibold text-white flex items-center gap-2">
-              <Users className="w-4 h-4 text-gold" /> Offender Case Management
-            </h3>
-            <p className="text-xs text-muted-foreground mt-0.5">Click an offender to begin training</p>
+          <div className="flex items-center gap-3">
+            <span className="font-mono text-[10px] font-bold tracking-widest px-3 py-1 rounded-lg text-gold uppercase"
+              style={{ background: "rgba(212,175,55,.1)", border: "1px solid rgba(212,175,55,.2)" }}>01</span>
+            <div>
+              <h3 className="font-semibold text-white flex items-center gap-2">
+                <Users className="w-4 h-4 text-gold" /> Offender Case Management
+              </h3>
+              <p className="text-xs text-muted-foreground mt-0.5">Click an offender to begin training</p>
+            </div>
           </div>
           <button type="button" onClick={() => setShowAddInput((v) => !v)}
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all hover:-translate-y-0.5"
@@ -871,9 +923,13 @@ function SynchroDashboard() {
       {/* Module training */}
       <div className="glass-card p-5 mb-6">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="font-semibold text-white flex items-center gap-2">
-            <GraduationCap className="w-4 h-4 text-gold" /> SynchroLearn Modules
-          </h3>
+          <div className="flex items-center gap-3">
+            <span className="font-mono text-[10px] font-bold tracking-widest px-3 py-1 rounded-lg text-gold uppercase"
+              style={{ background: "rgba(212,175,55,.1)", border: "1px solid rgba(212,175,55,.2)" }}>02</span>
+            <h3 className="font-semibold text-white flex items-center gap-2">
+              <GraduationCap className="w-4 h-4 text-gold" /> SynchroLearn Modules
+            </h3>
+          </div>
           <span className="text-xs font-semibold px-3 py-1.5 rounded-full"
             style={{ background: "rgba(212,175,55,.08)", border: "1px solid rgba(212,175,55,.2)", color: "#F4E4A6" }}>
             {activeOffender ? `👤 ${activeOffender.name}` : "Select an offender above"}
@@ -881,7 +937,7 @@ function SynchroDashboard() {
         </div>
 
         {activeOffender ? (
-          <div className="space-y-3">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {SYNCHRO_MODULES.map((_, mi) => {
               const qs = activeOffender.quizState[String(mi)];
               return (
@@ -912,6 +968,11 @@ function SynchroDashboard() {
       </div>
 
       {/* Action cards */}
+      <div className="flex items-center gap-3 mb-4">
+        <span className="font-mono text-[10px] font-bold tracking-widest px-3 py-1 rounded-lg text-gold uppercase"
+          style={{ background: "rgba(212,175,55,.1)", border: "1px solid rgba(212,175,55,.2)" }}>03</span>
+        <h3 className="font-semibold text-white">Tools &amp; Reports</h3>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {/* Parole report */}
         <div className="glass-card p-5 transition-all hover:-translate-y-1">
