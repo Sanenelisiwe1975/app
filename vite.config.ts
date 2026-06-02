@@ -21,7 +21,7 @@ export default defineConfig({
         theme_color: "#D4AF37",
         background_color: "#0A0A0F",
         display: "standalone",
-        orientation: "portrait",
+        orientation: "any",
         lang: "en-ZA",
         dir: "ltr",
         categories: ["education", "finance"],
