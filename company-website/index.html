@@ -1,0 +1,1510 @@
+<!DOCTYPE html>
+<html lang="en-ZA">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+  <title>FinSpark | Gamified Financial Literacy for South Africa</title>
+  <meta name="description" content="FinSpark is a gamified financial literacy platform empowering SAPS offenders and everyday South Africans to build wealth, master money, and rewrite their futures." />
+
+  <meta property="og:title" content="FinSpark | Gamified Financial Literacy for South Africa" />
+  <meta property="og:description" content="Gamified financial literacy for South Africa — crime prevention through financial empowerment." />
+  <meta property="og:type" content="website" />
+
+  <meta name="theme-color" content="#0A0A0F" />
+
+  <!-- Inline favicon (gold "FS" monogram on dark) -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='10' fill='%230A0A0F'/%3E%3Ctext x='24' y='32' font-family='Georgia,serif' font-size='19' font-weight='900' fill='%23D4AF37' text-anchor='middle'%3EFS%3C/text%3E%3C/svg%3E" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    /* ============================================
+       1. RESET & VARIABLES
+    ============================================ */
+    :root {
+      --black: #060608;
+      --black-soft: #0A0A0F;
+      --card: #12121A;
+      --elevated: #1A1A25;
+
+      --gold: #D4AF37;
+      --gold-light: #F4D03F;
+      --gold-dark: #B8860B;
+
+      --emerald: #064E3B;
+      --emerald-light: #10B981;
+
+      --text: #F5F5F0;
+      --text-muted: #A1A1AA;
+
+      --xhosa-red: #C0392B;
+      --xhosa-blue: #2980B9;
+      --xhosa-yellow: #F1C40F;
+      --xhosa-teal: #1ABC9C;
+      --xhosa-coral: #E74C3C;
+      --xhosa-purple: #8E44AD;
+      --xhosa-orange: #E67E22;
+
+      --header-h: 84px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: var(--header-h);
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--black);
+      color: var(--text);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    img, svg { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+    button { font: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+    input, select, textarea { font: inherit; }
+
+    /* ============================================
+       2. TYPOGRAPHY & UTILITIES
+    ============================================ */
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      color: var(--text);
+    }
+
+    .gold-text {
+      background: linear-gradient(135deg, var(--gold-light), var(--gold) 50%, var(--gold-dark));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 14px;
+    }
+
+    .icon { width: 22px; height: 22px; flex-shrink: 0; }
+
+    /* Scroll-reveal animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .7s ease, transform .7s ease;
+      transition-delay: calc(var(--i, 0) * 0.08s);
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal { transition: none; opacity: 1; transform: none; }
+    }
+
+    /* ============================================
+       3. BUTTONS
+    ============================================ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 15px 34px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      border: 1px solid transparent;
+      white-space: nowrap;
+      transition: transform .25s ease, box-shadow .25s ease, background-color .25s ease, border-color .25s ease, color .25s ease;
+    }
+
+    .btn-gold {
+      background: linear-gradient(135deg, var(--gold-light), var(--gold-dark));
+      color: #0A0A0F;
+      box-shadow: 0 8px 24px rgba(212, 175, 55, 0.25);
+    }
+    .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 14px 36px rgba(212, 175, 55, 0.4); }
+
+    .btn-outline {
+      border-color: rgba(212, 175, 55, 0.35);
+      color: var(--gold-light);
+      background: rgba(212, 175, 55, 0.04);
+    }
+    .btn-outline:hover { background: rgba(212, 175, 55, 0.1); border-color: var(--gold); transform: translateY(-2px); }
+
+    .btn-lg { padding: 17px 42px; font-size: 1rem; }
+    .btn-sm { padding: 10px 24px; font-size: 0.85rem; }
+    .btn-block { width: 100%; }
+
+    /* ============================================
+       4. HEADER & NAVIGATION
+    ============================================ */
+    .site-header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      padding: 22px 0;
+      transition: padding .3s ease, background-color .3s ease, border-color .3s ease;
+      border-bottom: 1px solid transparent;
+    }
+    .site-header.scrolled {
+      padding: 14px 0;
+      background: rgba(6, 6, 8, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom-color: rgba(212, 175, 55, 0.1);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: 'Playfair Display', serif;
+      font-weight: 800;
+      font-size: 1.05rem;
+      letter-spacing: 0.01em;
+    }
+    .brand-logo { width: 42px; height: 42px; flex-shrink: 0; }
+    .brand-name strong { color: var(--gold-light); }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+    }
+    .nav-link {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      position: relative;
+      padding: 6px 2px;
+      transition: color .2s ease;
+    }
+    .nav-link:hover, .nav-link.active { color: var(--gold-light); }
+    .nav-link.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--gold);
+      border-radius: 2px;
+    }
+
+    .header-actions { display: flex; align-items: center; gap: 18px; }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 40px; height: 40px;
+      padding: 8px;
+    }
+    .hamburger span {
+      display: block;
+      width: 100%; height: 2px;
+      background: var(--gold-light);
+      border-radius: 2px;
+      transition: transform .3s ease, opacity .3s ease;
+    }
+    .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ============================================
+       5. MOBILE MENU
+    ============================================ */
+    .mobile-menu {
+      position: fixed;
+      inset: 0;
+      background: rgba(6, 6, 8, 0.98);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+      transform: translateY(-100%);
+      opacity: 0;
+      transition: transform .35s ease, opacity .35s ease;
+      pointer-events: none;
+    }
+    .mobile-menu.open { transform: translateY(0); opacity: 1; pointer-events: auto; }
+    .mobile-menu .nav-link { font-size: 1.5rem; font-family: 'Playfair Display', serif; font-weight: 700; color: var(--text); }
+    .mobile-menu .nav-link.active { color: var(--gold-light); }
+    .mobile-menu .nav-link.active::after { display: none; }
+
+    /* ============================================
+       6. HERO
+    ============================================ */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: calc(var(--header-h) + 40px);
+      padding-bottom: 80px;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background:
+        radial-gradient(ellipse 70% 55% at 50% -10%, rgba(212, 175, 55, 0.16), transparent 60%),
+        radial-gradient(ellipse 60% 55% at 100% 100%, rgba(6, 78, 59, 0.4), transparent 60%),
+        linear-gradient(180deg, #060608 0%, #0A0A0F 100%);
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle at 1px 1px, rgba(212, 175, 55, 0.1) 1px, transparent 0);
+      background-size: 34px 34px;
+      opacity: 0.35;
+    }
+
+    .hero-inner { max-width: 800px; }
+    .hero h1 { font-size: clamp(2.4rem, 6vw, 4.4rem); margin-bottom: 24px; }
+    .hero-sub { font-size: 1.15rem; color: var(--text-muted); max-width: 620px; margin-bottom: 40px; }
+    .hero-ctas { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 64px; }
+
+    .hero-stats { display: flex; gap: 48px; flex-wrap: wrap; }
+    .hero-stat .num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.1rem;
+      font-weight: 800;
+      color: var(--gold-light);
+    }
+    .hero-stat .label {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-top: 4px;
+    }
+
+    /* ============================================
+       7. BEADWORK DIVIDER
+    ============================================ */
+    .beadwork-bar {
+      height: 6px;
+      width: 100%;
+      background: repeating-linear-gradient(
+        90deg,
+        var(--xhosa-red) 0 36px,
+        var(--xhosa-yellow) 36px 72px,
+        var(--xhosa-teal) 72px 108px,
+        var(--xhosa-blue) 108px 144px,
+        var(--xhosa-purple) 144px 180px,
+        var(--xhosa-orange) 180px 216px,
+        var(--xhosa-coral) 216px 252px
+      );
+    }
+
+    /* ============================================
+       8. SECTION LAYOUT
+    ============================================ */
+    .section { padding: 120px 0; position: relative; }
+    .section-alt { background: var(--card); position: relative; overflow: hidden; }
+    .section-alt::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 50% at 15% 0%, rgba(6, 78, 59, 0.18), transparent 55%);
+      pointer-events: none;
+    }
+    .section-alt .container { position: relative; z-index: 1; }
+
+    .section-head { max-width: 700px; margin: 0 auto 64px; text-align: center; }
+    .section-head h2 { font-size: clamp(2rem, 4.2vw, 3rem); margin-bottom: 18px; }
+    .section-lead { color: var(--text-muted); font-size: 1.05rem; }
+
+    /* ============================================
+       9. ABOUT SECTION
+    ============================================ */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+    .about-text p { color: var(--text-muted); margin-bottom: 20px; }
+
+    .proverb {
+      border-left: 3px solid var(--gold);
+      padding: 22px 28px;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.25rem;
+      color: var(--gold-light);
+      background: rgba(212, 175, 55, 0.05);
+      border-radius: 0 14px 14px 0;
+      margin-top: 32px;
+    }
+    .proverb span {
+      display: block;
+      font-size: 0.85rem;
+      font-style: normal;
+      font-weight: 500;
+      color: var(--text-muted);
+      margin-top: 10px;
+      font-family: 'Inter', sans-serif;
+      letter-spacing: 0.04em;
+    }
+
+    .pillars { display: flex; flex-direction: column; gap: 20px; }
+    .pillar-card {
+      background: var(--elevated);
+      border: 1px solid rgba(212, 175, 55, 0.08);
+      border-radius: 16px;
+      padding: 28px;
+      transition: border-color .25s ease, transform .25s ease;
+    }
+    .pillar-card:hover { border-color: rgba(212, 175, 55, 0.25); transform: translateX(4px); }
+    .pillar-card h3 { font-size: 1.1rem; margin-bottom: 8px; color: var(--gold-light); }
+    .pillar-card p { color: var(--text-muted); font-size: 0.92rem; }
+
+    /* ============================================
+       10. SOLUTION SECTION + PHONE MOCKUP
+    ============================================ */
+    .solution-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .solution-text p { color: var(--text-muted); margin-bottom: 20px; }
+    .solution-callout {
+      background: rgba(16, 185, 129, 0.06);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      border-radius: 14px;
+      padding: 20px 24px;
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      margin-bottom: 28px;
+    }
+    .solution-callout strong { color: var(--emerald-light); }
+
+    .check-list { display: flex; flex-direction: column; gap: 14px; margin-bottom: 36px; }
+    .check-list li { display: flex; align-items: flex-start; gap: 12px; color: var(--text-muted); font-size: 0.96rem; }
+    .check-list .icon { color: var(--emerald-light); margin-top: 3px; }
+
+    .solution-visual { display: flex; justify-content: center; position: relative; }
+    .phone-glow {
+      position: absolute;
+      width: 320px; height: 320px;
+      background: radial-gradient(circle, rgba(212, 175, 55, 0.22), transparent 70%);
+      filter: blur(50px);
+      z-index: 0;
+    }
+    .phone-frame {
+      position: relative;
+      width: 290px;
+      background: linear-gradient(160deg, #1A1A25, #0A0A0F);
+      border: 8px solid #1A1A25;
+      border-radius: 36px;
+      padding: 14px;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.55), inset 0 0 0 1px rgba(212, 175, 55, 0.1);
+      z-index: 1;
+    }
+    .phone-screen { background: var(--black-soft); border-radius: 24px; padding: 24px 18px; }
+
+    .app-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; }
+    .app-logo { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 1.05rem; color: var(--gold-light); letter-spacing: 0.04em; }
+    .app-badge {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--emerald-light);
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .app-networth {
+      background: var(--elevated);
+      border-radius: 16px;
+      padding: 18px;
+      margin-bottom: 18px;
+      border: 1px solid rgba(212, 175, 55, 0.08);
+    }
+    .app-networth .label { font-size: 0.66rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.12em; }
+    .app-networth .value { display: block; font-family: 'Playfair Display', serif; font-size: 1.7rem; font-weight: 800; margin: 6px 0; }
+    .app-networth .trend { font-size: 0.78rem; color: var(--emerald-light); font-weight: 700; }
+
+    .app-xp { margin-bottom: 18px; }
+    .xp-label { display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--text-muted); margin-bottom: 8px; }
+    .xp-bar { height: 8px; background: var(--elevated); border-radius: 999px; overflow: hidden; }
+    .xp-fill { height: 100%; width: 78%; background: linear-gradient(90deg, var(--gold-dark), var(--gold-light)); border-radius: 999px; }
+
+    .app-badges { display: flex; gap: 10px; margin-bottom: 22px; }
+    .badge-icon {
+      width: 38px; height: 38px;
+      border-radius: 11px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 1rem;
+    }
+    .badge-icon.gold    { background: rgba(212, 175, 55, 0.15); color: var(--gold-light); border: 1px solid rgba(212, 175, 55, 0.3); }
+    .badge-icon.emerald { background: rgba(16, 185, 129, 0.15); color: var(--emerald-light); border: 1px solid rgba(16, 185, 129, 0.3); }
+    .badge-icon.teal    { background: rgba(26, 188, 156, 0.15); color: var(--xhosa-teal); border: 1px solid rgba(26, 188, 156, 0.3); }
+    .badge-icon.purple  { background: rgba(142, 68, 173, 0.15); color: var(--xhosa-purple); border: 1px solid rgba(142, 68, 173, 0.3); }
+
+    .app-modules { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .module-card {
+      background: var(--elevated);
+      border-radius: 12px;
+      padding: 13px 14px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      display: flex; align-items: center; gap: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+    .module-card .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .dot.teal   { background: var(--xhosa-teal); }
+    .dot.blue   { background: var(--xhosa-blue); }
+    .dot.gold   { background: var(--gold); }
+    .dot.purple { background: var(--xhosa-purple); }
+
+    /* ============================================
+       11. FEATURES GRID
+    ============================================ */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+    .feature-card {
+      background: var(--elevated);
+      border: 1px solid rgba(212, 175, 55, 0.08);
+      border-radius: 18px;
+      padding: 32px 26px;
+      transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(212, 175, 55, 0.3);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3);
+    }
+    .feature-icon {
+      width: 52px; height: 52px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(6, 78, 59, 0.3));
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gold-light);
+      margin-bottom: 20px;
+    }
+    .feature-icon .icon { width: 26px; height: 26px; }
+    .feature-card h3 { font-size: 1.08rem; margin-bottom: 10px; }
+    .feature-card p { color: var(--text-muted); font-size: 0.9rem; }
+
+    /* ============================================
+       12. IMPACT & STATS
+    ============================================ */
+    .impact-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .impact-text p { color: var(--text-muted); margin-bottom: 20px; }
+
+    .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .stat-card {
+      background: var(--black-soft);
+      border: 1px solid rgba(212, 175, 55, 0.1);
+      border-radius: 16px;
+      padding: 32px 20px;
+      text-align: center;
+    }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.6rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--gold-light), var(--emerald-light));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: 10px;
+    }
+
+    /* ============================================
+       13. TESTIMONIALS
+    ============================================ */
+    .testimonial-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .testimonial-card {
+      background: var(--elevated);
+      border: 1px solid rgba(212, 175, 55, 0.08);
+      border-radius: 18px;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      height: 100%;
+    }
+    .testimonial-mark {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--gold);
+      line-height: 1;
+      opacity: 0.55;
+    }
+    .testimonial-text { color: var(--text-muted); font-size: 0.95rem; flex-grow: 1; }
+    .testimonial-author { display: flex; align-items: center; gap: 14px; }
+    .author-avatar {
+      width: 46px; height: 46px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--emerald-light));
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 0.95rem;
+      color: #0A0A0F;
+      font-family: 'Playfair Display', serif;
+      flex-shrink: 0;
+    }
+    .author-name { font-weight: 700; font-size: 0.92rem; }
+    .author-role { font-size: 0.78rem; color: var(--text-muted); }
+
+    /* ============================================
+       14. CONTACT
+    ============================================ */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: 64px; }
+
+    .contact-info-item { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 24px; }
+    .contact-info-item .icon-wrap {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      background: rgba(212, 175, 55, 0.1);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gold-light);
+      flex-shrink: 0;
+    }
+    .contact-info-item h4 { font-size: 0.95rem; margin-bottom: 4px; font-family: 'Inter', sans-serif; font-weight: 700; }
+    .contact-info-item p, .contact-info-item a { color: var(--text-muted); font-size: 0.9rem; }
+    .contact-info-item a:hover { color: var(--gold-light); }
+
+    .social-row { display: flex; gap: 12px; margin-top: 32px; }
+    .social-icon {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--gold-light);
+      transition: all .2s ease;
+    }
+    .social-icon:hover { background: var(--gold); color: #0A0A0F; transform: translateY(-3px); }
+
+    .contact-form {
+      background: var(--black-soft);
+      border: 1px solid rgba(212, 175, 55, 0.1);
+      border-radius: 20px;
+      padding: 40px;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .form-group { margin-bottom: 22px; }
+    .form-group label {
+      display: block;
+      font-size: 0.76rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 14px 16px;
+      background: var(--elevated);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      color: var(--text);
+      font-size: 0.95rem;
+      transition: border-color .2s ease;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { outline: none; border-color: var(--gold); }
+    .form-group textarea { resize: vertical; min-height: 130px; }
+    .form-group select { cursor: pointer; }
+
+    .form-success {
+      display: none;
+      align-items: center;
+      gap: 10px;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: var(--emerald-light);
+      padding: 16px 20px;
+      border-radius: 10px;
+      margin-bottom: 22px;
+      font-size: 0.9rem;
+    }
+    .form-success.show { display: flex; }
+    .form-success .icon { color: var(--emerald-light); }
+
+    /* ============================================
+       15. FOOTER
+    ============================================ */
+    .site-footer { background: var(--black-soft); padding-top: 80px; }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+      gap: 48px;
+      padding-bottom: 60px;
+    }
+    .footer-brand .brand { margin-bottom: 16px; }
+    .footer-brand p { color: var(--text-muted); font-size: 0.9rem; max-width: 280px; }
+    .footer-col h4 {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--gold-light);
+      margin-bottom: 22px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+    }
+    .footer-col ul li { margin-bottom: 13px; }
+    .footer-col a { color: var(--text-muted); font-size: 0.9rem; transition: color .2s ease; }
+    .footer-col a:hover { color: var(--gold-light); }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 26px 0;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-size: 0.84rem;
+      color: var(--text-muted);
+    }
+    .footer-legal { display: flex; gap: 24px; flex-wrap: wrap; }
+    .footer-legal a { color: var(--text-muted); }
+    .footer-legal a:hover { color: var(--gold-light); }
+
+    /* ============================================
+       16. BACK TO TOP
+    ============================================ */
+    .back-to-top {
+      position: fixed;
+      bottom: 28px; right: 28px;
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: var(--gold);
+      color: #0A0A0F;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; visibility: hidden;
+      transform: translateY(12px);
+      transition: all .3s ease;
+      z-index: 998;
+      box-shadow: 0 8px 24px rgba(212, 175, 55, 0.35);
+    }
+    .back-to-top.show { opacity: 1; visibility: visible; transform: translateY(0); }
+    .back-to-top:hover { transform: translateY(-4px); }
+
+    /* ============================================
+       17. RESPONSIVE
+    ============================================ */
+    @media (max-width: 1024px) {
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
+      .about-grid, .solution-grid, .impact-content, .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+      .solution-visual { order: -1; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .header-actions .btn { display: none; }
+      .hamburger { display: flex; }
+
+      .hero { padding-top: calc(var(--header-h) + 16px); }
+      .hero-stats { gap: 32px; }
+
+      .section { padding: 80px 0; }
+      .section-head { margin-bottom: 48px; }
+
+      .testimonial-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+
+      .footer-grid { grid-template-columns: 1fr; gap: 40px; padding-bottom: 40px; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (max-width: 480px) {
+      .features-grid { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+      .stat-card { padding: 22px 12px; }
+      .stat-num { font-size: 2rem; }
+      .contact-form { padding: 28px 22px; }
+      .hero-ctas .btn { width: 100%; }
+      .hero-ctas { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================
+       ICON SPRITE (hidden)
+  ============================================ -->
+  <svg style="display:none" aria-hidden="true">
+    <symbol id="icon-trophy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M8 4h8v3a4 4 0 0 1-8 0V4Z"/>
+      <path d="M8 4H5.5A2.5 2.5 0 0 0 8 8.5"/>
+      <path d="M16 4h2.5A2.5 2.5 0 0 1 16 8.5"/>
+      <line x1="12" y1="11" x2="12" y2="16"/>
+      <path d="M9 20h6"/>
+      <path d="M12 16v4"/>
+    </symbol>
+    <symbol id="icon-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 3v16a2 2 0 0 0 2 2h16"/>
+      <path d="M7 14l3.5-4 3 2.5L19 7"/>
+    </symbol>
+    <symbol id="icon-certificate" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="8" r="5"/>
+      <path d="m9 12.5-1.5 8.5L12 19l4.5 2-1.5-8.5"/>
+      <path d="m9.5 8 1.5 1.8L14.5 6.2"/>
+    </symbol>
+    <symbol id="icon-briefcase" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="2.5" y="7" width="19" height="12.5" rx="2"/>
+      <path d="M8 7V5.5A1.5 1.5 0 0 1 9.5 4h5A1.5 1.5 0 0 1 16 5.5V7"/>
+      <line x1="2.5" y1="12.5" x2="21.5" y2="12.5"/>
+    </symbol>
+    <symbol id="icon-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="9.5"/>
+      <line x1="2.5" y1="12" x2="21.5" y2="12"/>
+      <path d="M12 2.5c2.8 2.6 4.4 6 4.4 9.5s-1.6 6.9-4.4 9.5c-2.8-2.6-4.4-6-4.4-9.5S9.2 5.1 12 2.5Z"/>
+    </symbol>
+    <symbol id="icon-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="9" cy="8" r="3.2"/>
+      <path d="M2.5 20c.5-3.5 3.2-5.5 6.5-5.5s6 2 6.5 5.5"/>
+      <circle cx="17" cy="7.5" r="2.5"/>
+      <path d="M16 14.8c2.6.3 4.7 2.1 5 5.2"/>
+    </symbol>
+    <symbol id="icon-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 2.5 4.5 5.5v5C4.5 15.5 7.5 19.5 12 21.5c4.5-2 7.5-6 7.5-11v-5L12 2.5Z"/>
+      <line x1="12" y1="8" x2="12" y2="12.5"/>
+      <circle cx="12" cy="16" r="0.6" fill="currentColor" stroke="none"/>
+    </symbol>
+    <symbol id="icon-cloud-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M7 18a4.5 4.5 0 0 1-1-8.9A5.5 5.5 0 0 1 16.5 8a4.5 4.5 0 0 1 .8 8.9"/>
+      <path d="M9 16.5l3 3 3-3"/>
+      <line x1="12" y1="11.5" x2="12" y2="19"/>
+    </symbol>
+    <symbol id="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="4 12.5 9.5 18 20 5"/>
+    </symbol>
+    <symbol id="icon-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="2.5" y="4.5" width="19" height="15" rx="2"/>
+      <path d="m3 6 9 6.5L21 6"/>
+    </symbol>
+    <symbol id="icon-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M5.5 3.5h3l1.5 4.5-2 1.5a10 10 0 0 0 5 5l1.5-2 4.5 1.5v3a2 2 0 0 1-2.2 2A15.5 15.5 0 0 1 3.5 5.7a2 2 0 0 1 2-2.2Z"/>
+    </symbol>
+    <symbol id="icon-map-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 21.5s7-6 7-12a7 7 0 1 0-14 0c0 6 7 12 7 12Z"/>
+      <circle cx="12" cy="9.5" r="2.5"/>
+    </symbol>
+    <symbol id="icon-arrow-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="12" y1="19" x2="12" y2="5"/>
+      <polyline points="5 12 12 5 19 12"/>
+    </symbol>
+  </svg>
+
+  <!-- ============================================
+       HEADER
+  ============================================ -->
+  <header class="site-header" id="siteHeader">
+    <div class="container header-inner">
+      <a href="#home" class="brand">
+        <svg class="brand-logo" viewBox="0 0 48 48" aria-hidden="true">
+          <defs>
+            <linearGradient id="logoGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#F4D03F"/>
+              <stop offset="100%" stop-color="#B8860B"/>
+            </linearGradient>
+          </defs>
+          <circle cx="24" cy="24" r="22" fill="#0A0A0F" stroke="url(#logoGrad)" stroke-width="2"/>
+          <text x="24" y="31" font-family="Playfair Display, Georgia, serif" font-size="18" font-weight="900" fill="url(#logoGrad)" text-anchor="middle">FS</text>
+        </svg>
+        <span class="brand-name">Fin<strong>Spark</strong></span>
+      </a>
+
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#about" class="nav-link">About</a>
+        <a href="#solution" class="nav-link">Solution</a>
+        <a href="#features" class="nav-link">Features</a>
+        <a href="#impact" class="nav-link">Impact</a>
+        <a href="#testimonials" class="nav-link">Testimonials</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </nav>
+
+      <div class="header-actions">
+        <!-- TODO: replace with the live FinSpark app URL -->
+        <a href="https://app.finspark.co.za" class="btn btn-gold btn-sm">Launch App</a>
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============================================
+       MOBILE MENU
+  ============================================ -->
+  <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile">
+    <a href="#about" class="nav-link">About</a>
+    <a href="#solution" class="nav-link">Solution</a>
+    <a href="#features" class="nav-link">Features</a>
+    <a href="#impact" class="nav-link">Impact</a>
+    <a href="#testimonials" class="nav-link">Testimonials</a>
+    <a href="#contact" class="nav-link">Contact</a>
+    <!-- TODO: replace with the live FinSpark app URL -->
+    <a href="https://app.finspark.co.za" class="btn btn-gold btn-lg">Launch App</a>
+  </nav>
+
+  <main>
+    <!-- ============================================
+         HERO
+    ============================================ -->
+    <section id="home" class="hero">
+      <div class="hero-bg" aria-hidden="true"></div>
+      <div class="container hero-inner">
+        <p class="eyebrow">FinSpark</p>
+        <h1>Rewriting Futures Through <span class="gold-text">Financial Literacy</span></h1>
+        <p class="hero-sub">
+          <strong>FinSpark</strong> is a gamified financial literacy platform helping SAPS offenders
+          and everyday South Africans master money, build wealth, and break the cycle of poverty and
+          crime.
+        </p>
+        <div class="hero-ctas">
+          <!-- TODO: replace with the live FinSpark app URL -->
+          <a href="https://app.finspark.co.za" class="btn btn-gold btn-lg">Launch App</a>
+          <a href="#solution" class="btn btn-outline btn-lg">Learn More</a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <div class="num">17</div>
+            <div class="label">Learning Mindsets</div>
+          </div>
+          <div class="hero-stat">
+            <div class="num">530+</div>
+            <div class="label">Quiz Questions</div>
+          </div>
+          <div class="hero-stat">
+            <div class="num">5</div>
+            <div class="label">SA Languages</div>
+          </div>
+        </div>
+      </div>
+      <div class="beadwork-bar" aria-hidden="true"></div>
+    </section>
+
+    <!-- ============================================
+         ABOUT
+    ============================================ -->
+    <section id="about" class="section">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">Who We Are</p>
+          <h2>About FinSpark</h2>
+          <p class="section-lead">
+            A proudly South African company building purpose-driven technology for financial
+            inclusion, rehabilitation, and economic empowerment.
+          </p>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-text reveal">
+            <p>
+              FinSpark was founded on a simple belief: access to financial education is a right, not a
+              privilege. We design and build digital products that meet people where they are — in
+              townships, in correctional facilities, in classrooms, and on the factory floor — and
+              equip them with the tools to take control of their financial futures.
+            </p>
+            <p>
+              Our flagship platform brings gamified, culturally relevant financial education to
+              communities across South Africa, with a special focus on supporting correctional
+              reintegration programmes by reducing recidivism through skills-based rehabilitation.
+            </p>
+            <div class="proverb">
+              "Umntu ngumntu ngabantu"
+              <span>A person is a person through others — the isiXhosa proverb that guides everything we build.</span>
+            </div>
+          </div>
+
+          <div class="pillars">
+            <div class="pillar-card reveal" style="--i:1">
+              <h3>Innovation</h3>
+              <p>We combine behavioural science, gamification, and culturally grounded storytelling to make financial education stick.</p>
+            </div>
+            <div class="pillar-card reveal" style="--i:2">
+              <h3>Empowerment</h3>
+              <p>Every module is designed to convert knowledge into action — from opening a savings account to reading a JSE share price.</p>
+            </div>
+            <div class="pillar-card reveal" style="--i:3">
+              <h3>Impact</h3>
+              <p>We measure success not in downloads, but in net worth growth, debt reduction, and second chances created.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================
+         SOLUTION — THE FINSPARK PLATFORM
+    ============================================ -->
+    <section id="solution" class="section section-alt">
+      <div class="container solution-grid">
+        <div class="solution-text reveal">
+          <p class="eyebrow">The Platform</p>
+          <h2>Meet <span class="gold-text">FinSpark</span></h2>
+          <p>
+            FinSpark is a fully gamified financial literacy simulator built for the South African
+            market. Through interactive lessons, real-world JSE market simulations,
+            community stokvel mechanics, and a built-in anti-scam academy, users learn to budget, save,
+            invest, and protect themselves — all while levelling up, earning XP, and unlocking verified
+            certificates.
+          </p>
+
+          <div class="solution-callout">
+            <strong>SAPS SynchroLearn:</strong> built in partnership with correctional reintegration
+            programmes, our institutional portal gives facilitators a dedicated dashboard to manage
+            offender cases, track quiz performance, and generate parole-ready progress reports.
+          </div>
+
+          <ul class="check-list">
+            <li><svg class="icon"><use href="#icon-check"/></svg> 17 personalised learning paths across 5 audience groups</li>
+            <li><svg class="icon"><use href="#icon-check"/></svg> Live JSE-style market simulator with real trading mechanics</li>
+            <li><svg class="icon"><use href="#icon-check"/></svg> Stokvel community savings simulator with payout voting</li>
+            <li><svg class="icon"><use href="#icon-check"/></svg> SHA-256 verified certificates with expiring QR codes</li>
+            <li><svg class="icon"><use href="#icon-check"/></svg> SAPS SynchroLearn institutional portal with parole reporting</li>
+            <li><svg class="icon"><use href="#icon-check"/></svg> Available in English, isiZulu, isiXhosa, Sesotho &amp; Afrikaans</li>
+          </ul>
+
+          <!-- TODO: replace with the live FinSpark app URL -->
+          <a href="https://app.finspark.co.za" class="btn btn-gold">Launch App</a>
+        </div>
+
+        <div class="solution-visual reveal">
+          <div class="phone-glow" aria-hidden="true"></div>
+          <div class="phone-frame">
+            <div class="phone-screen">
+              <div class="app-header">
+                <span class="app-logo">FinSpark</span>
+                <span class="app-badge">SynchroLearn</span>
+              </div>
+              <div class="app-networth">
+                <span class="label">Net Worth</span>
+                <span class="value">R 124,580</span>
+                <span class="trend">▲ 12.4% this month</span>
+              </div>
+              <div class="app-xp">
+                <div class="xp-label"><span>Level 7</span><span>2,450 / 3,000 XP</span></div>
+                <div class="xp-bar"><div class="xp-fill"></div></div>
+              </div>
+              <div class="app-badges">
+                <div class="badge-icon gold">★</div>
+                <div class="badge-icon emerald">✓</div>
+                <div class="badge-icon teal">R</div>
+                <div class="badge-icon purple">▲</div>
+              </div>
+              <div class="app-modules">
+                <div class="module-card"><span class="dot teal"></span>Learn</div>
+                <div class="module-card"><span class="dot blue"></span>Market</div>
+                <div class="module-card"><span class="dot gold"></span>Portfolio</div>
+                <div class="module-card"><span class="dot purple"></span>Stokvel</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================
+         KEY FEATURES
+    ============================================ -->
+    <section id="features" class="section">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">Key Features</p>
+          <h2>Everything You Need to Build Real Financial Skills</h2>
+          <p class="section-lead">
+            FinSpark combines gamification, real-world simulation, and verifiable credentials into one
+            premium experience.
+          </p>
+        </div>
+
+        <div class="features-grid">
+          <div class="feature-card reveal" style="--i:0">
+            <div class="feature-icon"><svg class="icon"><use href="#icon-trophy"/></svg></div>
+            <h3>Gamified Learning Paths</h3>
+            <p>Earn XP, unlock badges, and level up through 17 mindset-based journeys covering budgeting, saving, investing, and entrepreneurship.</p>
+          </div>
+          <div class="feature-card reveal" style="--i:1">
+            <div class="feature-icon"><svg class="icon"><use href="#icon-chart"/></svg></div>
+            <h3>JSE Market Simulator</h3>
+            <p>Practice buying and selling JSE-style assets with live price charts, moving-average signals, and full trade history — zero financial risk.</p>
+          </div>
+          <div class="feature-card reveal" style="--i:2">
+            <div class="feature-icon"><svg class="icon"><use href="#icon-certificate"/></svg></div>
+            <h3>Verified Certificates</h3>
+            <p>Every completed pathway generates a tamper-proof, SHA-256-secured certificate with a time-limited QR code for instant verification.</p>
+          </div>
+          <div class="feature-card reveal" style="--i:3">
+            <div class="feature-icon"><svg class="icon"><use href="#icon-briefcase"/></svg></div>
+            <h3>SAPS SynchroLearn Portal</h3>
+            <p>A dedicated facilitator dashboard for offender case management, quiz scoring, and exportable parole progress reports.</p>
+          </div>
+          <div class="feature-card reveal" style="--i:4">
+            <div class="feature-icon"><svg class="icon"><use href="#icon-globe"/></svg></div>
+            <h3>5-Language Support</h3>
+            <p>Fully localised in English, isiZulu, isiXhosa, Sesotho, and Afrikaans — financial education in the language that feels like home.</p>
+          </div>
+          <div class="feature-card reveal" style="--i:5">
+            <div class="feature-icon"><svg class="icon"><use href="#icon-users"/></svg></div>
+            <h3>Stokvel Simulator</h3>
+            <p>Experience South Africa's iconic rotating savings model with community payout voting and group accountability.</p>
+          </div>
+          <div class="feature-card reveal" style="--i:6">
+            <div class="feature-icon"><svg class="icon"><use href="#icon-shield"/></svg></div>
+            <h3>Anti-Scam Academy</h3>
+            <p>20 real-world phishing and scam scenarios across 6 categories train users to spot fraud before it costs them.</p>
+          </div>
+          <div class="feature-card reveal" style="--i:7">
+            <div class="feature-icon"><svg class="icon"><use href="#icon-cloud-download"/></svg></div>
+            <h3>Offline-First PWA</h3>
+            <p>Installable on any device and fully functional without an internet connection — built for low-data environments.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================
+         IMPACT & MISSION
+    ============================================ -->
+    <section id="impact" class="section section-alt">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">Impact &amp; Mission</p>
+          <h2>Crime Prevention Through Financial Literacy</h2>
+        </div>
+
+        <div class="impact-content">
+          <div class="impact-text reveal">
+            <p>
+              Financial desperation is one of the most consistent precursors to reoffending. FinSpark
+              exists to interrupt that cycle. By equipping incarcerated and at-risk South Africans with
+              practical money skills — and giving correctional facilitators the tools to track and
+              verify progress — FinSpark turns rehabilitation into a measurable, repeatable process.
+            </p>
+            <p>
+              Every certificate earned is more than a credential — it's evidence of changed thinking,
+              presented to parole boards, employers, and communities as proof that a person is ready to
+              build, not break.
+            </p>
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat-card reveal" style="--i:0">
+              <div class="stat-num" data-count="530" data-suffix="+">0</div>
+              <div class="stat-label">Quiz Questions</div>
+            </div>
+            <div class="stat-card reveal" style="--i:1">
+              <div class="stat-num" data-count="17" data-suffix="">0</div>
+              <div class="stat-label">Learning Pathways</div>
+            </div>
+            <div class="stat-card reveal" style="--i:2">
+              <div class="stat-num" data-count="5" data-suffix="">0</div>
+              <div class="stat-label">Languages Supported</div>
+            </div>
+            <div class="stat-card reveal" style="--i:3">
+              <div class="stat-num" data-count="100" data-suffix="%">0</div>
+              <div class="stat-label">Offline Capable</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================
+         TESTIMONIALS
+    ============================================ -->
+    <section id="testimonials" class="section">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">Testimonials</p>
+          <h2>Voices From Our Community</h2>
+          <p class="section-lead">Illustrative feedback from the kind of impact FinSpark is designed to create.</p>
+        </div>
+
+        <!-- Sample / placeholder testimonials — replace with verified quotes once collected -->
+        <div class="testimonial-grid">
+          <div class="testimonial-card reveal" style="--i:0">
+            <div class="testimonial-mark">&ldquo;</div>
+            <p class="testimonial-text">
+              FinSpark gave our participants a reason to engage — they're not just serving time,
+              they're building a plan for what comes after.
+            </p>
+            <div class="testimonial-author">
+              <div class="author-avatar">TM</div>
+              <div>
+                <div class="author-name">T. Mahlangu</div>
+                <div class="author-role">Correctional Programme Facilitator</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-card reveal" style="--i:1">
+            <div class="testimonial-mark">&ldquo;</div>
+            <p class="testimonial-text">
+              I started the Spaza Shop Owner pathway not knowing what "compound interest" meant. Three
+              months later I opened my first tax-free savings account.
+            </p>
+            <div class="testimonial-author">
+              <div class="author-avatar">N</div>
+              <div>
+                <div class="author-name">Nomvula</div>
+                <div class="author-role">Programme Participant</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-card reveal" style="--i:2">
+            <div class="testimonial-mark">&ldquo;</div>
+            <p class="testimonial-text">
+              The stokvel simulator felt exactly like the one my grandmother ran — except now I
+              understand the maths behind it.
+            </p>
+            <div class="testimonial-author">
+              <div class="author-avatar">S</div>
+              <div>
+                <div class="author-name">Sipho</div>
+                <div class="author-role">University Student Pathway</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================
+         CONTACT
+    ============================================ -->
+    <section id="contact" class="section section-alt">
+      <div class="container contact-grid">
+        <div class="contact-info reveal">
+          <p class="eyebrow">Get In Touch</p>
+          <h2 style="margin-bottom: 20px;">Let's Build a Financially Literate South Africa — Together</h2>
+          <p class="section-lead" style="margin-bottom: 36px;">
+            Whether you're a government department, NGO, correctional facility, or potential partner,
+            we'd love to hear from you.
+          </p>
+
+          <div class="contact-info-item">
+            <div class="icon-wrap"><svg class="icon"><use href="#icon-mail"/></svg></div>
+            <div>
+              <h4>Email</h4>
+              <a href="mailto:info@finspark.co.za">info@finspark.co.za</a>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="icon-wrap"><svg class="icon"><use href="#icon-phone"/></svg></div>
+            <div>
+              <h4>Phone</h4>
+              <a href="tel:+27210000000">+27 (0)21 000 0000</a>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="icon-wrap"><svg class="icon"><use href="#icon-map-pin"/></svg></div>
+            <div>
+              <h4>Location</h4>
+              <p>Cape Town, South Africa</p>
+            </div>
+          </div>
+
+          <div class="social-row">
+            <a href="#" class="social-icon" aria-label="LinkedIn">in</a>
+            <a href="#" class="social-icon" aria-label="X (Twitter)">X</a>
+            <a href="#" class="social-icon" aria-label="Facebook">f</a>
+            <a href="#" class="social-icon" aria-label="Instagram">IG</a>
+          </div>
+        </div>
+
+        <form class="contact-form reveal" id="contactForm" novalidate>
+          <div class="form-success" id="formSuccess">
+            <svg class="icon"><use href="#icon-check"/></svg>
+            <span>Thank you for reaching out. Our team will be in touch within 2 business days.</span>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fullName">Full Name</label>
+              <input type="text" id="fullName" name="fullName" placeholder="Your name" required />
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" placeholder="you@example.com" required />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="organisation">Organisation</label>
+              <input type="text" id="organisation" name="organisation" placeholder="Optional" />
+            </div>
+            <div class="form-group">
+              <label for="subject">Subject</label>
+              <select id="subject" name="subject" required>
+                <option value="" disabled selected>Select a topic</option>
+                <option>General Enquiry</option>
+                <option>Partnership Opportunity</option>
+                <option>SAPS / Government Programme</option>
+                <option>Media &amp; Press</option>
+                <option>Technical Support</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Tell us how we can help..." required></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-gold btn-block">Send Message</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============================================
+       FOOTER
+  ============================================ -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a href="#home" class="brand">
+          <svg class="brand-logo" viewBox="0 0 48 48" aria-hidden="true">
+            <circle cx="24" cy="24" r="22" fill="#0A0A0F" stroke="url(#logoGrad)" stroke-width="2"/>
+            <text x="24" y="31" font-family="Playfair Display, Georgia, serif" font-size="18" font-weight="900" fill="url(#logoGrad)" text-anchor="middle">FS</text>
+          </svg>
+          <span class="brand-name">Fin<strong>Spark</strong></span>
+        </a>
+        <p>Building wealth mindsets across South Africa — one mindset, one module, one second chance at a time.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#solution">Our Solution</a></li>
+          <li><a href="#impact">Impact &amp; Mission</a></li>
+          <li><a href="#testimonials">Testimonials</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="#features">Key Features</a></li>
+          <!-- TODO: replace with the live FinSpark app URL -->
+          <li><a href="https://app.finspark.co.za">Launch App</a></li>
+          <li><a href="#contact">Partnerships</a></li>
+          <li><a href="#contact">Support</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:info@finspark.co.za">info@finspark.co.za</a></li>
+          <li><a href="tel:+27210000000">+27 (0)21 000 0000</a></li>
+          <li><a href="#contact">Cape Town, South Africa</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="beadwork-bar" aria-hidden="true"></div>
+
+    <div class="container footer-bottom">
+      <span>&copy; 2026 FinSpark. All rights reserved.</span>
+      <div class="footer-legal">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Sitemap</a>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">
+    <svg class="icon"><use href="#icon-arrow-up"/></svg>
+  </button>
+
+  <!-- ============================================
+       SCRIPT
+  ============================================ -->
+  <script>
+    (function () {
+      'use strict';
+
+      var header = document.getElementById('siteHeader');
+      var hamburger = document.getElementById('hamburger');
+      var mobileMenu = document.getElementById('mobileMenu');
+      var backToTop = document.getElementById('backToTop');
+      var navLinks = document.querySelectorAll('.nav-link');
+      var sections = document.querySelectorAll('main section[id], .hero[id]');
+
+      /* Header scroll state + back-to-top visibility */
+      function onScroll() {
+        var scrolled = window.scrollY > 40;
+        header.classList.toggle('scrolled', scrolled);
+        backToTop.classList.toggle('show', window.scrollY > 600);
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+
+      /* Mobile menu toggle */
+      function closeMobileMenu() {
+        hamburger.classList.remove('active');
+        mobileMenu.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      }
+      hamburger.addEventListener('click', function () {
+        var isOpen = mobileMenu.classList.toggle('open');
+        hamburger.classList.toggle('active', isOpen);
+        hamburger.setAttribute('aria-expanded', String(isOpen));
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+      });
+      mobileMenu.querySelectorAll('a').forEach(function (link) {
+        link.addEventListener('click', closeMobileMenu);
+      });
+
+      /* Back to top */
+      backToTop.addEventListener('click', function () {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      /* Scrollspy — highlight active nav link */
+      if ('IntersectionObserver' in window) {
+        var spyObserver = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              var id = entry.target.getAttribute('id');
+              navLinks.forEach(function (link) {
+                link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+              });
+            }
+          });
+        }, { rootMargin: '-45% 0px -50% 0px' });
+        sections.forEach(function (sec) { spyObserver.observe(sec); });
+
+        /* Reveal-on-scroll */
+        var revealObserver = new IntersectionObserver(function (entries, obs) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              obs.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.15 });
+        document.querySelectorAll('.reveal').forEach(function (el) { revealObserver.observe(el); });
+
+        /* Animated stat counters */
+        var counterObserver = new IntersectionObserver(function (entries, obs) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            var el = entry.target;
+            var target = parseInt(el.dataset.count, 10) || 0;
+            var suffix = el.dataset.suffix || '';
+            var duration = 1400;
+            var start = null;
+
+            function tick(ts) {
+              if (!start) start = ts;
+              var progress = Math.min((ts - start) / duration, 1);
+              var eased = 1 - Math.pow(1 - progress, 3);
+              el.textContent = Math.floor(eased * target) + suffix;
+              if (progress < 1) {
+                requestAnimationFrame(tick);
+              } else {
+                el.textContent = target + suffix;
+              }
+            }
+            requestAnimationFrame(tick);
+            obs.unobserve(el);
+          });
+        }, { threshold: 0.5 });
+        document.querySelectorAll('.stat-num').forEach(function (el) { counterObserver.observe(el); });
+      } else {
+        /* No IntersectionObserver support — show everything immediately */
+        document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('visible'); });
+        document.querySelectorAll('.stat-num').forEach(function (el) {
+          el.textContent = (el.dataset.count || '0') + (el.dataset.suffix || '');
+        });
+      }
+
+      /* Contact form — client-side only (no backend wired up) */
+      var form = document.getElementById('contactForm');
+      var formSuccess = document.getElementById('formSuccess');
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          return;
+        }
+        formSuccess.classList.add('show');
+        form.reset();
+        setTimeout(function () { formSuccess.classList.remove('show'); }, 6000);
+      });
+    })();
+  </script>
+</body>
+</html>
